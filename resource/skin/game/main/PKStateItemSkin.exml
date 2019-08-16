@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PKStateItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" states="s1,s2"  height="40" width="300">
+	<e:Group id="cdGroup" x="0" verticalCenter="0" right.s2="0"  width="36" height="36" left.s1="0">
+		<e:Image id="cdMC" source="btn2_png" x="0" y="0" width="72" height="72" scaleX="0.5" scaleY="0.5" scale9Grid="19,20,10,12"/>
+		<e:Image id="mc" right.s2="0" verticalCenter="0" horizontalCenter="0" source="buff_101_png"/>
+	</e:Group>
+	<e:Label id="txt" text="降低飞刀20%的攻击速度" x.s2="42" size="22" verticalCenter="0" stroke="2" right.s2="42" left.s1="42"/>
+</e:Skin>

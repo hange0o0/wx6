@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainGunItemSkin" width="120" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" states="lock,normal,empty" >
+	<e:Image source="lock_png" width="120" height="120" horizontalCenter="0" verticalCenter="0" source.empty="item_empty_png" visible.normal="false"/>
+	<ns1:GunItem id="gunItem" skinName="GunItemSkin" horizontalCenter="0" verticalCenter="0" visible.lock="false" visible.empty="false"/>
+	<e:Label id="indexText" text="1" bold="true"  textColor="0xffffff" stroke="3" y="120" size="22" horizontalCenter="0" width="120" height="30" textAlign="center" verticalAlign="middle"/>
+	<e:Label id="desText" text="Label" includeIn="normal" size="20" stroke="3" horizontalCenter="0" lineSpacing="10" textAlign="center" textColor="0xa4e1fc" verticalCenter="0" cacheAsBitmap="true" verticalAlign="middle" width="200" height="80"/>
+	<e:Label id="coinText" text="123.456.78" includeIn="lock" y="69" size="20" horizontalCenter="0" textColor="0xffe46d" cacheAsBitmap="true" width="200" height="30" textAlign="center" verticalAlign="middle"/>
+</e:Skin>

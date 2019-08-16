@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BuffUISkin" width="580" height="880" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<e:Scroller id="scroller" top="132" bottom="100" bounces="false" anchorOffsetY="0" width="520" horizontalCenter="0">
+		<e:Group anchorOffsetY="0" height="512.58" x="0" y="-157.58">
+			<e:List id="list" width="200" height="200" x="96" y="96">
+				<e:layout>
+					<e:VerticalLayout paddingTop="10"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+	</e:Scroller>
+	<e:Group y="80" height="40" horizontalCenter="0">
+		<e:Label id="desText" text="当前新邀请好友 30个:" y="12" size="22" x="32"/>
+		<e:Group x="10" verticalCenter="0" height="40">
+		<e:Image x="0" scaleX="0.65" scaleY="0.65" source="icon_hp_png" verticalCenter="0"/>
+		<e:Label id="atkText" text="生命+50" x="35" size="22" verticalCenter="0" textColor="0xffff00"/>
+		</e:Group>
+		<e:Group x="250" verticalCenter="0" height="40">
+		<e:Image x="0" scaleX="0.8" scaleY="0.8" source="coin_mc_png" verticalCenter="0"/>
+		<e:Label id="workText" text="金币+0%" x="32" size="22" verticalCenter="0" textColor="0xffff00"/>
+		</e:Group>
+		<e:layout>
+		<e:HorizontalLayout verticalAlign="middle" gap="10"/>
+		</e:layout>
+	</e:Group>
+	<e:Button id="inviteBtn" label="邀请好友" skinName="Btn1Skin" width="200" y="800" horizontalCenter="0"/>
+
+</e:Skin>

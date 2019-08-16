@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PKingUISkin" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg1" top="0" bottom="0" fillMode="repeat" width="640" x="0"/>
+	<e:Image id="bg2" top="0" bottom="0" fillMode="repeat" width="640" x="0"/>
+	<e:Group id="con" left="0" right="0" top="0" bottom="0">
+		<e:Group id="monsterGroup" width="640" verticalCenter="0" x="0" y="480" scaleX="1" scaleY="1">
+			<e:layout>
+			<e:VerticalLayout/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="gunGroup" width="100" height="1000" x="0" y="0" scaleX="1" scaleY="1">
+		</e:Group>
+	</e:Group>
+	<e:Group id="barGroup" y="0" horizontalCenter="0">
+		<e:Image source="black_bg_alpha_png" x="0" y="0" width="600" height="40"/>
+		<e:Image id="bar" source="hp_bar_jpg" x="5" y="5" width="590" height="30"/>
+		<e:Label id="hpText" text="Label" horizontalCenter="0" verticalCenter="1" size="22" stroke="2"/>
+	</e:Group>
+	<e:Group id="rateCon" x="20" bottom="0">
+		<e:Image width="600" height="10" x="0" y="40" source="black_bg_png"/>
+		<e:Image id="rateBar" width="300" height="10" x="0" y="40" source="yellor_bg_png"/>
+		<e:Group id="rateMC" x="0" y="0" width="100" anchorOffsetX="50">
+		<e:Image source="arrow3_png" y="20" horizontalCenter="0"/>
+		<e:Label id="rateText" text="20%" y="0" size="18" textColor="0xfdcf1f" stroke="1" horizontalCenter="0"/>
+		</e:Group>
+	</e:Group>
+	<e:Group id="bossGroup" verticalCenter="-100" horizontalCenter="0" cacheAsBitmap="true">
+		<e:Image source="pk_hero_jpg" y="0" x="0"/>
+		<e:Label text="BOSS来袭" horizontalCenter="0" verticalCenter="0" size="40" bold="true" stroke="3" strokeColor="0xbf3131"/>
+	</e:Group>
+	<e:Group id="buffGroup1" width="300" y="60" x="20">
+		<e:layout>
+		<e:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+		</e:layout>
+	</e:Group>
+	<e:Group id="buffGroup2" width="300" y="60" right="20">
+		<e:layout>
+		<e:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+		</e:layout>
+	</e:Group>
+	<e:Image id="guideMC" source="guide_png" horizontalCenter="0" bottom="100"/>
+	<e:Image id="blackBG" source="black_bg_png" left="0" right="0" top="0" bottom="0" visible="false"/>
+</e:Skin>

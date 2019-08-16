@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MakeSplitUISkin" width="580" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<ns1:GunItem id="gunItem0" skinName="GunItemSkin" y="160" anchorOffsetX="50" anchorOffsetY="50" horizontalCenter="-130"/>
+	<ns1:GunItem id="gunItem1" skinName="GunItemSkin" y="160" anchorOffsetX="50" anchorOffsetY="50" horizontalCenter="130" x="10"/>
+	<e:Group horizontalCenter="0" bottom="40">
+		<e:Button id="cancelBtn" label="取消" skinName="Btn1Skin" width="150" y="0" x="0"/>
+		<e:Button id="okBtn" label="拆分" width="150" y="10" x="10" skinName="Btn2Skin"/>
+		<e:layout>
+			<e:HorizontalLayout gap="30" verticalAlign="middle"/>
+		</e:layout>
+	</e:Group>
+	<e:Label id="desText" text="Label" y="280" horizontalCenter="0" size="24" lineSpacing="10" textColor="0xf7e29b" textAlign="center"/>
+	<e:Label id="gunText0" text="Label" y="240" horizontalCenter="-130" size="24" lineSpacing="10" textAlign="center" textColor="0xffffff"/>
+	<e:Label id="gunText1" text="Label" y="240" horizontalCenter="130" size="24" lineSpacing="10" textColor="0xFFFFFF" textAlign="center"/>
+</e:Skin>

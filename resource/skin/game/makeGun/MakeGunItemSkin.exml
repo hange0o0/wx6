@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MakeGunItemSkin" width="160" height="220" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="item_png" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
+	<e:Group x="10" y="10">
+		<e:Image id="bg2" source="black_bg_png" width="140" height="140" y="0" x="0"/>
+		<e:Image id="bg" source="black_bg_png" width="120" height="120" x="10" y="10"/>
+		<e:Image id="mc" source="black_bg_png" width="120" height="120" x="10" y="10"/>
+		<e:Image id="mc2" source="black_bg_png" width="120" height="120" y="10" scaleX="-1" x="130"/>
+		<e:Label id="lvText" text="LV.10" size="20" bottom="0" horizontalCenter="0"/>
+	</e:Group>
+	<e:Label id="nameText" text="LV.8" size="22" bold="true" horizontalCenter="0.5" textColor="0xa6ff89" bottom="10"/>
+	<e:Label id="skillText" text="Label" size="20" horizontalCenter="0.5" y="157" textColor="0xa4e1fc"/>
+	<e:Image id="splitMC" source="split_mc_png" x="0" y="0"/>
+</e:Skin>

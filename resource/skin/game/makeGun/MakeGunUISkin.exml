@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MakeGunUISkin" width="580" height="860" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing" states="s1,s2" >
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<e:Scroller id="scroller" top="120" bottom="20" bounces="false" anchorOffsetY="0" left="20" right="20" bottom.s1="110">
+		<e:Group anchorOffsetY="0" height="719.39" x="0" y="-39.39">
+			<e:List id="list" width="200" height="200" x="65" y="56">
+				<e:layout>
+					<e:TileLayout requestedColumnCount="3" paddingTop="20" paddingLeft="15" paddingBottom="20" horizontalGap="15" verticalGap="15"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+	</e:Scroller>
+	<e:TabBar id="tab" y="70" itemRendererSkinName="MyTabItemSkin" height="50" width="480" horizontalCenter="0">
+		<e:ArrayCollection>
+		<e:Array>
+			<e:Object label="武器图纸"/>
+			<e:Object label="武器成品"/>
+		</e:Array>
+		</e:ArrayCollection>
+		<e:layout>
+		<e:HorizontalLayout horizontalAlign="justify"/>
+		</e:layout>
+	</e:TabBar>
+	<e:Group id="btnGroup" y="770" horizontalCenter="0" includeIn="s1">
+		<e:Button id="freeBtn" label="免费获取" width="240" includeIn="s1" skinName="Btn1Skin" x="0" y="0"/>
+		<e:Button id="videoBtn" label="获取图纸" skinName="Btn2Skin" width="240" icon="video_icon_png" includeIn="s1" x="0" y="0"/>
+		<e:layout>
+			<e:HorizontalLayout gap="20"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

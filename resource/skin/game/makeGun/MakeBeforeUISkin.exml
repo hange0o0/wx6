@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MakeBeforeUISkin" width="580" height="860" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<ns1:GunItem id="gunItem0" skinName="GunItemSkin" y="160" anchorOffsetX="50" anchorOffsetY="50" horizontalCenter="-130"/>
+	<ns1:GunItem id="gunItem1" skinName="GunItemSkin" y="160" anchorOffsetX="50" anchorOffsetY="50" horizontalCenter="130"/>
+	<e:Label id="des0" text="Label" y="246" horizontalCenter="-130" size="24"/>
+	<e:Label id="des1" text="Label" y="246" horizontalCenter="130" size="24"/>
+	<e:Button id="btn0" label="Button" y="300" skinName="Btn2Skin" width="160" horizontalCenter="-130"/>
+	<e:Button id="btn1" label="Button" y="300" skinName="Btn2Skin" width="160" horizontalCenter="130"/>
+	<e:Group left="20" right="20" height="400" bottom="20">
+		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
+		<e:Label id="atkText" text="攻击：1234\n攻速：0.5秒" y="20" size="22" x="180" lineSpacing="10" anchorOffsetX="0" textColor="0xFCD79F" width="360"/>
+		<ns1:GunItem id="gunItem" skinName="GunItemSkin" x="90" y="90" anchorOffsetX="50" anchorOffsetY="50"/>
+		<e:Group horizontalCenter="0" bottom="100">
+			<e:Image source="border_png" x="0" y="0" scaleX="0.85" scaleY="0.85" width="520" scale9Grid="45,6,20,42"/>
+			<e:Image source="coin_mc_png" x="10" scaleX="0.8" scaleY="0.8" verticalCenter="2"/>
+			<e:Label id="costText" text="10000" size="24" textColor="0xF9DF7C" verticalCenter="2" right="15"/>
+			<e:Label text="打造费用：" size="24" textColor="0xF9DF7C" x="50" verticalCenter="0"/>
+		</e:Group>
+		<e:Group id="upGroup" horizontalCenter="0" bottom="20">
+			<e:Button id="removeBtn" label="丢弃" skinName="Btn1Skin" width="150" horizontalCenter="0" bottom="20"/>
+			<e:Button id="btn" label="打造" width="150" y="0" right="0" skinName="Btn2Skin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="80"/>
+			</e:layout>
+		</e:Group>
+		<e:Label id="levelText" text="LV.8" x="42" y="162" width="100" size="22" textAlign="center"/>
+	</e:Group>
+</e:Skin>
