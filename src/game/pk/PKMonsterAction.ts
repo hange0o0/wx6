@@ -16,9 +16,6 @@ class PKMonsterAction_wx3 {
         this.atkList.length = 0;
     }
 
-    private wx3_fun_asdfasdfasdf(){}
-    private wx3_fun_ast34(){}
-
     public actionAtk(){
         for(var i=0;i<this.atkList.length;i++)
         {

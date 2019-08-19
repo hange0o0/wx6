@@ -10,7 +10,8 @@ class PKCode_wx4 {
     public mapH = 640
 
     public playerData = new PlayerData()
-
+    public actionStep = 0;
+    public monsterList = [];
 
 
 
@@ -28,6 +29,28 @@ class PKCode_wx4 {
 
 
 
+    //每一步执行
+    public onStep(){
+        this.actionStep ++;
+        this.autoAction();//上怪
+        //this.monsterAction();
+        //this.monsterMove();
+        PKMonsterAction_wx3.getInstance().actionAtk();//攻击落实
+        //PKBulletManager_wx3.getInstance().actionAll();//攻击落实
+        //this.actionFinish();
+        //PlayManager.getInstance().onE();
+    }
+
+    //自动出战上怪
+    public autoAction(){
+        if(this.actionStep > 50 && this.monsterList.length < 10)
+        {
+            var x = 50 + PKC.random()*(PKC.mapW - 50)
+            var y = 50 + PKC.random()*(PKC.mapH - 50)
+            this.monsterList.push(PKUI.getInstance().addMonster(4,x,y))
+        }
+    }
+
 
 
 
@@ -43,8 +66,7 @@ class PKCode_wx4 {
     public hpAdd = 0;
     public coinAdd = 0;
     //public wudiTime = 1000;
-    public actionStep = 0;
-    public monsterList = [];
+
     public wallArr = [];
     public autoList = [];
     public enemyHp = 0//
@@ -334,27 +356,7 @@ class PKCode_wx4 {
         this.endLessStep ++;
     }
 
-    //每一步执行
-    public onStep(){
-        this.actionStep ++;
-        this.autoAction();
-        //this.monsterAction();
-        //this.monsterMove();
-        //PKMonsterAction_wx3.getInstance().actionAtk();//攻击落实
-        //PKBulletManager_wx3.getInstance().actionAll();//攻击落实
-        //this.actionFinish();
-        //PlayManager.getInstance().onE();
-    }
 
-    //自动出战上怪
-    public autoAction(){
-        if(this.actionStep == 100)
-        {
-            var x = 50 + PKC.random()*(PKC.mapW - 50)
-            var y = 50 + PKC.random()*(PKC.mapH - 50)
-            PKUI.getInstance().addMonster(4,x,y)
-        }
-    }
 
     public addBuff(id){
         var noBuff = !this.buffList[id]
@@ -379,9 +381,7 @@ class PKCode_wx4 {
         }
     }
 
-    private getStepByTime(t){
-        return Math.round(t*30/1000)
-    }
+
 
     //怪出手
     public monsterAction(){
@@ -414,13 +414,13 @@ class PKCode_wx4 {
         //前摇结束
         var id = target.id;
         PKMonsterAction_wx3.getInstance().addList({
-            step:Math.floor(this.getStepByTime(target.vo.mv_atk)*target.getSpeedRate()),
+            step:Math.floor(PKTool.getStepByTime(target.vo.mv_atk)*target.getSpeedRate()),
             id:id,
             target:target,
             fun:()=>{
                 if(target.isDie)
                     return;
-                var step = this.getStepByTime(target.vo.atkrage*5);
+                var step = PKTool.getStepByTime(target.vo.atkrage*5);
                 var delay10 = [103,61,62,63,70,76]
                 if(delay10.indexOf(Math.floor(target.mid)) != -1)
                     step = 10;
@@ -449,7 +449,7 @@ class PKCode_wx4 {
 
         //僵直结束
         PKMonsterAction_wx3.getInstance().addList({
-            step:Math.floor(this.getStepByTime(target.vo.atkcd)*target.getSpeedRate()),
+            step:Math.floor(PKTool.getStepByTime(target.vo.atkcd)*target.getSpeedRate()),
             id:id,
             target:target,
             fun:()=>{

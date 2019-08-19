@@ -34,6 +34,7 @@ class PKUI extends game.BaseContainer_wx4{
 
         this.roleCon.addChild(this.playerItem)
         this.playerItem.data = PKC.playerData;
+        PKC.playerData.relateItem = this.playerItem;
 
 
         this.ctrlGroup.touchEnabled = true
@@ -132,6 +133,8 @@ class PKUI extends game.BaseContainer_wx4{
     public onE(){
         PKC.onStep();
 
+
+        this.playerItem.onE()
         if (this.touchID) {
             this.playerItem.move(this.touchID)
             this.renewConY();
@@ -181,6 +184,7 @@ class PKUI extends game.BaseContainer_wx4{
 
         newItem.data = MBase.getItem(mid);
         newItem.resetXY(x,y)
+        return newItem.data;
     }
 
 

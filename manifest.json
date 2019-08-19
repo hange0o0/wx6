@@ -72,6 +72,7 @@
 		"bin-debug/game/pk/PKCode.js",
 		"bin-debug/game/pk/PKMonsterAction.js",
 		"bin-debug/game/pk/PKMonsterMV.js",
+		"bin-debug/game/pk/PKTool.js",
 		"bin-debug/game/pk/PKUI.js",
 		"bin-debug/game/pk/data/PlayerData.js",
 		"bin-debug/game/pk/data/monsterData/M1.js",

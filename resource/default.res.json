@@ -1463,6 +1463,11 @@
 			"name":"pk_word4_fnt",
 			"type":"font",
 			"url":"game_assets/pk_word4.fnt"
+		},
+		{
+			"name":"canying_png",
+			"type":"image",
+			"url":"game_assets/canying.png"
 		}
 	]
 }

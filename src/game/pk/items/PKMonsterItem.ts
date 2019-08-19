@@ -92,6 +92,19 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
     public resetXY(x,y){
+
+        var r = 40;
+        if(x < r)
+            x = r;
+        else if(x > PKC.mapW - r)
+            x = PKC.mapW - r;
+
+        if(y < r)
+            y = r
+        else if(y > PKC.mapH - r)
+            y = PKC.mapH - r
+
+
         this.x = this.data.x = x;
         this.y = this.data.y = y;
     }
@@ -167,15 +180,6 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
             var targetX = this.x + x
             var targetY = this.y+y
-            if(targetX < 50)
-                targetX = 50;
-            else if(targetX > PKC.mapW - 50)
-                targetX = PKC.mapW - 50;
-
-            if(targetY < 50)
-                targetY = 50
-            else if(targetY > PKC.mapH - 50)
-                targetY = PKC.mapH - 50
 
             this.resetXY(targetX,targetY)
             this.run();
@@ -185,6 +189,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         //atk
         if(dis <= myData.atkDis){
             this.atk()
+            this.data.atkFun();
+
             myData.atkEnd = PKC.actionStep + myData.atkSpeed
             return
         }

@@ -20,6 +20,9 @@ class PlayerItem extends game.BaseItem{
     private lastHpStep = -1;
     private mvKey = ''
 
+    private atkStep = 0
+    private ctrlRota = 0//控制面向的方向
+
     public childrenCreated() {
         super.childrenCreated();
         this.anchorOffsetX = 40
@@ -32,7 +35,7 @@ class PlayerItem extends game.BaseItem{
         this.rightKnifeMC.source = 'knife_'+this.data.knife+'_png'
         this.leftKnifeMC.anchorOffsetX = this.rightKnifeMC.anchorOffsetX = gunVO.anx
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
-            this.renewHp();
+        this.renewHp();
     }
 
     public renewHp(){
@@ -49,39 +52,26 @@ class PlayerItem extends game.BaseItem{
     }
 
     public resetXY(x,y){
+        var r = 40;
+        if(x < r)
+            x = r;
+        else if(x > PKC.mapW - r)
+            x = PKC.mapW - r;
+
+        if(y < r)
+            y = r
+        else if(y > PKC.mapH - r)
+            y = PKC.mapH - r
+
         this.x = x;
         this.y = y;
         this.data.x = x
         this.data.y = y
     }
 
-    public move(touchID){
-        var r = 40;
-        var speed = this.data.speed;
-        var angle = Math.atan2(touchID.y2-touchID.y1,touchID.x2-touchID.x1)
-        var x = Math.cos(angle)*speed
-        var y = Math.sin(angle)*speed
 
-        var targetX = this.x + x
-        var targetY = this.y+y
-        if(targetX < r)
-            targetX = r;
-        else if(targetX > PKC.mapW - r)
-            targetX = PKC.mapW - r;
 
-        if(targetY < r)
-            targetY = r
-        else if(targetY > PKC.mapH - r)
-            targetY = PKC.mapH - r
 
-        this.resetXY(targetX,targetY)
-
-        if(!this.data.hitEnemy)
-        {
-            this.roleCon.rotation = angle/Math.PI*180+90
-            this.showWalkMV();
-        }
-    }
 
     public showWalkMV(){
         this.mvKey = 'walk'
@@ -91,8 +81,197 @@ class PlayerItem extends game.BaseItem{
         this.mvKey = 'stand'
     }
 
-    public atk(){
+    public showAtkMV(){
+        this.atkStep ++;
+        egret.Tween.removeTweens(this.body);
+        if(this.atkStep %2 == 0) //
+        {
+            egret.Tween.removeTweens(this.leftCon);
+            this.leftCon.scaleX = 1;
+            this.leftCon.rotation =  - 120
+            this.leftCon.x = -20;
+            this.leftCon.y = 50;
+            egret.Tween.get(this.leftCon).to({rotation:80,x:60,y:-20},200).to({rotation:20,x:-10,y:30},200);
 
+            this.body.x = 35
+            this.body.y = 50
+            egret.Tween.get(this.body).to({x:45,y:35},200).to({x:40,y:40},200);
+
+        }
+        else
+        {
+            egret.Tween.removeTweens(this.rightCon);
+            this.leftCon.scaleX = 1;
+            this.rightCon.rotation =  120
+            this.rightCon.x = 80 + 20;
+            this.rightCon.y = 50;
+            egret.Tween.get(this.rightCon).to({rotation:-80,x:20,y:-20},200).to({rotation:-20,x:90,y:30},200);
+
+            this.body.x = 45
+            this.body.y = 50
+            egret.Tween.get(this.body).to({x:35,y:35},200).to({x:40,y:40},200);
+        }
+    }
+
+    public showDoubleMV(){
+
+        egret.Tween.removeTweens(this.leftCon);
+        this.leftCon.scaleX = -1;
+        this.leftCon.rotation =  80
+        this.leftCon.x = 60;
+        this.leftCon.y = -20;
+        egret.Tween.get(this.leftCon).to({rotation:-140,x:-20,y:60},200).wait(100).to({scaleX:1}).to({rotation:20,x:-10,y:30},200);
+
+        egret.Tween.removeTweens(this.rightCon);
+        this.rightCon.rotation =  -80
+        this.rightCon.x = 20;
+        this.rightCon.y = -20;
+        egret.Tween.get(this.rightCon).to({rotation:140,x:80+20,y:60},200).wait(100).to({scaleX:1}).to({rotation:-20,x:90,y:30},200);
+
+        this.body.x = 40
+        this.body.y = 50
+        egret.Tween.get(this.body).to({y:35},200).wait(100).to({y:40},200);
+
+    }
+
+
+    public onE(){
+        var playerData = this.data
+        this.testAtk();
+        if(playerData.hitEnemy)
+        {
+            var angle = PKTool.getRota(playerData,playerData.hitEnemy);
+            this.roleCon.rotation = angle/Math.PI*180+90
+        }
+    }
+
+    public move(touchID){
+
+
+        var angle = Math.atan2(touchID.y2-touchID.y1,touchID.x2-touchID.x1)
+
+
+        //如果这个方向有怪，则不能移动
+        var playerData = this.data
+        var monsterList = PKC.monsterList;
+        var len = monsterList.length;
+        var rota1 = PKTool.resetAngle(angle/Math.PI*180);
+        this.ctrlRota = rota1;
+        for(var i=0;i<len;i++)
+        {
+            var monster = monsterList[i];
+            var dis = MyTool.getDis(monster,playerData)
+            if(dis < 60)
+            {
+                var rotaBase = PKTool.getRota(playerData,monster);
+                var rota2 = PKTool.resetAngle(rotaBase/Math.PI*180);
+                var rotaDes = Math.abs(rota2 - rota1)
+                if(rotaDes > 60 && rotaDes < 300)
+                    continue;
+                //这个方向有怪
+                return;
+            }
+        }
+
+
+        var speed = playerData.speed;
+        var x = Math.cos(angle)*speed
+        var y = Math.sin(angle)*speed
+
+        var targetX = this.x + x
+        var targetY = this.y+y
+        this.resetXY(targetX,targetY)
+
+        if(!playerData.hitEnemy)
+        {
+            this.roleCon.rotation = this.ctrlRota  + 90
+            this.showWalkMV();
+        }
+    }
+
+    //攻击前方120度的怪
+    public atkFront(nearItem,atkRota = 120){
+        var playerData = this.data
+        var monsterList = PKC.monsterList;
+        var len = monsterList.length;
+        var rota1 = PKTool.resetAngle(PKTool.getRota(playerData,nearItem,true));
+        var atkRota1 = atkRota/2
+        var atkRota2 = 360 - atkRota1
+        for(var i=0;i<len;i++)
+        {
+            var monster = monsterList[i];
+            var dis = MyTool.getDis(monster,playerData)
+            if(dis < playerData.atkDis)
+            {
+                var rotaBase = PKTool.getRota(playerData,monster);
+                var rota2 = PKTool.resetAngle(rotaBase/Math.PI*180);
+                var rotaDes = Math.abs(rota2 - rota1)
+                if(rotaDes > atkRota1 && rotaDes < atkRota2)
+                    continue;
+                //在攻击范围内，可造成伤害
+                monster.addHp(-playerData.atk);
+                if(playerData.hitBack)//可击退
+                {
+                    var x = Math.cos(rotaBase)*playerData.hitBack
+                    var y = Math.sin(rotaBase)*playerData.hitBack
+                    monster.relateItem.resetXY(monster.x+x,monster.y+y)
+                }
+
+            }
+        }
+    }
+
+    public testAtk(){
+        var playerData = this.data
+        if(!playerData.canAtk())
+            return;
+
+
+        var monsterList = PKC.monsterList;
+        var len = monsterList.length;
+        var nearLen = 999;
+        var nearLen = 999;
+        var nearItem;
+        for(var i=0;i<len;i++)
+        {
+            var monster = monsterList[i];
+            var dis = MyTool.getDis(monster,playerData)
+            if(dis < playerData.atkDis)
+            {
+                //如果玩家控制方向直接有怪，则攻击这个怪
+                var rota2 = PKTool.resetAngle(PKTool.getRota(playerData,monster,true));
+                var rotaDes = Math.abs(rota2 - this.ctrlRota)
+                if(rotaDes < 15 || rotaDes > 345)
+                {
+                    nearItem = monster;
+                    break;
+                }
+
+                if(!nearItem || dis < nearLen)
+                {
+                    nearItem = monster;
+                    nearLen = dis;
+                }
+            }
+        }
+        playerData.hitEnemy = nearItem;
+        if(nearItem)//最近的怪
+        {
+            playerData.lastAtkTime = PKC.actionStep;
+            var isDouble = Math.random() > 0.5
+            if(isDouble)
+                this.showDoubleMV();
+            else
+                this.showAtkMV();
+            PKMonsterAction_wx3.getInstance().addList({
+                target:playerData,
+                onlyID:playerData.onlyID,
+                step:5,
+                fun:()=>{
+                    this.atkFront(nearItem,isDouble?120:90);
+                }
+            })
+        }
     }
 
 }

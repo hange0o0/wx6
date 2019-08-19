@@ -1,4 +1,5 @@
 class MBase {
+    private static id = 1;
     public static getClass(id){
         switch (Math.floor(id)){
             case 1:return M1;
@@ -13,11 +14,16 @@ class MBase {
         var cls = this.getClass(id);
         var item = new cls();
         item.mid = id;
+        item.onlyID = this.id;
+        this.id++;;
         return item;
     }
 
 
     public mid;
+    public onlyID = 0;
+
+
     public hp = 100
     public maxHp = 100
     public atk = 50
@@ -35,6 +41,22 @@ class MBase {
     public y;
 
 
+    public getVO(){
+        return MonsterVO.getObject(this.mid)
+    }
+
+    public addHp(v){
+        this.hp += v;
+        if(this.hp > this.maxHp)
+        {
+            this.hp = this.maxHp
+        }
+        else if(this.hp <= 0)
+        {
+            this.hp = 0;
+        }
+        PKTool.showHpChange(this,v)
+    }
 
 
     public move(){
