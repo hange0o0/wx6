@@ -129,7 +129,13 @@ class LoadingUI extends game.BaseUI_wx4 {
             return;
         this.hide();
         this.infoBtn.visible = false;
-        GameUI.getInstance().show();
+        //GameUI.getInstance().show();
+
+        GameTool.getInstance().preLoadMV();
+        RES.loadGroup('hero');
+        RES.loadGroup('monster');
+
+        PKUI.getInstance().show();
     }
 
     public onShow(){

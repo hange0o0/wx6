@@ -382,7 +382,7 @@ class MyADManager {
         {
             case 'addForce':
                 UM_wx4.addForceEnd = TM_wx4.now()+60*15;
-                GameUI.getInstance().resetAD()
+                //GameUI.getInstance().resetAD()
                 break;
         }
     }

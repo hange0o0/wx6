@@ -138,10 +138,10 @@ class SoundManager {
     }
 
     public testBGPlay() {
-        if (PKingUI.getInstance().stage)
-            this.playSound('bg2')
-        else
-            this.playSound('bg')
+        //if (PKingUI.getInstance().stage)
+        //    this.playSound('bg2')
+        //else
+        //    this.playSound('bg')
     }
 
     public stopBgSound() {

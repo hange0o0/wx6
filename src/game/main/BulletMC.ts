@@ -176,69 +176,6 @@ class BulletMC extends game.BaseItem{
             if(Math.abs(item.x -this.x)>mvo.width/2)
                 continue;
 
-
-            item.addHp(-PKCode_wx4.getInstance().getBulletAtk(this.data.id)*this.data.double);
-            if(!this.disableSkill)
-            {
-                if(item.isDie) //杀人啦
-                {
-                    if(this.getTypeVO(3)) //杀敌爆炸
-                    {
-                        PKCode_wx4.getInstance().hitEnemyAround(item.x,item.y,this.getTypeVO(3).getLevelValue(1)/2,this.getTypeVO(3).getLevelValue(2))
-                        AniManager_wx3.getInstance().playOnItem(112,item);
-                        SoundManager.getInstance().playEffect('boom')
-                    }
-                    if(this.getTypeVO(4)) //杀敌吸血
-                    {
-                        PKCode_wx4.getInstance().addHp(this.getTypeVO(4).getLevelValue(1))
-                    }
-                    if(this.getTypeVO(5)) //杀敌攻击成长
-                    {
-                        var addAtk = this.getTypeVO(5).getLevelValue(1);
-                        PKCode_wx4.getInstance().addAtk(this.data.id,addAtk)
-                        PKingUI.getInstance().playItemText(this.data.relateGun, '攻击+ ' +Math.round(addAtk),0xFFFF88)
-                    }
-                }
-                else
-                {
-                    if(this.getTypeVO(7)) //使中刀敌人减慢$1%速度，持续#2秒
-                    {
-                        item.setSlow(this.getTypeVO(7).getLevelValue(1),this.getTypeVO(7).getLevelValue(2,null,false))
-                    }
-                    if(this.getTypeVO(8)) //'有$1%的机率使敌人陷入眩晕状态，持续#2秒';
-                    {
-                        if(Math.random() < this.getTypeVO(8).getLevelValue(1)/100)
-                        {
-                            item.setYun(this.getTypeVO(8).getLevelValue(2,null,false))
-                        }
-                    }
-                    if(this.getTypeVO(12)) //'使被命中的敌人退后@1距离';
-                    {
-                        item.x += this.getTypeVO(12).getLevelValue(1)
-                    }
-                }
-
-                if(this.getTypeVO(14) && !this.data.stop14) //'命中敌人后会分裂出#1把飞刀';
-                {
-                    var num = this.getTypeVO(14).getLevelValue(1);
-                    var rota = 180/num;
-                    var total = (num - 1)*rota;
-                    var start = -total/2
-                    for(var i=0;i<num;i++)
-                    {
-                        var bullet = PKingUI.getInstance().createBullet(this.data.id,this.x,this.y,start + i*rota,this.data.double,this.data.relateGun);
-                        bullet.hitMonster[item.id] = true
-                        bullet.data.stop14 = true
-                    }
-                }
-                if(this.getTypeVO(15)) // '命中敌人后回复城墙@1点血量';
-                {
-                    PKCode_wx4.getInstance().addHp(this.getTypeVO(15).getLevelValue(1))
-                }
-
-            }
-
-
             this.hitMonster[item.id] = true//已经对这个怪造成伤害了
             if(!this.getTypeVO(2) || this.disableSkill) //穿透
             {

@@ -13,7 +13,6 @@
 	<e:Group y="80" left="20" right="20" height="300">
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
 		<e:Label id="atkText" text="攻击：1234\n攻速：0.5秒" y="20" size="22" x="180" lineSpacing="10" anchorOffsetX="0" textColor="0xFCD79F" width="360"/>
-		<ns1:GunItem id="gunItem" skinName="GunItemSkin" x="90" y="90" anchorOffsetX="50" anchorOffsetY="50"/>
 		<e:Group id="upGroup" width="500" horizontalCenter="0" bottom="20">
 			<e:Group x="0" verticalCenter="0">
 				<e:Image source="border_png" x="0" y="0" scaleX="0.85" scaleY="0.85" width="400" scale9Grid="45,6,20,42"/>

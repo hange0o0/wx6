@@ -2,6 +2,8 @@ class SBase {
     public static getClass(id){
         switch (Math.floor(id)){
             case 1:return S1;
+            case 2:return S2;
+            case 3:return S3;
         }
     }
 
@@ -43,6 +45,10 @@ class SBase {
     }
 
     public onCreate(){
+
+    }
+
+    public onStep(){
 
     }
 }

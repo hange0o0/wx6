@@ -289,7 +289,7 @@ if(window["wx"])
     //window["BottomUI"] = BottomUI;
     //window["TopUI"] = TopUI
     window["ChangeUserUI"] = ChangeUserUI
-    window["GunItem"] = GunItem
+    //window["GunItem"] = GunItem
     window["sendClientError"] = sendClientError
     window["GameManager_wx4"] = GameManager_wx4
     window["BasePanel"] = BasePanel

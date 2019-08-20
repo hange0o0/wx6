@@ -7,12 +7,13 @@ class PlayerItem extends game.BaseItem{
     private roleCon: eui.Group;
     private body: eui.Image;
     private leftCon: eui.Group;
-    private leftHendMC: eui.Image;
     private leftKnifeMC: eui.Image;
+    private leftHendMC: eui.Image;
     private rightCon: eui.Group;
-    private rightHendMC: eui.Image;
     private rightKnifeMC: eui.Image;
+    private rightHendMC: eui.Image;
     private hpBar: HPBar;
+
 
 
 
@@ -36,11 +37,13 @@ class PlayerItem extends game.BaseItem{
         this.leftKnifeMC.anchorOffsetX = this.rightKnifeMC.anchorOffsetX = gunVO.anx
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
         this.renewHp();
+        this.showStandMV();
+        this.ctrlRota = -90
     }
 
     public renewHp(){
         this.hpBar.data = this.data;
-        var hpStep = Math.ceil(8*this.data.hp/this.data.maxHp)
+        var hpStep = Math.min(8,9-Math.ceil(8*this.data.hp/this.data.maxHp))
         if(this.lastHpStep != hpStep)
         {
             this.lastHpStep = hpStep
@@ -70,7 +73,11 @@ class PlayerItem extends game.BaseItem{
     }
 
 
-
+    public cleanTween(){
+        egret.Tween.removeTweens(this.leftCon);
+        egret.Tween.removeTweens(this.rightCon);
+        egret.Tween.removeTweens(this.body);
+    }
 
 
     public showWalkMV(){
@@ -79,6 +86,25 @@ class PlayerItem extends game.BaseItem{
 
     public showStandMV(){
         this.mvKey = 'stand'
+
+        egret.Tween.removeTweens(this.leftCon);
+        this.leftCon.scaleX = 1;
+        this.leftCon.rotation =  20
+        this.leftCon.x = -10;
+        this.leftCon.y = 30;
+        egret.Tween.get(this.leftCon,{loop:true}).to({x:-15,y:25},200).to({x:-10,y:30},200);
+
+        egret.Tween.removeTweens(this.rightCon);
+        this.rightCon.scaleX = 1;
+        this.rightCon.rotation =  -20
+        this.rightCon.x = 90;
+        this.rightCon.y = 30;
+        egret.Tween.get(this.rightCon,{loop:true}).to({x:95,y:25},200).to({x:90,y:30},200);
+
+
+        egret.Tween.removeTweens(this.body);
+        this.body.x = 35
+        this.body.y = 50
     }
 
     public showAtkMV(){
@@ -137,6 +163,8 @@ class PlayerItem extends game.BaseItem{
 
     public onE(){
         var playerData = this.data
+        if(playerData.isSkilling)
+            return;
         this.testAtk();
         if(playerData.hitEnemy)
         {
@@ -146,13 +174,15 @@ class PlayerItem extends game.BaseItem{
     }
 
     public move(touchID){
-
+        var playerData = this.data
+        if(playerData.isSkillingStopMove)
+            return;
 
         var angle = Math.atan2(touchID.y2-touchID.y1,touchID.x2-touchID.x1)
 
 
         //如果这个方向有怪，则不能移动
-        var playerData = this.data
+
         var monsterList = PKC.monsterList;
         var len = monsterList.length;
         var rota1 = PKTool.resetAngle(angle/Math.PI*180);
@@ -160,6 +190,8 @@ class PlayerItem extends game.BaseItem{
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
+            if(monster.isDie)
+                continue;
             var dis = MyTool.getDis(monster,playerData)
             if(dis < 60)
             {
@@ -182,7 +214,7 @@ class PlayerItem extends game.BaseItem{
         var targetY = this.y+y
         this.resetXY(targetX,targetY)
 
-        if(!playerData.hitEnemy)
+        if(!playerData.hitEnemy && !playerData.isSkilling)
         {
             this.roleCon.rotation = this.ctrlRota  + 90
             this.showWalkMV();
@@ -190,16 +222,20 @@ class PlayerItem extends game.BaseItem{
     }
 
     //攻击前方120度的怪
-    public atkFront(nearItem,atkRota = 120){
+    public atkFront(nearItem,isDouble?){
         var playerData = this.data
         var monsterList = PKC.monsterList;
         var len = monsterList.length;
         var rota1 = PKTool.resetAngle(PKTool.getRota(playerData,nearItem,true));
+        var atkRota = isDouble?120:90
         var atkRota1 = atkRota/2
         var atkRota2 = 360 - atkRota1
+        var atk = playerData.getAtk();
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
+            if(monster.isDie)
+                continue;
             var dis = MyTool.getDis(monster,playerData)
             if(dis < playerData.atkDis)
             {
@@ -209,11 +245,17 @@ class PlayerItem extends game.BaseItem{
                 if(rotaDes > atkRota1 && rotaDes < atkRota2)
                     continue;
                 //在攻击范围内，可造成伤害
-                monster.addHp(-playerData.atk);
+                if(isDouble)
+                    monster.addHp(-Math.ceil(atk*1.5));
+                else
+                    monster.addHp(-atk);
                 if(playerData.hitBack)//可击退
                 {
-                    var x = Math.cos(rotaBase)*playerData.hitBack
-                    var y = Math.sin(rotaBase)*playerData.hitBack
+                    var hitBack = playerData.hitBack
+                    if(isDouble)
+                        hitBack *= 1.2;
+                    var x = Math.cos(rotaBase)*hitBack
+                    var y = Math.sin(rotaBase)*hitBack
                     monster.relateItem.resetXY(monster.x+x,monster.y+y)
                 }
 
@@ -226,15 +268,15 @@ class PlayerItem extends game.BaseItem{
         if(!playerData.canAtk())
             return;
 
-
         var monsterList = PKC.monsterList;
         var len = monsterList.length;
-        var nearLen = 999;
         var nearLen = 999;
         var nearItem;
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
+            if(monster.isDie)
+                continue;
             var dis = MyTool.getDis(monster,playerData)
             if(dis < playerData.atkDis)
             {
@@ -268,7 +310,7 @@ class PlayerItem extends game.BaseItem{
                 onlyID:playerData.onlyID,
                 step:5,
                 fun:()=>{
-                    this.atkFront(nearItem,isDouble?120:90);
+                    this.atkFront(nearItem,isDouble);
                 }
             })
         }

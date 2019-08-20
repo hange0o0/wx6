@@ -1,4 +1,4 @@
-class PKUI extends game.BaseContainer_wx4{
+class PKUI extends game.BaseUI_wx4{
     private static _instance:PKUI;
     public static getInstance():PKUI {
         if (!this._instance)
@@ -7,22 +7,29 @@ class PKUI extends game.BaseContainer_wx4{
     }
 
 
-    private con: eui.Group;
-    private bg: eui.Image;
-    private roleCon: eui.Group;
-    private bulletCon: eui.Group;
+    private s1: PKSkillItem;
+    private s2: PKSkillItem;
+    private s3: PKSkillItem;
+    private s4: PKSkillItem;
+    private s5: PKSkillItem;
+    private s6: PKSkillItem;
     private ctrlGroup: eui.Group;
     private ctrlBG: eui.Image;
     private ctrlMC: eui.Image;
+    private skillInfoGroup: eui.Group;
+    private skillInfoItem: PKSkillItem;
+    private desText: eui.Label;
+    private hpBar: eui.Image;
+    private hpText: eui.BitmapLabel;
+    private rateBar: eui.Image;
 
 
 
 
 
-    public playerItem = new PlayerItem()
-    public monsterArr = [];
-    public sortArr = [];
     public touchID
+    public skillArr = [];
+    public middleR = 180
 
     public constructor() {
         super();
@@ -32,9 +39,12 @@ class PKUI extends game.BaseContainer_wx4{
     public childrenCreated() {
         super.childrenCreated();
 
-        this.roleCon.addChild(this.playerItem)
-        this.playerItem.data = PKC.playerData;
-        PKC.playerData.relateItem = this.playerItem;
+
+        for(var i=1;i<=6;i++)
+        {
+            this.skillArr.push(this['s' + i])
+        }
+        this.addBtnEvent(this.skillInfoGroup,this.hideSkillInfo)
 
 
         this.ctrlGroup.touchEnabled = true
@@ -47,7 +57,7 @@ class PKUI extends game.BaseContainer_wx4{
 
     private onTouchBegin(e: egret.TouchEvent) {
         if (!this.touchID) {
-            var p = this.ctrlGroup.localToGlobal(160,160)
+            var p = this.ctrlGroup.localToGlobal(this.middleR,this.middleR)
             this.touchID = {
                 id: e.touchPointID,
                 x1: p.x,
@@ -68,7 +78,7 @@ class PKUI extends game.BaseContainer_wx4{
     }
 
     private resetTouchingShow(){
-        var touchR = 160;
+        var touchR = this.middleR;
         var r = MyTool.getDistance(this.touchID.x1, this.touchID.y1 ,this.touchID.x2, this.touchID.y2)
         if (r > 75)
             r = 75;
@@ -86,108 +96,81 @@ class PKUI extends game.BaseContainer_wx4{
     }
 
     private resetTouchGroup() {
-        var touchR = 160
+        var touchR = this.middleR
         this.ctrlMC.x = touchR
         this.ctrlMC.y = touchR
     }
 
-    public renewConY(){
-        this.con.y = (GameManager_wx4.uiHeight - 320)/2 - this.playerItem.y;
-        this.con.x = 320 - this.playerItem.x
-    }
 
     public onShow(){
         this.resetTouchGroup()
-        this.con.width = this.bg.width = PKC.mapW
-        this.con.height = this.bg.height = PKC.mapH
-        this.playerItem.resetXY(this.con.width/2,this.con.height/2)
-        this.renewConY();
         this.height = GameManager_wx4.uiHeight
-        //this.sortArr.length = 0;
-        //this.sortArr.push(this.playerItem)
+        this.addChildAt(PKCodeUI.getInstance(),0)
+        PKCodeUI.getInstance().onShow();
+
+
+        this.renewSkill()
+        this.renewHp()
+        this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
+        this.addPanelOpenEvent(GameEvent.client.HP_CHANGE,this.renewHp)
     }
 
-    public sortY(){
-        var num = this.roleCon.numChildren;
-        for(var i=1;i<num;i++)
+    private renewSkill(){
+        for(var i=0;i<this.skillArr.length;i++)
         {
-            var lastItem = this.roleCon.getChildAt(i-1)
-            var currentItem = this.roleCon.getChildAt(i)
-            if(currentItem.y < lastItem.y)//深度不对，调整
-            {
-                var index = i-1;
-                for(var j = index - 1;j>=0;j--)
-                {
-                    var lastItem = this.roleCon.getChildAt(j)
-                    if(currentItem.y > lastItem.y)
-                    {
-                        index = j+1;
-                        break;
-                    }
-                }
-                this.roleCon.setChildIndex(currentItem,index)
-            }
+            this.skillArr[i].data = PKC.playerData.skillsList[i]
+        }
+        this.hideSkillInfo();
+    }
+
+    public showSkillInfo(data){
+        this.skillInfoGroup.visible = true;
+        this.skillInfoItem.data = data;
+        this.desText.text = '技能'+data.sid
+
+        for(var i=0;i<this.skillArr.length;i++)
+        {
+            this.skillArr[i].setSelect(data)
+        }
+    }
+
+    public hideSkillInfo(){
+        this.skillInfoGroup.visible = false;
+        for(var i=0;i<this.skillArr.length;i++)
+        {
+            this.skillArr[i].setSelect(-1)
         }
     }
 
     public onE(){
-        PKC.onStep();
-
-
-        this.playerItem.onE()
+        if(!this.visible)
+            return
+        var ui = PKCodeUI.getInstance();
+        var playerData = PKC.playerData;
         if (this.touchID) {
-            this.playerItem.move(this.touchID)
-            this.renewConY();
+            ui.playerItem.move(this.touchID)
         }
-
-
- /*       this.addMonster();*/
-
-
-        var len = this.monsterArr.length;
-        for(var i=0;i<len;i++)
+        if(this.touchID || playerData.isSkilling)
         {
-             var mItem = this.monsterArr[i];
-            mItem.onE();
+            ui.renewConY();
+        }
+        ui.onE();
+
+        if(playerData.hp <= 0)
+        {
+            playerData.hp = playerData.maxHp
         }
 
-        this.sortY();
     }
 
-    public addMonster(mid,x,y){
-       var newItem = PKMonsterItem_wx3.createItem();
-        this.monsterArr.push(newItem);
-        //
-        ////插入到合适的位置
-        //var b = false
-        //for(var i=0;i<this.sortArr.length;i++)
-        //{
-        //    var item = this.sortArr[i];
-        //    if(!item.parent)
-        //        continue;
-        //    if(item.y>y)
-        //    {
-        //        b = true;
-        //        this.sortArr.splice(i,0,newItem)
-        //        var index = item.parent.getChildIndex(item);
-        //        item.parent.addChildAt(newItem,index);
-        //        break;
-        //    }
-        //}
-        //
-        //if(!b)//插入不成功
-        //{
-            this.roleCon.addChild(newItem);
-            this.sortArr.push(newItem)
-        //}
-
-
-        newItem.data = MBase.getItem(mid);
-        newItem.resetXY(x,y)
-        return newItem.data;
+    public renewHp(){
+        var w =  354 - 14*2;
+        var playerData = PKC.playerData;
+        var hp = Math.max(0,playerData.hp);
+        var rate = hp/playerData.maxHp
+        this.hpText.text = hp + ''
+        this.hpBar.width = Math.max(14,14 + w*rate);
+        PKC.playerData.relateItem.renewHp();
     }
-
-
-
 
 }

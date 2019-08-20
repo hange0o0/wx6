@@ -34,8 +34,8 @@ class RebornUI extends game.BaseWindow_wx4{
             this.isStoping = true;
             ShareTool.openGDTV((type)=>{
                 this.hide();
-                PKingUI.getInstance().reborn();
-                PlayManager.getInstance().sendGameReborn(type)
+                //PKingUI.getInstance().reborn();
+                //PlayManager.getInstance().sendGameReborn(type)
             },()=>{this.isStoping = false})
         })
 

@@ -38,7 +38,7 @@ class PKTool {
         mc.horizontalCenter = 0
         target.addChild(mc);
         mc.y = y
-        egret.Tween.get(mc).to({y:mc.y - 30},300).call(()=>{
+        egret.Tween.get(mc).to({y:mc.y - 30},500).call(()=>{
             this.removeWordList(mc)
         })
         return mc;

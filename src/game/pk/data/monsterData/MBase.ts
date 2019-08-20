@@ -26,7 +26,7 @@ class MBase {
 
     public hp = 100
     public maxHp = 100
-    public atk = 50
+    public atk = 10
     public atkDis = 100
     public speed = 10
     public atkSpeed = 30//帧
@@ -39,6 +39,7 @@ class MBase {
 
     public x;
     public y;
+    public isDie
 
 
     public getVO(){
@@ -54,8 +55,11 @@ class MBase {
         else if(this.hp <= 0)
         {
             this.hp = 0;
+            this.isDie = 1;
+            this.relateItem.die();
         }
         PKTool.showHpChange(this,v)
+        this.relateItem.renewHp();
     }
 
 

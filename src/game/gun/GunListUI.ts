@@ -9,7 +9,7 @@ class GunListUI extends game.BaseWindow_wx4{
     private scroller: eui.Scroller;
     private list: eui.List;
     private atkText: eui.Label;
-    private gunItem: GunItem;
+    //private gunItem: GunItem;
     private upGroup: eui.Group;
     private costText: eui.Label;
     private btn: eui.Button;
@@ -35,7 +35,7 @@ class GunListUI extends game.BaseWindow_wx4{
         this.scroller.viewport = this.list;
         this.list.itemRenderer = GunListItem
         this.list.selectedIndex = 0;
-        this.gunItem.scaleX = this.gunItem.scaleY = 1
+        //this.gunItem.scaleX = this.gunItem.scaleY = 1
 
         this.addBtnEvent(this.btn,()=>{
             var GM = GunManager.getInstance();
@@ -62,7 +62,7 @@ class GunListUI extends game.BaseWindow_wx4{
     }
 
     private onE(){
-        this.gunItem.move2();
+        //this.gunItem.move2();
     }
 
     public renewList(){
