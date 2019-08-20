@@ -9,7 +9,7 @@ class PlayerData{
     public hp = 1000;
     public maxHp = 1000;
     public speed = 12
-    public atkSpeed = PKTool.getStepByTime(600);
+    public atkSpeed = PKTool.getStepByTime(600);  //上限300
     public hitBack = 100;
     public atkDis = 100;
     public lastAtkTime = 0;
@@ -26,8 +26,8 @@ class PlayerData{
     public isSkillingStopMove = false//正在使用技能,并且不能移动
 
     public getAtk(){
-        var hpStep = Math.ceil(8*this.hp/this.maxHp)
-        return Math.ceil(this.atk * (1 + (8-hpStep)/10))
+        //var hpStep = Math.ceil(8*this.hp/this.maxHp)
+        return Math.ceil(this.atk * (2 - this.hp/this.maxHp))
     }
 
     public initData(){

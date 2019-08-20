@@ -170,7 +170,7 @@ class PKUI extends game.BaseUI_wx4{
         var rate = hp/playerData.maxHp
         this.hpText.text = hp + ''
         this.hpBar.width = Math.max(14,14 + w*rate);
-        PKC.playerData.relateItem.renewHp();
+        //PKC.playerData.relateItem.renewHp();
     }
 
 }
