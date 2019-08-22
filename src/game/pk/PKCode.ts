@@ -6,6 +6,7 @@ class PKCode_wx4 {
         return this.instance;
     }
 
+    public frameRate = 30   //PKTool.getStepByTime 也要改
     public mapW = 640
     public mapH = 640
 

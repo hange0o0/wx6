@@ -58,6 +58,7 @@ class MBase {
         var item = new cls();
         item.mid = id;
         item.onlyID = this.id;
+        item.initData();
         this.id++;;
         return item;
     }
@@ -67,12 +68,14 @@ class MBase {
     public onlyID = 0;
 
 
+    public size = 100//体积半径
     public hp = 100
     public maxHp = 100
     public atk = 10
     public atkDis = 100
     public speed = 10
     public atkSpeed = 30//帧
+    public bulletSpeed = 10//子弹速度
 
     public stopEnd = 0//这个时间前停止行动
     public atkEnd = 0//这个时间前停止行动
@@ -84,6 +87,17 @@ class MBase {
     public y;
     public isDie
 
+    public initData(){
+        var vo = this.getVO();
+        this.size = vo.width/2
+    }
+
+    public getHitPos(){
+          return {
+              x:this.x,
+              y:this.y - this.getVO().height*0.4
+          }
+    }
 
     public getVO(){
         return MonsterVO.getObject(this.mid)

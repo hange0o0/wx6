@@ -42,6 +42,7 @@
 		"resource/skin/game/NotEnoughCoinUISkin.exml",
 		"resource/skin/game/PassDayAwardUISkin.exml",
 		"resource/skin/game/pk/items/HPBarSkin.exml",
+		"resource/skin/game/pk/items/PKBulletItemSkin.exml",
 		"resource/skin/game/pk/items/PKMonsterItemSkin.exml",
 		"resource/skin/game/pk/items/PKSkillItemSkin.exml",
 		"resource/skin/game/pk/items/PlayerItemSkin.exml",

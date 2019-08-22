@@ -65,6 +65,11 @@ class PKTool {
             r-=360
         return r;
     }
+
+    //分开的图片组成
+    public static showMV1(){
+
+    }
 }
 
 

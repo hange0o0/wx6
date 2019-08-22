@@ -25,7 +25,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
     public id = 0;
 
-    public stateMV =  new MonsterAtkMV();
+    public stateMV =  new MovieSimpleSpirMC2();
     public iceMC:eui.Image
     public monsterMV:PKMonsterMV_wx3 = new PKMonsterMV_wx3();
 
@@ -56,7 +56,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
         this.stateMV.x =  50 -  154/4
 
-        this.stateMV.load('effect2_png',0,154,39,2)
+        this.stateMV.setData('effect2_png',154,39,2)
         this.stateMV.stop()
     }
 
@@ -77,8 +77,6 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         this.x = this.data.x = x;
         this.y = this.data.y = y;
     }
-
-
 
     private onDieFinish(){
         this.data.isDie = 2;
@@ -125,6 +123,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         if(PKC.actionStep < myData.stopEnd)
             return;
         if(PKC.actionStep < myData.atkEnd)
+            return;
+        if(playerData.isHide)
             return;
 
         this.monsterMV.scaleX = myData.x > playerData.x ?1:-1

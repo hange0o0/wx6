@@ -165,6 +165,7 @@
 		"bin-debug/game/pk/data/skillData/S9.js",
 		"bin-debug/MainLoadingUI.js",
 		"bin-debug/game/pk/items/HPBar.js",
+		"bin-debug/game/pk/items/PKBulletItem.js",
 		"bin-debug/game/pk/items/PKMonsterItem.js",
 		"bin-debug/game/pk/items/PKSkillItem.js",
 		"bin-debug/game/pk/items/PlayerItem.js",
