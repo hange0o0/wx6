@@ -124,7 +124,7 @@ class UserManager_wx4 {
 
         this.testAddInvite();
         this.localSave();
-        GunManager.getInstance().initData();
+        GunManager.getInstance().initData(data);
     }
 
     public getPassDayCoin(){

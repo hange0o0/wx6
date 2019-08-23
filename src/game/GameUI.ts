@@ -8,11 +8,22 @@ class GameUI extends game.BaseUI_wx4 {
     }
 
 
-    private bg: eui.Image;
     private coinText: eui.Label;
     private soundBtn: eui.Image;
     private feedBackBtn: eui.Image;
     private ad1: eui.Image;
+    private ad2: eui.Image;
+    private equipBtn: eui.Group;
+    private equipRedMC: eui.Image;
+    private skillBtn: eui.Group;
+    private skillRedMC: eui.Image;
+    private levelBtn: eui.Group;
+    private levelRedMC: eui.Image;
+    private addForceBtn: eui.Group;
+    private addForceText: eui.Label;
+    private startBtn2: eui.Button;
+    private startBtn1: eui.Button;
+
 
     public constructor() {
         super();
@@ -28,6 +39,35 @@ class GameUI extends game.BaseUI_wx4 {
         this.addBtnEvent(this.ad1,()=>{
            MyADManager.getInstance().showAD(this.ad1['adData'])
         })
+        this.addBtnEvent(this.ad2,()=>{
+           MyADManager.getInstance().showAD(this.ad2['adData'])
+        })
+
+
+        this.addBtnEvent(this.equipBtn,()=>{
+            GunListUI.getInstance().show();
+        })
+
+        this.addBtnEvent(this.skillBtn,()=>{
+
+        })
+
+        this.addBtnEvent(this.levelBtn,()=>{
+
+        })
+
+        this.addBtnEvent(this.addForceBtn,()=>{
+
+        })
+
+        this.addBtnEvent(this.startBtn1,()=>{
+
+        })
+
+        this.addBtnEvent(this.startBtn2,()=>{
+
+        })
+
 
         this.addBtnEvent(this.soundBtn,()=>{
             SoundManager.getInstance().soundPlaying = !SoundManager.getInstance().soundPlaying
@@ -85,8 +125,6 @@ class GameUI extends game.BaseUI_wx4 {
         SoundManager.getInstance().playSound('bg')
 
 
-        this.bg.height = GameManager_wx4.uiHeight + 250;
-        this.bg.y = 0;
 
         this.renewSound();
         this.renew();
@@ -100,8 +138,8 @@ class GameUI extends game.BaseUI_wx4 {
             PassDayAwardUI.getInstance().show();
         }
         this.showTips();
-        //this.addChild(PKUI.getInstance())
-        //PKUI.getInstance().onShow()
+        this.addChildAt(PKCodeUI.getInstance(),0)
+        PKCodeUI.getInstance().onShow()
     }
 
     private showTips(){
@@ -121,65 +159,35 @@ class GameUI extends game.BaseUI_wx4 {
         }
 
 
-        //var ad = ArrayUtil_wx4.randomOne(adArr,true);
-        //if(ad)
-        //{
-        //    this.ad2['adData'] = ad;
-        //    this.ad2.source = ad.logo
-        //    this.ad2.visible = true;
-        //}
-        //else
-        //{
-        //    this.ad2.visible = false;
-        //}
+        var ad = ArrayUtil_wx4.randomOne(adArr,true);
+        if(ad)
+        {
+            this.ad2['adData'] = ad;
+            this.ad2.source = ad.logo
+            this.ad2.visible = true;
+        }
+        else
+        {
+            this.ad2.visible = false;
+        }
 
     }
 
     private onE(){
         if(!this.visible)
-            return;
-        //PKUI.getInstance().onE();
-        //for(var i=0;i<this.gunArr.length;i++) {
-        //    var item = this.gunArr[i];
-        //    item.onE();
-        //}
-        //if(this.dragTarget.stage)
-        //    this.dragTarget.onE();
-        //
-        //if(!this.startBtn.visible)
-        //    return;
-        ////this.gunCon.rotation += 0.1;
-        ////for(var i=0;i<this.gunArr.length;i++) {
-        ////    var item = this.gunArr[i];
-        ////    item.rotation = -this.gunCon.rotation
-        ////}
-        //this.renewCoinCD();
-        //
-        //this.bg.y += 1;
-        //if(this.bg.y > 0)
-        //    this.bg.y -= 200;
+            return
+        var ui = PKCodeUI.getInstance();
+        var playerData = PKC.playerData;
+        if(playerData.isSkilling)
+        {
+            ui.renewConY();
+        }
+        ui.onE();
 
-        //if(egret.getTimer() - this.lastShoot > 500)
-        //{
-        //    this.lastShoot = egret.getTimer();
-        //    var mc = BulletMC.createItem();
-        //    this.bulletGroup.addChild(mc);
-        //    mc.x = 10 + Math.random()*620
-        //    mc.y = GameManager_wx4.uiHeight + 50;
-        //    mc.data = {
-        //        scale:1,
-        //        id:ArrayUtil_wx4.randomOne(GunManager.getInstance().getMyGunList()),
-        //    };
-        //    egret.Tween.get(mc).to({y:-100},(GameManager_wx4.uiHeight+150)*1).call(()=>{
-        //        BulletMC.freeItem(mc);
-        //    })
-        //    mc.rotation = 0
-        //    egret.Tween.get(mc,{loop:true}).to({rotation:360},300)
-        //
-        //
-        //
-        //
-        //}
+        if(playerData.hp <= 0)
+        {
+            playerData.hp = playerData.maxHp
+        }
     }
 
 
@@ -200,6 +208,6 @@ class GameUI extends game.BaseUI_wx4 {
     }
 
     public renew(){
-        this.bg.source = UM_wx4.getBG();
+
     }
 }

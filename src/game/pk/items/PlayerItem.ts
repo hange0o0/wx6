@@ -36,21 +36,29 @@ class PlayerItem extends game.BaseItem{
         this.rightKnifeMC.source = 'knife_'+this.data.knife+'_png'
         this.leftKnifeMC.anchorOffsetX = this.rightKnifeMC.anchorOffsetX = gunVO.anx
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
-        this.renewHp();
-        this.showStandMV();
+
+
+        var hpStep = 1
+        this.body.source = 'role_'+hpStep+'_png'
+        this.leftHendMC.source = 'role_'+hpStep+'_png'
+        this.rightHendMC.source = 'role_'+hpStep+'_png'
+
+
+        //this.renewHp();
+        //this.showStandMV();
         this.ctrlRota = -90
     }
 
     public renewHp(){
         this.hpBar.data = this.data;
-        var hpStep = Math.min(8,9-Math.ceil(8*this.data.hp/this.data.maxHp))
-        if(this.lastHpStep != hpStep)
-        {
-            this.lastHpStep = hpStep
+        var hpStep = 1//Math.min(8,9-Math.ceil(8*this.data.hp/this.data.maxHp))
+        //if(this.lastHpStep != hpStep)
+        //{
+        //    this.lastHpStep = hpStep
             this.body.source = 'role_'+hpStep+'_png'
             this.leftHendMC.source = 'role_'+hpStep+'_png'
             this.rightHendMC.source = 'role_'+hpStep+'_png'
-        }
+        //}
 
     }
 
@@ -122,7 +130,7 @@ class PlayerItem extends game.BaseItem{
 
             this.body.x = 35
             this.body.y = 50
-            egret.Tween.get(this.body).to({x:45,y:35},200).to({x:40,y:40},200);
+            egret.Tween.get(this.body).to({x:45,y:35},200).to({x:40,y:40},200).call(this.showStandMV,this);
 
         }
         else
@@ -136,7 +144,7 @@ class PlayerItem extends game.BaseItem{
 
             this.body.x = 45
             this.body.y = 50
-            egret.Tween.get(this.body).to({x:35,y:35},200).to({x:40,y:40},200);
+            egret.Tween.get(this.body).to({x:35,y:35},200).to({x:40,y:40},200).call(this.showStandMV,this);
         }
     }
 
@@ -157,7 +165,7 @@ class PlayerItem extends game.BaseItem{
 
         this.body.x = 40
         this.body.y = 50
-        egret.Tween.get(this.body).to({y:35},200).wait(100).to({y:40},200);
+        egret.Tween.get(this.body).to({y:35},200).wait(100).to({y:40},200).call(this.showStandMV,this);
 
     }
 
@@ -175,7 +183,7 @@ class PlayerItem extends game.BaseItem{
 
         this.body.x = 40
         this.body.y = 40
-        egret.Tween.get(this.body).to({y:50},100).to({y:40},100);
+        egret.Tween.get(this.body).to({y:50},100).to({y:40},100).call(this.showStandMV,this);
 
     }
 

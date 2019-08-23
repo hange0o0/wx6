@@ -197,7 +197,8 @@ class MyADManager {
         if(!wx)
         {
             console.log('click AD')
-
+            data.fun && data.fun();
+            ChangeJumpUI.getInstance().hide();
             return;
         }
 

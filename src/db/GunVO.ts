@@ -16,8 +16,13 @@ class GunVO {
     public open: number;
     public atkdis: number;
     public atkback: number;
+    public doublerate: number;
+    public doublevalue: number;
+    public missvalue: number;
     public anx: number;
     public any: number;
+
+
 
     public constructor() {
 

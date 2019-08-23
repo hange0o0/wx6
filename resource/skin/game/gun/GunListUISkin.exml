@@ -5,23 +5,15 @@
 		<e:Group>
 			<e:List id="list" width="200" height="200" x="65" y="56">
 				<e:layout>
-					<e:TileLayout horizontalGap="10" verticalGap="10" requestedColumnCount="5" paddingTop="10"/>
+					<e:TileLayout horizontalGap="10" verticalGap="20" requestedColumnCount="5" paddingTop="10"/>
 				</e:layout>
 			</e:List>
 		</e:Group>
 	</e:Scroller>
 	<e:Group y="80" left="20" right="20" height="300">
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
-		<e:Label id="atkText" text="攻击：1234\n攻速：0.5秒" y="20" size="22" x="180" lineSpacing="10" anchorOffsetX="0" textColor="0xFCD79F" width="360"/>
-		<e:Group id="upGroup" width="500" horizontalCenter="0" bottom="20">
-			<e:Group x="0" verticalCenter="0">
-				<e:Image source="border_png" x="0" y="0" scaleX="0.85" scaleY="0.85" width="400" scale9Grid="45,6,20,42"/>
-				<e:Image source="coin_mc_png" x="10" scaleX="0.8" scaleY="0.8" verticalCenter="2"/>
-				<e:Label id="costText" text="12345" size="24" textColor="0xF9DF7C" verticalCenter="2" right="15"/>
-			</e:Group>
-			<e:Button id="btn" label="升级" skinName="Btn1Skin" width="150" y="0" right="0"/>
-		</e:Group>
-		<e:Label id="maxMC" text="MAX" bold="true" horizontalCenter="0.5" bottom="40"/>
-		<e:Label id="levelText" text="LV.8" x="42" y="162" width="100" size="22" textAlign="center"/>
+		<e:Label id="atkText" text="攻击：1234\n攻速：0.5秒\n攻速：0.5秒\n攻速：0.5秒\n攻速：0.5秒\n攻速：0.5秒\n攻速：0.5秒" y="20" size="22" x="250" lineSpacing="15" anchorOffsetX="0" textColor="0xFCD79F"/>
+		<e:Label id="nameText" text="asdfsdf" y="215" size="24" x="25" lineSpacing="10" anchorOffsetX="0" textColor="0xfffab2" bold="true" width="200" textAlign="center"/>
+		<ns1:PlayerItem id="playerItem" x="75" y="50" skinName="PlayerItemSkin" scaleX="1.2" scaleY="1.2"/>
 	</e:Group>
 </e:Skin>

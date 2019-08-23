@@ -9,17 +9,14 @@ class GunListUI extends game.BaseWindow_wx4{
     private scroller: eui.Scroller;
     private list: eui.List;
     private atkText: eui.Label;
-    //private gunItem: GunItem;
-    private upGroup: eui.Group;
-    private costText: eui.Label;
-    private btn: eui.Button;
-    private maxMC: eui.Label;
-    private levelText: eui.Label;
+    private nameText: eui.Label;
+    private playerItem: PlayerItem;
 
 
 
 
-    private gunid;
+
+    private actionStep = 0;
     public get data(){
         return this.list.selectedItem;
     }
@@ -34,35 +31,38 @@ class GunListUI extends game.BaseWindow_wx4{
         this.setTitle('我的飞刀')
         this.scroller.viewport = this.list;
         this.list.itemRenderer = GunListItem
-        this.list.selectedIndex = 0;
-        //this.gunItem.scaleX = this.gunItem.scaleY = 1
-
-        this.addBtnEvent(this.btn,()=>{
-            var GM = GunManager.getInstance();
-            if(!UM_wx4.checkCoin(GM.getGunCost(this.data)))
-                return;
-            GM.levelUpGun(this.data)
-        })
-
-        this.list.addEventListener(egret.Event.CHANGE,this.renewChoose,this)
+        this.playerItem.x = 125
+        this.playerItem.y = 125
     }
 
-    public show(id?){
-        this.gunid = id;
+    public show(){
         super.show()
     }
 
     public onShow(){
+        this.actionStep = 100;
         this.renew();
         this.renewChoose();
+        this.playerItem.showStandMV()
         this.addPanelOpenEvent(GameEvent.client.GUN_CHANGE,this.renewList)
-        this.addPanelOpenEvent(GameEvent.client.GUN_UNLOCK,this.renewList)
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
-        this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renewChoose)
     }
 
     private onE(){
         //this.gunItem.move2();
+        this.actionStep -- ;
+        if(this.actionStep <=0)
+        {
+            this.actionStep = 100 + Math.random()*100
+            if(Math.random()<0.8)
+            {
+                this.playerItem.showAtkMV()
+            }
+            else
+            {
+                this.playerItem.showDoubleMV()
+            }
+        }
     }
 
     public renewList(){
@@ -71,82 +71,34 @@ class GunListUI extends game.BaseWindow_wx4{
     }
 
     public renew(){
-        var list = GunManager.getInstance().getMakeGuns().concat(GunManager.getInstance().getNormalGuns())
-
-
+        var list = ObjectUtil_wx4.objToArray(GunVO.data)
         this.list.dataProvider = new eui.ArrayCollection(list)
-        if(this.gunid)
-        {
-            for(var i=0;i<list.length;i++)
-            {
-                  if(list[i] == this.gunid)
-                  {
-                      this.list.selectedIndex = i;
-                      break
-                  }
-            }
-        }
+
+    }
+
+    private createText(title,des){
+        return title + '：' + this.createHtml(des,0xFFFFFF);
     }
 
     public renewChoose(){
-        //var GM = GunManager.getInstance();
-        ////var vo:GunVO = this.data;
-        //var lv = GM.getGunLevel(this.data);
-        //
-        //
-        //var vos = GM.getVOs(this.data)
-        //this.gunItem.data =  this.data;
-        //var str = '';
-        //var stopUp = !lv || (lv == GM.maxGunLevel && this.data < 100);
-        //if(stopUp)
-        //    str += this.createHtml('攻击：',0xFFF666) + GM.getGunAtk(this.data) + this.createHtml('\n攻速：',0xFFF666) + GM.getGunSpeed(this.data) + '/秒'
-        //else
-        //{
-        //    str +=  this.createHtml('攻击：',0xFFF666) + GM.getGunAtk(this.data) + this.createHtml('  ('+GM.getGunAtk(this.data,lv+1) + ')',0x00FF00)+
-        //        this.createHtml('\n攻速：',0xFFF666)  + GM.getGunSpeed(this.data) + '/秒' ;
-        //}
-        //
-        //str += '\n' + this.createHtml(vos.vo1.getTitle() + '：',0xFFF666) + vos.vo1.getDes(lv || 1,stopUp,this.data > 100)
-        //if(vos.vo2)
-        //    str += '\n' + this.createHtml(vos.vo2.getTitle() + '：',0xFFF666) + vos.vo2.getDes(lv || 1,stopUp,this.data > 100)
-        //this.setHtml(this.atkText, str)
-        //
-        //var cost = GM.getGunCost(this.data);
-        //this.costText.text = NumberUtil_wx4.addNumSeparator(UM_wx4.coin) + ' / ' + NumberUtil_wx4.addNumSeparator(cost)
-        //this.costText.textColor = cost>UM_wx4.coin?0xFF0000:0xFFFFFF;
-        //
-        //var pos = GunManager.getInstance().getPosByGun( this.data)
-        //if(pos)
-        //    this.levelText.text = pos + ' 号位'
-        //else
-        //    this.levelText.text = '';
-        //
-        //if(!lv)
-        //{
-        //    this.btn.label = '解锁'
-        //    this.btn.skinName = 'Btn1Skin'
-        //    this.upGroup.visible = true
-        //    this.maxMC.text = ''
-        //
-        //    this.setTitle(GM.getGunName(this.data))
-        //}
-        //else if(lv == GM.maxGunLevel && this.data < 100)
-        //{
-        //
-        //    this.upGroup.visible = false
-        //    this.maxMC.text = '已满级'
-        //    this.setTitle(GM.getGunName(this.data) + '  LV.'+lv)
-        //}
-        //else
-        //{
-        //    this.btn.label = '升级'
-        //    this.btn.skinName = 'Btn2Skin'
-        //    this.upGroup.visible = true
-        //    this.maxMC.text = ''
-        //    this.setTitle(GM.getGunName(this.data) + '  LV.'+lv)
-        //}
-        //
-        //console.log( this.data)
+        var GM = GunManager.getInstance();
+        var vo:GunVO = GunVO.getObject(GM.gunid);
+
+        PKC.playerData.knife = GM.gunid;
+        this.playerItem.data = PKC.playerData;
+
+
+        this.nameText.text = vo.name;
+        var arr = [];
+        arr.push(this.createText('攻击传导',vo.atk + '%'))
+        arr.push(this.createText('攻击间隔',MyTool.toFixed(vo.atkspeed/100,1) + '秒'))
+        arr.push(this.createText('攻击距离',vo.atkdis + ''))
+        arr.push(this.createText('打退距离',vo.atkback + ''))
+        arr.push(this.createText('暴击率',vo.doublerate + '%'))
+        arr.push(this.createText('暴击倍数',MyTool.toFixed(vo.doublevalue/100,1) + '倍'))
+        arr.push(this.createText('闪避率',vo.missvalue + '%'))
+        this.setHtml(this.atkText,arr.join('\n'));
+
     }
 
     public hide(){
