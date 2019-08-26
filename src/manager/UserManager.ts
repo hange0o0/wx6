@@ -15,7 +15,6 @@ class UserManager_wx4 {
     public get needUpUser(){return this._needUpUser}
     public set needUpUser(v){this._needUpUser = v;v && egret.callLater(this.localSave,this)}
 
-    public collectCD = 20;
 
     public nick
     public head
@@ -30,18 +29,18 @@ class UserManager_wx4 {
     public dbid: string;
 
     public coin: number = 999;
-    public level: number = 1;
-    public gunLevel: any = {};
-    public gunPos: any = {};
+    public level: number = 1;//要打的，1开始
+    //public gunLevel: any = {};
+    //public gunPos: any = {};
     public pastDayCoin
-    public gunPosNum = 3;
-    public endLess = 0;
-    public coinTimes = 0;
+    //public gunPosNum = 3;
+    //public endLess = 0;
+    //public coinTimes = 0;
     public helpUser = null;
-
-    public cdCoin = 0;
-    public cdCoinTime = 0;
-    public cdCoinGetTime = 0;
+    //
+    //public cdCoin = 0;
+    //public cdCoinTime = 0;
+    //public cdCoinGetTime = 0;
 
     public addForceEnd = 0
     public adLevel
@@ -53,14 +52,14 @@ class UserManager_wx4 {
 
 
     public isFirst = false
-    public hourEarn = 0;
+    //public hourEarn = 0;
     public offlineTime
     public initDataTime
 
 
-    public nextMakeTime = 0//上次免费时间
-    public videoMakeTimes = 0;
-    public makeList = []  //图纸
+    //public nextMakeTime = 0//上次免费时间
+    //public videoMakeTimes = 0;
+    //public makeList = []  //图纸
 
 
 
@@ -80,22 +79,22 @@ class UserManager_wx4 {
         this.dbid = data._id;
         this.loginTime = data.loginTime || TM_wx4.now();
         this.coin = data.coin || 0;
-        this.shareUser = data.shareUser;
-        this.helpUser = data.helpUser;
-        this.endLess = data.endLess || 0;
+        //this.shareUser = data.shareUser;
+        //this.helpUser = data.helpUser;
+        //this.endLess = data.endLess || 0;
         this.level = data.level || 1;
-        this.coinTimes = data.coinTimes || 0;
+        //this.coinTimes = data.coinTimes || 0;
 
-        this.cdCoin = data.cdCoin || 0;
-        this.cdCoinTime = data.cdCoinTime || 0;
-        this.cdCoinGetTime = data.cdCoinGetTime || 0
+        //this.cdCoin = data.cdCoin || 0;
+        //this.cdCoinTime = data.cdCoinTime || 0;
+        //this.cdCoinGetTime = data.cdCoinGetTime || 0
 
-        this.gunLevel = data.gunLevel || {};
-        this.nextMakeTime = data.nextMakeTime || 0;
-        this.videoMakeTimes = data.videoMakeTimes || 0;
-        this.makeList = data.makeList || [];
-        this.gunPos = data.gunPos || {};
-        this.gunPosNum = _get['pos'] || data.gunPosNum || 3;
+        //this.gunLevel = data.gunLevel || {};
+        //this.nextMakeTime = data.nextMakeTime || 0;
+        //this.videoMakeTimes = data.videoMakeTimes || 0;
+        //this.makeList = data.makeList || [];
+        //this.gunPos = data.gunPos || {};
+        //this.gunPosNum = _get['pos'] || data.gunPosNum || 3;
         this.pastDayCoin = data.pastDayCoin
         this.adLevel = data.adLevel || 0
         this.addForceEnd = data.addForceEnd || 0
@@ -105,7 +104,7 @@ class UserManager_wx4 {
         DM.addTime = SharedObjectManager_wx4.getInstance().getMyValue('addTime') || 0;
         this.offlineTime = TM_wx4.now() - saveTime;
 
-        this.initDataTime = TM_wx4.now()
+        //this.initDataTime = TM_wx4.now()
 
         if(this.isFirst)
         {
@@ -121,10 +120,11 @@ class UserManager_wx4 {
                 }
             }
         }
-
+        GunManager.getInstance().initData(data);
+        SkillManager.getInstance().initData(data);
         this.testAddInvite();
         this.localSave();
-        GunManager.getInstance().initData(data);
+
     }
 
     public getPassDayCoin(){
@@ -135,8 +135,8 @@ class UserManager_wx4 {
         if(!DateUtil_wx4.isSameDay(this.pastDayCoin.t))
         {
             this.pastDayCoin.t = TM_wx4.now();
-            this.videoMakeTimes = 0;
-            this.coinTimes = 0;
+            //this.videoMakeTimes = 0;
+            //this.coinTimes = 0;
             this.pastDayCoin.coin = this.getPassDayCoin();
             this.needUpUser = true
         }
@@ -314,22 +314,22 @@ class UserManager_wx4 {
             loginTime:UM_wx4.loginTime,
             coin:UM_wx4.coin,
             level:UM_wx4.level,
-            endLess:UM_wx4.endLess,
+            //endLess:UM_wx4.endLess,
             helpUser:UM_wx4.helpUser,
-            gunLevel:UM_wx4.gunLevel,
-            gunPos:UM_wx4.gunPos,
-            coinTimes:UM_wx4.coinTimes,
-            nextMakeTime:UM_wx4.nextMakeTime,
-            videoMakeTimes:UM_wx4.videoMakeTimes,
-            makeList:UM_wx4.makeList,
-            gunPosNum:UM_wx4.gunPosNum,
+            //gunLevel:UM_wx4.gunLevel,
+            //gunPos:UM_wx4.gunPos,
+            //coinTimes:UM_wx4.coinTimes,
+            //nextMakeTime:UM_wx4.nextMakeTime,
+            //videoMakeTimes:UM_wx4.videoMakeTimes,
+            //makeList:UM_wx4.makeList,
+            //gunPosNum:UM_wx4.gunPosNum,
             pastDayCoin:UM_wx4.pastDayCoin,
             adLevel:UM_wx4.adLevel,
             addForceEnd:UM_wx4.addForceEnd,
 
-            cdCoin:UM_wx4.cdCoin,
-            cdCoinTime:UM_wx4.cdCoinTime,
-            cdCoinGetTime:UM_wx4.cdCoinGetTime,
+            //cdCoin:UM_wx4.cdCoin,
+            //cdCoinTime:UM_wx4.cdCoinTime,
+            //cdCoinGetTime:UM_wx4.cdCoinGetTime,
             //guideFinish:UM.guideFinish,
             saveTime:TM_wx4.now(),
         };
@@ -356,22 +356,22 @@ class UserManager_wx4 {
     }
 
 
-    public upWXEndLess(){
-        var wx = window['wx'];
-        if(!wx)
-            return;
-        var score = JSON.stringify({"wxgame":{"score":UM_wx4.endLess,"update_time": TM_wx4.now()}})
-        var upList = [{ key: 'endless', value: score}]; //{ key: 'level', value: UM.chapterLevel + ',' + TM.now()},
-        wx.setUserCloudStorage({
-            KVDataList: upList,
-            success: res => {
-                console.log(res);
-            },
-            fail: res => {
-                console.log(res);
-            }
-        });
-    }
+    //public upWXEndLess(){
+    //    var wx = window['wx'];
+    //    if(!wx)
+    //        return;
+    //    var score = JSON.stringify({"wxgame":{"score":UM_wx4.endLess,"update_time": TM_wx4.now()}})
+    //    var upList = [{ key: 'endless', value: score}]; //{ key: 'level', value: UM.chapterLevel + ',' + TM.now()},
+    //    wx.setUserCloudStorage({
+    //        KVDataList: upList,
+    //        success: res => {
+    //            console.log(res);
+    //        },
+    //        fail: res => {
+    //            console.log(res);
+    //        }
+    //    });
+    //}
 
     public upWXLevel(){
         var wx = window['wx'];
@@ -407,40 +407,38 @@ class UserManager_wx4 {
     }
 
 
-    public resetCDCoin(){
-        if(this.cdCoinTime < this.cdCoinGetTime + 8*3600)
-        {
-             var num = Math.floor((Math.min(TM_wx4.now(),this.cdCoinGetTime + 8*3600) - this.cdCoinTime)/this.collectCD)
-            if(num > 0)
-            {
-                this.cdCoinTime += num*this.collectCD;
-                this.cdCoin += num * Math.ceil(this.level/2)
-            }
-        }
-    }
-
-    public collectCDCoin(){
-        if(!this.cdCoin)
-        {
-            MyWindow.ShowTips('暂无可领取金币')
-            return;
-        }
-        var coin = this.cdCoin;
-        var add = BuffManager.getInstance().getCoinAdd();
-        if(add)
-        {
-            coin = Math.ceil(coin * (1+add/100));
-        }
-        UM_wx4.addCoin(coin);
-        this.cdCoinGetTime = TM_wx4.now();
-        this.cdCoinTime = TM_wx4.now();
-        this.cdCoin = 0;
-
-        MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(coin,2),0xFFFF00),2000)
-        MyWindow.ShowTips('好友加成：'+MyTool.createHtml('+' + add + '%',0x00FF00),2000)
-        SoundManager.getInstance().playEffect('coin')
-    }
-
-
+    //public resetCDCoin(){
+    //    if(this.cdCoinTime < this.cdCoinGetTime + 8*3600)
+    //    {
+    //         var num = Math.floor((Math.min(TM_wx4.now(),this.cdCoinGetTime + 8*3600) - this.cdCoinTime)/this.collectCD)
+    //        if(num > 0)
+    //        {
+    //            this.cdCoinTime += num*this.collectCD;
+    //            this.cdCoin += num * Math.ceil(this.level/2)
+    //        }
+    //    }
+    //}
+    //
+    //public collectCDCoin(){
+    //    if(!this.cdCoin)
+    //    {
+    //        MyWindow.ShowTips('暂无可领取金币')
+    //        return;
+    //    }
+    //    var coin = this.cdCoin;
+    //    var add = BuffManager.getInstance().getCoinAdd();
+    //    if(add)
+    //    {
+    //        coin = Math.ceil(coin * (1+add/100));
+    //    }
+    //    UM_wx4.addCoin(coin);
+    //    this.cdCoinGetTime = TM_wx4.now();
+    //    this.cdCoinTime = TM_wx4.now();
+    //    this.cdCoin = 0;
+    //
+    //    MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(coin,2),0xFFFF00),2000)
+    //    MyWindow.ShowTips('好友加成：'+MyTool.createHtml('+' + add + '%',0x00FF00),2000)
+    //    SoundManager.getInstance().playEffect('coin')
+    //}
 
 }

@@ -6,6 +6,7 @@ class PlayerData{
     public y;
 
     public size = 40//体积
+
     public atk = 40
     public hp = 1000;
     public maxHp = 1000;
@@ -18,8 +19,9 @@ class PlayerData{
 
     public doubleRate = 0.2
     public doubleValue = 1.5
+    public missRate = 1.5
 
-    public knife = 1;
+    public gunid = 1;
     public buffArr = [];
     public skills = {}
     public skillsList = []
@@ -52,10 +54,42 @@ class PlayerData{
     public initData(){
        this.isHide = false;
 
+        this.gunid = GunManager.getInstance().gunid
+        var gunVO = GunVO.getObject(this.gunid)
+
+        var playerData = PKManager.getInstance().getPlayerValue();
+        this.atk = Math.ceil(playerData.atk * gunVO.atk/100);
+        this.hp = playerData.hp
+        this.speed = gunVO.sp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+        this.hp = playerData.hp
+
+
+    public atk = 40
+    public hp = 1000;
+    public maxHp = 1000;
+    public speed = 12
+    public atkSpeed = PKTool.getStepByTime(600);  //上限300
+    public hitBack = 100;
+    public atkDis = 100;
+    public lastAtkTime = 0;
+    public bulletSpeed = 10;
+
+    public doubleRate = 0.2
+    public doubleValue = 1.5
+    public missRate = 1.5
 
 
 
-        this.maxHp = this.hp = 1000;
+
+
+        this.maxHp = this.hp
+        this.buffArr.length = 0;
 
 
 

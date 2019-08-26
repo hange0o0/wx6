@@ -31,9 +31,9 @@ class PlayerItem extends game.BaseItem{
     }
 
     public dataChanged():void {
-        var gunVO = GunVO.getObject(this.data.knife)
-        this.leftKnifeMC.source = 'knife_'+this.data.knife+'_png'
-        this.rightKnifeMC.source = 'knife_'+this.data.knife+'_png'
+        var gunVO = GunVO.getObject(this.data.gunid)
+        this.leftKnifeMC.source = 'knife_'+this.data.gunid+'_png'
+        this.rightKnifeMC.source = 'knife_'+this.data.gunid+'_png'
         this.leftKnifeMC.anchorOffsetX = this.rightKnifeMC.anchorOffsetX = gunVO.anx
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
 
@@ -311,7 +311,7 @@ class PlayerItem extends game.BaseItem{
             return;
         playerData.lastAtkTime = PKC.actionStep;
         var bullet = PKCodeUI.getInstance().shoot(playerData,this.ctrlRota/180*Math.PI);
-        bullet.setImage( 'knife_'+playerData.knife+'_png');
+        bullet.setImage( 'knife_'+playerData.gunid+'_png');
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 30
         bullet.hitBack = 20

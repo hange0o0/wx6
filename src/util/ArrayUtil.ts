@@ -118,4 +118,41 @@ class ArrayUtil_wx4 {
         }
         return -1;
     }
+
+    public static randomByRate(arr,key='rate'){
+        var count = 0
+        for(var s in arr)
+        {
+            count += arr[s][key]
+        }
+        var rate = count * Math.random();
+        var indexCount = 0;
+        for(var i=0;i<arr.length;i++)
+        {
+            var vo = arr[i];
+            indexCount += vo[key];
+            if(indexCount >= rate)
+            {
+                return vo;
+            }
+        }
+        return arr[0];
+    }
+
+    public static randomNumByRate(rates,num,key='rate',value='@whole'){
+        var arr = []
+        for(var i=0;i<num;i++) {
+            var skillData = ArrayUtil_wx4.randomByRate(rates,key)
+            if(skillData) {
+                var index = rates.indexOf(skillData);
+                if(index != -1)
+                    rates.splice(index,1)
+                if(value == '@whole')
+                    arr.push(skillData)
+                else
+                    arr.push(skillData[value])
+            }
+        }
+        return arr;
+    }
 }

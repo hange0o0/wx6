@@ -9,7 +9,16 @@ class GunManager extends egret.EventDispatcher {
     public gunid = 1;
 
     public initData(data){
-        this.myGun = data.myGun?data.myGun.split(','):['1']
+        var gunData = data.gun || {};
+        this.myGun = gunData.myGun?gunData.myGun.split(','):['1']
+        this.gunid = gunData.gunid || 1;
+    }
+
+    public getSave(){
+        return {
+            myGun:this.myGun.join(','),
+            gunid:this.gunid
+        }
     }
 
     public isHaveGun(id){

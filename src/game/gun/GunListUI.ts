@@ -72,8 +72,8 @@ class GunListUI extends game.BaseWindow_wx4{
 
     public renew(){
         var list = ObjectUtil_wx4.objToArray(GunVO.data)
+        list.length = 5;
         this.list.dataProvider = new eui.ArrayCollection(list)
-
     }
 
     private createText(title,des){
