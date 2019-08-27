@@ -303,13 +303,14 @@ class AniManager_wx3 {
         return mv;
     }
 
-    public playInItem(mvID,item){
+    public playInItem(mvID,item,xy?){
         if(!this.preLoadMV(mvID))
         {
             return;
         }
         var mv = this.getAniOnce(mvID);
-        mv.x = mv.y = 0;
+        mv.x = xy?xy.x:0
+        mv.y = xy?xy.y:0
         item.addChild(mv);
         return mv;
     }

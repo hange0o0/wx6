@@ -37,6 +37,7 @@ class S2 extends SBase{
 
         item.body.x = 40
         item.body.y = 40
+        return true;
     }
 
     public onStep(){

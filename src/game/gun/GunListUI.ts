@@ -84,7 +84,7 @@ class GunListUI extends game.BaseWindow_wx4{
         var GM = GunManager.getInstance();
         var vo:GunVO = GunVO.getObject(GM.gunid);
 
-        PKC.playerData.knife = GM.gunid;
+        PKC.playerData.gunid = GM.gunid;
         this.playerItem.data = PKC.playerData;
 
 
@@ -96,7 +96,7 @@ class GunListUI extends game.BaseWindow_wx4{
         arr.push(this.createText('打退距离',vo.atkback + ''))
         arr.push(this.createText('暴击率',vo.doublerate + '%'))
         arr.push(this.createText('暴击倍数',MyTool.toFixed(vo.doublevalue/100,1) + '倍'))
-        arr.push(this.createText('闪避率',vo.missvalue + '%'))
+        arr.push(this.createText('闪避率',vo.missrate + '%'))
         this.setHtml(this.atkText,arr.join('\n'));
 
     }

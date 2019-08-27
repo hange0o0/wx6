@@ -7,8 +7,12 @@ class SkillListUI extends game.BaseWindow_wx4 {
         return this._instance;
     }
 
-    private sendBtn: eui.Button;
-    private inputText: eui.EditableText;
+    private scroller: eui.Scroller;
+    private list: eui.List;
+    private atkText: eui.Label;
+    private nameText: eui.Label;
+    private rateText: eui.Label;
+
 
 
 
@@ -22,15 +26,15 @@ class SkillListUI extends game.BaseWindow_wx4 {
     public childrenCreated() {
         super.childrenCreated();
         this.setTitle('问题与建议')
-        this.addBtnEvent(this.sendBtn,()=>{
-            if(this.inputText.text)
-            {
-                sendFeedBack(this.inputText.text);
-                MyWindow.ShowTips('感谢你的反馈，我们会努力做得更好的！')
-                this.hide();
-            }
-
-        })
+        //this.addBtnEvent(this.sendBtn,()=>{
+        //    if(this.inputText.text)
+        //    {
+        //        sendFeedBack(this.inputText.text);
+        //        MyWindow.ShowTips('感谢你的反馈，我们会努力做得更好的！')
+        //        this.hide();
+        //    }
+        //
+        //})
     }
 
     public show(){
@@ -42,7 +46,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
-        this.inputText.text = ''
+        //this.inputText.text = ''
     }
 
 }

@@ -18,7 +18,7 @@ class GunVO {
     public atkback: number;
     public doublerate: number;
     public doublevalue: number;
-    public missvalue: number;
+    public missrate: number;
     public anx: number;
     public any: number;
 

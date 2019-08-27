@@ -2,10 +2,7 @@ class SkillListItem extends game.BaseItem{
 
     private mc: eui.Image;
     private levelText: eui.Label;
-    private unlockGroup: eui.Group;
-
-
-
+    private rateText: eui.Label;
 
 
 

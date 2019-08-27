@@ -1,13 +1,8 @@
 class SkillChooseItem extends game.BaseItem{
 
     private mc: eui.Image;
-    private mc2: eui.Image;
     private levelText: eui.Label;
-    private lockGroup: eui.Group;
-    private lockText: eui.Label;
-
-
-
+    private nameText: eui.Label;
 
 
     public constructor() {

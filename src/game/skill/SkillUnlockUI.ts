@@ -1,21 +1,21 @@
-class SkillInfoUI extends game.BaseWindow_wx4 {
+class SkillUnlockUI extends game.BaseWindow_wx4 {
 
-    private static _instance: SkillInfoUI;
-    public static getInstance(): SkillInfoUI {
+    private static _instance: SkillUnlockUI;
+    public static getInstance(): SkillUnlockUI {
         if(!this._instance)
-            this._instance = new SkillInfoUI();
+            this._instance = new SkillUnlockUI();
         return this._instance;
     }
 
-    private atkText: eui.Label;
-    private rateText: eui.Label;
-    private closeBtn: eui.Button;
+    private refreshBtn: eui.Button;
+    private inviteBtn: eui.Button;
+
 
 
     public data;
     public constructor() {
         super();
-        this.skinName = "SkillInfoUISkin";
+        this.skinName = "SkillUnlockUISkin";
         this.canBGClose = false
     }
 

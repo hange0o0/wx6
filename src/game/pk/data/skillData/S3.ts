@@ -41,19 +41,7 @@ class S3 extends SBase{
         item.body.x = 40
         item.body.y = 50
 
-        //item.leftCon.scaleX = 1;
-        //item.leftCon.rotation = 30
-        //item.leftCon.x = 10;
-        //item.leftCon.y = -10;
-        //
-        //item.leftCon.scaleX = -1;
-        //item.rightCon.rotation =  -30
-        //item.rightCon.x = 70;
-        //item.rightCon.y = -10;
-        //
-        //
-        //item.body.x = 40
-        //item.body.y = 40
+        return true;
     }
 
     public onStep(){

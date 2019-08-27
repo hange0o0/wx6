@@ -35,7 +35,7 @@ class UserManager_wx4 {
     public pastDayCoin
     //public gunPosNum = 3;
     //public endLess = 0;
-    //public coinTimes = 0;
+    public coinTimes = 0;
     public helpUser = null;
     //
     //public cdCoin = 0;
@@ -83,7 +83,7 @@ class UserManager_wx4 {
         //this.helpUser = data.helpUser;
         //this.endLess = data.endLess || 0;
         this.level = data.level || 1;
-        //this.coinTimes = data.coinTimes || 0;
+        this.coinTimes = data.coinTimes || 0;
 
         //this.cdCoin = data.cdCoin || 0;
         //this.cdCoinTime = data.cdCoinTime || 0;
@@ -136,7 +136,7 @@ class UserManager_wx4 {
         {
             this.pastDayCoin.t = TM_wx4.now();
             //this.videoMakeTimes = 0;
-            //this.coinTimes = 0;
+            this.coinTimes = 0;
             this.pastDayCoin.coin = this.getPassDayCoin();
             this.needUpUser = true
         }
@@ -318,7 +318,7 @@ class UserManager_wx4 {
             helpUser:UM_wx4.helpUser,
             //gunLevel:UM_wx4.gunLevel,
             //gunPos:UM_wx4.gunPos,
-            //coinTimes:UM_wx4.coinTimes,
+            coinTimes:UM_wx4.coinTimes,
             //nextMakeTime:UM_wx4.nextMakeTime,
             //videoMakeTimes:UM_wx4.videoMakeTimes,
             //makeList:UM_wx4.makeList,

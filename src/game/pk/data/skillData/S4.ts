@@ -12,5 +12,6 @@ class S4 extends SBase{
             playerData.relateItem.showShootMV()
         else
             playerData.relateItem.showStandMV()
+        return true;
     }
 }

@@ -118,8 +118,6 @@ class GameUI extends game.BaseUI_wx4 {
     }
 
     public onShow(){
-        if(_get['pos'])
-            UM_wx4.gunPosNum = parseInt(_get['pos']);
         if(_get['level'])
             UM_wx4.level = parseInt(_get['level']);
         SoundManager.getInstance().playSound('bg')

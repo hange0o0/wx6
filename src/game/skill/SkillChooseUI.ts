@@ -7,10 +7,10 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
         return this._instance;
     }
 
-    private sendBtn: eui.Button;
-    private inputText: eui.EditableText;
-
-
+    private list2: eui.List;
+    private list1: eui.List;
+    private refreshBtn: eui.Button;
+    private startBtn: eui.Button;
 
     public data;
     public constructor() {
@@ -22,13 +22,7 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
     public childrenCreated() {
         super.childrenCreated();
         this.setTitle('问题与建议')
-        this.addBtnEvent(this.sendBtn,()=>{
-            if(this.inputText.text)
-            {
-                sendFeedBack(this.inputText.text);
-                MyWindow.ShowTips('感谢你的反馈，我们会努力做得更好的！')
-                this.hide();
-            }
+        this.addBtnEvent(this.refreshBtn,()=>{
 
         })
     }
@@ -42,7 +36,7 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
-        this.inputText.text = ''
+
     }
 
 }

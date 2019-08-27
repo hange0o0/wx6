@@ -203,7 +203,6 @@ class GameManager_wx4 {
         }
 
         EM_wx4.dispatch(GameEvent.client.timer);
-        UM_wx4.resetCDCoin();
 
         //if(UM.friendtime == 0){  //拿过日志了
         //    if(now%30 == 0) //5分钟请求一次
@@ -331,7 +330,7 @@ if(window["wx"])
         //GameUI.getInstance().cleanTouch();
         console.log('show')
         MyADManager.getInstance().onShow(res);
-        UM_wx4.resetCDCoin();
+        //UM_wx4.resetCDCoin();
 
 
         //if(GameManager_wx4.getInstance().changeUserTime)

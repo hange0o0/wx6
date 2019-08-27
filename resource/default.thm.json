@@ -50,6 +50,13 @@
 		"resource/skin/game/pk/PKUISkin.exml",
 		"resource/skin/game/rank/RankItemSkin.exml",
 		"resource/skin/game/rank/RankUISkin.exml",
+		"resource/skin/game/skill/SkillChooseItem2Skin.exml",
+		"resource/skin/game/skill/SkillChooseItemSkin.exml",
+		"resource/skin/game/skill/SkillChooseUISkin.exml",
+		"resource/skin/game/skill/SkillInfoUISkin.exml",
+		"resource/skin/game/skill/SkillListItemSkin.exml",
+		"resource/skin/game/skill/SkillListUISkin.exml",
+		"resource/skin/game/skill/SkillUnlockUISkin.exml",
 		"resource/skin/guide/GuideSkin.exml"
 	],
 	"path": "resource/default.thm.json"

@@ -74,7 +74,7 @@ class RankUI extends game.BaseWindow_wx4{
         }
         else if(this.tab.selectedIndex == 3)
         {
-            this.worldRank('endless',UM_wx4.endLess);
+            //this.worldRank('endless',UM_wx4.endLess);
         }
         else
         {
@@ -133,7 +133,7 @@ class RankUI extends game.BaseWindow_wx4{
         this.scroller.visible = true;
         var arr = this.rankData[type].list;
         var b = false;
-        var myScore = type=='level'?UM_wx4.level:UM_wx4.endLess;
+        var myScore = 1//type=='level'?UM_wx4.level:UM_wx4.endLess;
         for(var i=0;i<arr.length;i++) //更新自己成绩
         {
             arr[i].type = type;
@@ -191,7 +191,7 @@ class RankUI extends game.BaseWindow_wx4{
         else if(this.tab.selectedIndex == 1)
         {
             var key = 'endless'
-            var value = UM_wx4.endLess
+            //var value = UM_wx4.endLess
         }
         let param:any = {
             me: UM_wx4.gameid,

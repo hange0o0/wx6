@@ -20,11 +20,11 @@ class SkillManager extends egret.EventDispatcher {
                 num:parseInt(temp[1]),
             })
         }
-        var arr = [1,4,10,20,45,70,100,150,200,250,300,350,400,450,500,550,600,650,700,750]//20
+        var levelArr = [1,4,10,20,45,70,100,150,200,250,300,350,400,450,500,550,600,650,700,750]//20
         var count = 0;
-        for(var i=0;i<arr.length;i++)
+        for(var i=0;i<levelArr.length;i++)
         {
-            count += arr[i];
+            count += levelArr[i];
             this.levelBase.push(count)
         }
     }

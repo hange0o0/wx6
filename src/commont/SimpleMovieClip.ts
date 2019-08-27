@@ -17,6 +17,7 @@ class MovieSimpleSpirMC extends eui.Group{
     public currSleep:number = 0;
     private playTimes:number;
     private loopIndex:number = 0;
+    private isLoop = false;
 
     private timeID: egret.Timer;
 
@@ -74,12 +75,17 @@ class MovieSimpleSpirMC extends eui.Group{
 
     //playTimes 播放次数，-1表示循环
     //loopIndex 循环播放的起始帧，默认是0
-    public gotoAndPay(value:number=0, playTimes:number=-1,loopIndex=0){
+    public gotoAndPay(value:number=0, playTimes:number=0,loopIndex=0){
         this.current = value;
         this.playTimes = playTimes;
-        if(this.playTimes == -1)
+        if(this.playTimes == 0)
         {
+            this.isLoop = true
             this.loopIndex = loopIndex
+        }
+        else
+        {
+            this.isLoop = false
         }
         this.icon.source = this.list[this.current];
         this.play();
@@ -109,11 +115,14 @@ class MovieSimpleSpirMC extends eui.Group{
         if(++this.current == this.max){
             this.currSleep = 1;
             this.current = 0;
-            this.playTimes--;
-            if(this.playTimes <0)
+            if(this.isLoop)
             {
                 this.current = this.loopIndex
+                return;
             }
+
+
+            this.playTimes--;
             if(this.playTimes == 0)
             {
                 this.stop();
@@ -135,6 +144,7 @@ class MovieSimpleSpirMC extends eui.Group{
         this.height = undefined;
         this.icon.scaleX = this.icon.scaleY = 1
         this.scaleX = this.scaleY = 1
+        MyTool.removeMC(this);
 
         if(MovieSimpleSpirMC.pool.indexOf(this) == -1)
             MovieSimpleSpirMC.pool.push(this)
@@ -294,7 +304,7 @@ class MovieSimpleSpirMC2 extends eui.Group {
                         this.loop(this.stopLoop,null);
                         return;
                     }
-                    this.stop();;
+                    this.stop();
                     this.dispatchEventWith("complete");
                 }
             }
@@ -322,6 +332,7 @@ class MovieSimpleSpirMC2 extends eui.Group {
         this.height = undefined;
         this.icon.scaleX = this.icon.scaleY = 1
         this.scaleX = this.scaleY = 1
+        MyTool.removeMC(this);
 
         if(MovieSimpleSpirMC2.pool.indexOf(this) == -1)
             MovieSimpleSpirMC2.pool.push(this)

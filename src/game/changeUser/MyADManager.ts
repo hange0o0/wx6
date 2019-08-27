@@ -99,6 +99,8 @@ class MyADManager {
         }
 
         wx.wladGetAds(num,function (res) { //第⼀一个参数为获取⼴广告条数，第⼆二个参数为获取成功后回调⽅方法;
+            if(!res.data || !res.data.length)
+                return;
             self.adList = self.adList.concat(res.data);
             self.resetAdList();
             fun && fun();

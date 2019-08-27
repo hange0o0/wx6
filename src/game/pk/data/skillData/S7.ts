@@ -22,7 +22,7 @@ class S7 extends SBase{
         item.roleCon.rotation = item.ctrlRota+90
         item.showShootMV();
 
-
+        return true;
     }
 
     public onStep(){
@@ -32,7 +32,7 @@ class S7 extends SBase{
         this.step --;
 
         var bullet = PKCodeUI.getInstance().shoot(playerData,(playerData.relateItem.ctrlRota - 5 + Math.random()*10)/180*Math.PI);
-        bullet.setImage( 'knife_'+playerData.knife+'_png');
+        bullet.setImage( 'knife_'+playerData.gunid+'_png');
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 30
         bullet.hitBack = 20

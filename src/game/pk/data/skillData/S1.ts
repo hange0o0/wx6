@@ -24,5 +24,6 @@ class S1 extends SBase{
                     playerData.relateItem.alpha = 1
             }
         });
+        return true;
     }
 }

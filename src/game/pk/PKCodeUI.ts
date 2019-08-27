@@ -9,9 +9,9 @@ class PKCodeUI extends game.BaseContainer_wx4{
 
     private con: eui.Group;
     private bg: eui.Image;
-    private bottomCon: eui.Group;
-    private roleCon: eui.Group;
-    private bulletCon: eui.Group;
+    public bottomCon: eui.Group;
+    public roleCon: eui.Group;
+    public bulletCon: eui.Group;
 
 
 
