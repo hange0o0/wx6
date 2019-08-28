@@ -162,7 +162,7 @@ class PKTool {
 
         mv.icon.fillMode = 'repeat'
         mv.icon.width = MyTool.getDis(from,to);
-        mv.anchorOffsetY = 35
+        mv.anchorOffsetY = 35/2
         PKCodeUI.getInstance().bulletCon.addChild(mv);
         mv.x = from.x
         mv.y = from.y

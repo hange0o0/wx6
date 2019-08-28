@@ -70,7 +70,7 @@ class MovieSimpleSpirMC extends eui.Group{
     }
 
     public stop(){
-        this.timeID.stop();
+        this.timeID && this.timeID.stop();
     }
 
     //playTimes 播放次数，-1表示循环

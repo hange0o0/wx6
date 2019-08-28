@@ -73,7 +73,7 @@ class MBase {
     public maxHp = 100
     public atk = 10
     public atkDis = 100
-    public speed = 10
+    public speed = 2
     public atkSpeed = 30//帧
     public bulletSpeed = 10//子弹速度
 

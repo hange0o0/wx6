@@ -1963,6 +1963,11 @@
 			"name":"mine_png",
 			"type":"image",
 			"url":"game_assets2/ani/mine.png"
+		},
+		{
+			"name":"skill22_png",
+			"type":"image",
+			"url":"game_assets2/ani/skill22.png"
 		}
 	]
 }

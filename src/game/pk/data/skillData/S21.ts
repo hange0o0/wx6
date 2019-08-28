@@ -3,7 +3,14 @@ class S21 extends SBase{
         super();
     }
 
-    public onUse(){
-        PKC.playerData.atk += 10;
+    public totalTime = 100
+
+    public onCreate(){
     }
+
+    public onUse(){
+        PKC.playerData.wudiStep = this.totalTime
+    }
+
+
 }

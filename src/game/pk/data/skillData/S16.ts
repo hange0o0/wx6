@@ -3,7 +3,21 @@ class S16 extends SBase{
         super();
     }
 
+    public data = {
+        id:16,
+        hp:300,
+        hurtDis:100,
+        hurt:50,
+    }
+
+
+    public onCreate(){
+
+    }
+
     public onUse(){
-        PKC.playerData.atk += 10;
+        this.data.hurt = PKC.playerData.atk;
+
+        PKCodeUI.getInstance().addTrap(this.data)
     }
 }

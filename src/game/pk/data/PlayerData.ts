@@ -9,6 +9,7 @@ class PlayerData{
 
     public atk = 40
     public hp = 1000;
+    public hpDef = 1000;
     public maxHp = 1000;
     public speed = 12
     public atkSpeed = PKTool.getStepByTime(600);  //上限300
@@ -20,6 +21,8 @@ class PlayerData{
     public doubleRate = 0.2
     public doubleValue = 1.5
     public missRate = 1.5
+
+    public wudiStep = 0
 
     public gunid = 1;
     public buffArr = [];
@@ -69,6 +72,8 @@ class PlayerData{
         this.doubleRate = gunVO.doublerate
         this.doubleValue = gunVO.doublevalue
         this.missRate = gunVO.missrate
+        this.hpDef = 0;
+        this.wudiStep = 0;
 
 
 
@@ -119,6 +124,11 @@ class PlayerData{
             }
             buff.onStep && buff.onStep();
         }
+
+        if(this.wudiStep > 0)
+        {
+            this.wudiStep --;
+        }
     }
 
 
@@ -129,6 +139,18 @@ class PlayerData{
     public addHp(v,isBuff?){
         if(v<0)
         {
+            if(this.wudiStep > 0)
+                return;
+            if(this.hpDef>0)
+            {
+                this.hpDef += v;
+                v = 0;
+                if(this.hpDef < 0)
+                {
+                    v = this.hpDef;
+                    this.hpDef = 0;
+                }
+            }
             //if(this.isHide && !isBuff)
             //    return;
         }

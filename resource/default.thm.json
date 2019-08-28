@@ -46,6 +46,7 @@
 		"resource/skin/game/pk/items/PKBulletItemSkin.exml",
 		"resource/skin/game/pk/items/PKMonsterItemSkin.exml",
 		"resource/skin/game/pk/items/PKSkillItemSkin.exml",
+		"resource/skin/game/pk/items/TrapItemSkin.exml",
 		"resource/skin/game/pk/PKCodeUISkin.exml",
 		"resource/skin/game/pk/PKUISkin.exml",
 		"resource/skin/game/rank/RankItemSkin.exml",

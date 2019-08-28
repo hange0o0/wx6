@@ -22,6 +22,7 @@ class PKBulletItem extends game.BaseItem {
     public endTime = 0
     public speed = 0
     public atk = 0
+    public atkR = 0
     public hitPass = false//命中后不消失
     public hitList = {}//已撞过
     public hitBack = 0//推后
@@ -39,8 +40,9 @@ class PKBulletItem extends game.BaseItem {
         this.anchorOffsetY = 25
     }
 
-    public setImage(url){
+    public setImage(url,rota=0){
         this.mc.source = url;
+        this.mc.rotation = rota
     }
 
     public dataChanged(){
@@ -55,6 +57,7 @@ class PKBulletItem extends game.BaseItem {
         this.endTime = PKC.actionStep + PKC.frameRate*2;//默认2S后消失
         this.hitList = {};
         this.hitBack = 0;
+        this.atkR = 0;
 
 
         this.setImage('')
@@ -76,7 +79,7 @@ class PKBulletItem extends game.BaseItem {
             if(this.hitList[item.onlyID])
                 continue;
             var dis = MyTool.getDis(this,item.getHitPos());
-            if(dis < item.size)
+            if(dis < item.size + this.atkR)
             {
                 this.hitList[item.onlyID] = true;
                 item.addHp(-this.atk)

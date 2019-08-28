@@ -3,7 +3,19 @@ class S19 extends SBase{
         super();
     }
 
+    public data = {
+        id:19,
+        hp:300,
+        hurtDis:100,
+        hurt:10,
+    }
+
+
+    public onCreate(){
+
+    }
+
     public onUse(){
-        PKC.playerData.atk += 10;
+        PKCodeUI.getInstance().addTrap(this.data)
     }
 }

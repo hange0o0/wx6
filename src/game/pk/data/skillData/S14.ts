@@ -52,7 +52,7 @@ class S14 extends SBase{
         {
             var monster = nearMonster[i];
             monster.addHp(-this.hurt)
-            PKTool.showLight(playerData,monster)
+            PKTool.showLight(playerData,monster.getHitPos())
         }
 
         return true;

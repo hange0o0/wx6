@@ -3,7 +3,20 @@ class S18 extends SBase{
         super();
     }
 
+    public data = {
+        id:18,
+        hp:300,
+        hurtDis:100,
+        hurt:10,
+        step:30*5
+    }
+
+
+    public onCreate(){
+
+    }
+
     public onUse(){
-        PKC.playerData.atk += 10;
+        PKCodeUI.getInstance().addTrap(this.data)
     }
 }

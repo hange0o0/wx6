@@ -45,7 +45,7 @@ class S13 extends SBase{
 
         this.hurtID[minMonster.onlyID] = 1
         minMonster.addHp(-this.hurt)
-        PKTool.showLight(playerData,minMonster)
+        PKTool.showLight(playerData,minMonster.getHitPos())
         this.leftNum = this.maxNum - 1
         this.lastMonster = minMonster
 
@@ -80,7 +80,7 @@ class S13 extends SBase{
         {
             this.hurtID[minMonster.onlyID] = 1
             minMonster.addHp(-Math.ceil(this.hurt*this.leftNum/this.maxNum))
-            PKTool.showLight(this.lastMonster,minMonster)
+            PKTool.showLight(this.lastMonster.getHitPos(),minMonster.getHitPos())
             this.lastMonster = minMonster;
 
             this.leftNum --;

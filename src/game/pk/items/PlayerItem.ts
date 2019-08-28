@@ -24,10 +24,14 @@ class PlayerItem extends game.BaseItem{
     private atkStep = 0
     private ctrlRota = 0//控制面向的方向
 
+    private wudiMC
+
     public childrenCreated() {
         super.childrenCreated();
         this.anchorOffsetX = 40
         this.anchorOffsetY = 40
+
+
     }
 
     public dataChanged():void {
@@ -189,6 +193,20 @@ class PlayerItem extends game.BaseItem{
 
 
     public onE(){
+        if(this.data.wudiStep > 0)
+        {
+            if(!this.wudiMC)
+            {
+                this.wudiMC = new eui.Image('21_png')
+                this.wudiMC.anchorOffsetX = 251/2
+                this.wudiMC.anchorOffsetY = 251/2
+                this.wudiMC.scaleX = this.wudiMC.scaleY = 0.4
+                this.wudiMC.x = this.wudiMC.y = 40
+            }
+            this.addChildAt(this.wudiMC,0);
+        }
+        else
+            MyTool.removeMC(this.wudiMC)
         var playerData = this.data
         if(playerData.isFar)
         {

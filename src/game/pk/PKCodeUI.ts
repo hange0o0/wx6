@@ -24,6 +24,8 @@ class PKCodeUI extends game.BaseContainer_wx4{
     public playerItem = new PlayerItem()
     public monsterArr = [];
     public bulletArr = [];
+    public bombArr = [];
+    public trapArr = [];
 
 
     public constructor() {
@@ -46,6 +48,24 @@ class PKCodeUI extends game.BaseContainer_wx4{
     }
 
     public onShow(){
+        while(this.monsterArr.length)
+        {
+            PKMonsterItem_wx3.freeItem(this.monsterArr.pop())
+        }
+        while(this.bulletArr.length)
+        {
+            PKBulletItem.freeItem(this.bulletArr.pop())
+        }
+        while(this.bombArr.length)
+        {
+            BombItem.freeItem(this.bombArr.pop())
+        }
+        while(this.trapArr.length)
+        {
+            TrapItem.freeItem(this.trapArr.pop())
+        }
+
+
         this.con.width = this.bg.width = PKC.mapW
         this.con.height = this.bg.height = PKC.mapH
         PKC.playerData.initData();
@@ -122,16 +142,39 @@ class PKCodeUI extends game.BaseContainer_wx4{
             mItem.onE();
         }
 
+        for(var i=0;i<this.bombArr.length;i++)
+        {
+            var bombItem = this.bombArr[i];
+            if(bombItem.isDie == 2)
+            {
+                BombItem.freeItem(bombItem);
+                this.bombArr.splice(i,1)
+                i--;
+                continue;
+            }
+            bombItem.testHit();
+        }
+
+        for(var i=0;i<this.trapArr.length;i++)
+        {
+            var trapItem = this.trapArr[i];
+            if(trapItem.isDie)
+            {
+                TrapItem.freeItem(trapItem);
+                this.trapArr.splice(i,1)
+                i--;
+                continue;
+            }
+            trapItem.testHit();
+        }
+
         this.sortY();
     }
 
     public addMonster(mid,x,y){
        var newItem = PKMonsterItem_wx3.createItem();
         this.monsterArr.push(newItem);
-
-            this.roleCon.addChild(newItem);
-
-
+        this.roleCon.addChild(newItem);
         newItem.data = MBase.getItem(mid);
         newItem.resetXY(x,y)
         return newItem.data;
@@ -152,7 +195,28 @@ class PKCodeUI extends game.BaseContainer_wx4{
         return bullet;
     }
 
+    public addBomb(monsterItem,hurt,hurtDis){
+        var item = BombItem.createItem();
+        this.bombArr.push(item);
+        this.roleCon.addChild(item)
 
+
+        item.dataChanged();
+        item.decHp = hurt;
+        item.hurtDis = hurtDis;
+        item.x = monsterItem.x
+        item.y = monsterItem.y
+    }
+
+    public addTrap(data){
+        var item = TrapItem.createItem();
+        this.trapArr.push(item);
+        this.roleCon.addChild(item)
+
+        item.data = data
+        item.x = PKC.playerData.x
+        item.y = PKC.playerData.y
+    }
 
 
 }

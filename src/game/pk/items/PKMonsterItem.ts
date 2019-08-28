@@ -158,12 +158,11 @@ class PKMonsterItem_wx3 extends game.BaseItem {
                 this.stateFireMV.anchorOffsetY = 532/2*0.8
                 this.stateFireMV.x = 50
                 this.stateFireMV.y = 300
-                this.statePoisonMV.setData('effect17_png',531/3,532/2,5,84)
-                this.statePoisonMV.widthNum = 3
+                this.stateFireMV.setData('effect18_png',531/3,532/2,5,84)
+                this.stateFireMV.widthNum = 3
                 this.stateFireMV.stop()
             }
             this.addChild(this.stateFireMV)
-
             this.stateFireMV.play()
         }
         this.fireStep = Math.max(step,this.fireStep);
@@ -177,10 +176,10 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             if(!this.statePoisonMV)
             {
                 this.statePoisonMV = new MovieSimpleSpirMC2()
-                this.stateFireMV.anchorOffsetX = 560/4/2
-                this.stateFireMV.anchorOffsetY = 412/2*0.8
-                this.stateFireMV.x = 50
-                this.stateFireMV.y = 300
+                this.statePoisonMV.anchorOffsetX = 560/4/2
+                this.statePoisonMV.anchorOffsetY = 412/2*0.8
+                this.statePoisonMV.x = 50
+                this.statePoisonMV.y = 300
                 this.statePoisonMV.setData('effect17_png',560/4,412/2,7,84)
                 this.statePoisonMV.widthNum = 4
                 this.statePoisonMV.stop()
@@ -327,8 +326,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         if(this.statePoisonMV)
             this.statePoisonMV.stop()
         if(this.stateFireMV)
-            this.statePoisonMV.stop()
+            this.stateFireMV.stop()
         if(this.stateYunMV)
-            this.statePoisonMV.stop()
+            this.stateYunMV.stop()
     }
 }

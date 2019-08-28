@@ -3,7 +3,15 @@ class S15 extends SBase{
         super();
     }
 
+    public hurt = 100
+    public hurtDis = 100
+
+
+    public onCreate(){
+
+    }
+
     public onUse(){
-        PKC.playerData.atk += 10;
+        PKCodeUI.getInstance().addBomb(PKC.playerData,this.hurt,this.hurtDis)
     }
 }
