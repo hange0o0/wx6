@@ -24,6 +24,7 @@ class S20 extends SBase{
         PKC.playerData.relateItem.leftCon.addChild(this.defMC1)
         PKC.playerData.relateItem.rightCon.addChild(this.defMC2)
         this.step = this.totalTime
+        return true;
     }
 
     public onStep(){

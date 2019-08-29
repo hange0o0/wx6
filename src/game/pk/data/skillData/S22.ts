@@ -30,6 +30,7 @@ class S22 extends SBase{
 
         item.roleCon.rotation = item.ctrlRota+90
         item.showDoubleMV();
+        playerData.lastAtkTime = PKC.actionStep;
 
         return true;
     }

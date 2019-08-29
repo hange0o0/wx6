@@ -32,5 +32,6 @@ class S23 extends SBase{
                 monster.relateItem.resetXY(monster.x+x,monster.y+y)
             }
         }
+        return true;
     }
 }

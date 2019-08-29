@@ -197,6 +197,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         var playerData = PKC.playerData;
         this.runBuff();
+        if(myData.isDie)//buff会至死
+            return;
 
         if(PKC.actionStep < myData.stopEnd)
             return;

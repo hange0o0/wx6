@@ -6,7 +6,7 @@ class GameEvent {
         HP_CHANGE:'HP_CHANGE',
         GUN_CHANGE:'GUN_CHANGE',
         GUN_UNLOCK:'GUN_UNLOCK',
-        MAKE_CHANGE:'MAKE_CHANGE',
+        SKILL_USE:'SKILL_USE',
 
 
         ADD_BOSS:'ADD_BOSS',

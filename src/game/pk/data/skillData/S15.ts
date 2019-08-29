@@ -13,5 +13,6 @@ class S15 extends SBase{
 
     public onUse(){
         PKCodeUI.getInstance().addBomb(PKC.playerData,this.hurt,this.hurtDis)
+        return true;
     }
 }

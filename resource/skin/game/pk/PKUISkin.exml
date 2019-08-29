@@ -16,10 +16,17 @@
 		<e:Image id="ctrlBG" source="move_ctrl_bg_png" horizontalCenter="0" verticalCenter="0"/>
 		<e:Image id="ctrlMC" source="move_ctrl_item_png" y="160" x="160" anchorOffsetX="44" anchorOffsetY="44"/>
 	</e:Group>
-	<e:Group id="skillInfoGroup" width="580" horizontalCenter="0" bottom="365" height="120">
+	<e:Group id="skillInfoGroup" width="620" horizontalCenter="0" bottom="365" height="120">
 		<e:Image left="0" right="0" top="0" bottom="0" source="black_bg_alpha_png"/>
 		<ns1:PKSkillItem id="skillInfoItem" x="10" skinName="PKSkillItemSkin" verticalCenter="0"/>
-		<e:Label id="desText" text="Label" y="20" size="24" left="130" right="10"/>
+		<e:Label id="desText" text="Label" y="48" size="22" left="130" right="10" lineSpacing="8"/>
+		<e:Group x="130" y="15">
+			<e:Label id="skillNameText" text="Label" y="0" size="24" textColor="0x9bd2ff" x="0"/>
+			<e:Label id="skillCDText" text="Label" y="0" size="24" x="0" textColor="0xfce7b0"/>
+			<e:layout>
+				<e:HorizontalLayout gap="20"/>
+			</e:layout>
+		</e:Group>
 	</e:Group>
 	<e:Group y="30" horizontalCenter="0" height="32">
 		<e:Image source="boss_hp1_png" x="0" y="0"/>
@@ -27,4 +34,5 @@
 		<e:BitmapLabel id="hpText" font="pk_word3_fnt" text="123" horizontalCenter="0" verticalCenter="0" letterSpacing="-5"/>
 		<e:Image id="rateBar" source="yellor_bg_png" x="14" y="32" height="5" width="326"/>
 	</e:Group>
+	<e:Label id="monsterText" text="Label" y="80" horizontalCenter="0" stroke="3" cacheAsBitmap="true"/>
 </e:Skin>

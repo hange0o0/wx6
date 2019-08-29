@@ -1,4 +1,4 @@
-class S34 extends SBase{
+class S51 extends SBase{
     constructor() {
         super();
     }
@@ -7,6 +7,10 @@ class S34 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-        PKC.playerData.missRate += 0.5;
+        PKC.playerData.atkBuff['yun'] = {
+            step:30,
+            rate:0.1
+        };
     }
+
 }

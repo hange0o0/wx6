@@ -167,6 +167,7 @@ class Main extends eui.UILayer {
     protected startCreateScene(): void {
         CM_wx4.initData(RES.getRes("data_txt"),'monster');
         CM_wx4.initData(RES.getRes("gun_txt"),'gun');
+        CM_wx4.initData(RES.getRes("skill_txt"),'skill');
         CM_wx4.initFinish()
         GameManager_wx4.stage = this.stage;
         GameManager_wx4.container = this;

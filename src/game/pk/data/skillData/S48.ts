@@ -3,7 +3,11 @@ class S48 extends SBase{
         super();
     }
 
-    public onUse(){
-        PKC.playerData.atk += 10;
+    public dis = 200
+    public hitBack = 200
+
+    public onCreate(){
+        PKC.playerData.coinAdd += 0.5;
     }
+
 }

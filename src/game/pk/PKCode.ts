@@ -10,6 +10,8 @@ class PKCode_wx4 {
     public mapW = 640
     public mapH = 640
 
+    public maxMonster = 20
+
     public playerData = new PlayerData()
     public actionStep = 0;
     public monsterList = [];
@@ -52,59 +54,6 @@ class PKCode_wx4 {
         }
     }
 
-
-    public getItemByID(id):MBase{
-        var mlen = this.monsterList.length
-        for(var i=0;i<mlen;i++)
-        {
-            var item = this.monsterList[i];
-            if(item.id == id)
-                return item;
-        }
-    }
-
-    public randomEnemy(){
-        var arr = []
-        var mlen = this.monsterList.length
-        for(var i=0;i<mlen;i++)
-        {
-            var item = this.monsterList[i];
-            if(!item.isDie && !item.isWuDi())
-                arr.push(item)
-        }
-        return ArrayUtil_wx4.randomOne(arr);
-    }
-
-    public playAniOn(a,mvID){
-        var atker = this.getItemByID(a)
-        if(!atker)
-        {
-            throw new Error('XXX')
-            return;
-        }
-        var scale = Math.max(1,(atker.getVO().height)/70);
-        var AM = AniManager_wx3.getInstance();
-        var mv = AM.playOnItem(mvID,atker);
-        if(mv)
-            mv.scaleX = mv.scaleY = scale
-        return  mv;
-    }
-
-
-    //对一定范围内的敌人造成伤害
-    public hitEnemyAround(x,y,range,hurt){
-        var mlen = this.monsterList.length
-        for(var i=0;i<mlen;i++)
-        {
-            var item = this.monsterList[i];
-            if(item.isDie || item.isWuDi())
-                continue;
-            if(Math.abs(item.x - x) <= range &&  Math.abs(item.y - y) <= range)
-            {
-                item.addHp(-hurt);
-            }
-        }
-    }
 
 
     public initData(){

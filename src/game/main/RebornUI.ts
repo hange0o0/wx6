@@ -17,6 +17,9 @@ class RebornUI extends game.BaseWindow_wx4{
     private step = 0;
     private isStoping = false;
 
+
+    private totalTime = 30*8
+
     public constructor() {
         super();
         this.skinName = "RebornUISkin";
@@ -46,7 +49,7 @@ class RebornUI extends game.BaseWindow_wx4{
 
     public onShow(){
         this.isStoping = false;
-        this.step = 30*10;
+        this.step = this.totalTime - PKC.playerData.rebornDec;
         this.renew();
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
     }
@@ -69,7 +72,7 @@ class RebornUI extends game.BaseWindow_wx4{
         this.step --;
         var cd = Math.ceil(this.step/30);
         this.cdText.text = cd + '';
-        MyTool.getSector(128,-90,-this.step/300*360,0xFFFFFF,0.3,this.shape)
+        MyTool.getSector(128,-90,-this.step/this.totalTime*360,0xFFFFFF,0.3,this.shape)
     }
 
 

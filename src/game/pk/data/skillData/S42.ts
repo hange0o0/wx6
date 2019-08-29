@@ -3,7 +3,11 @@ class S42 extends SBase{
         super();
     }
 
-    public onUse(){
-        PKC.playerData.atk += 10;
+    public reBornTime = 200
+    public totalTime = 200
+
+    public onCreate(){
+        PKC.playerData.rebornDec = PKTool.getStepByTime(1000)
     }
+
 }

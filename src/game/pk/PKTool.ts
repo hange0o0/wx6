@@ -7,6 +7,7 @@ class PKTool {
         var y = item.isPlayer?-40:300 - item.getVO().height - 20;
         var txt = this.txtPool.shift() || new eui.BitmapLabel()
         txt.letterSpacing = -5
+        txt.scaleX = txt.scaleY = 1;
         if(hp < 0)
         {
             txt.font=item.isPlayer?"pk_word4_fnt":"pk_word1_fnt"
@@ -16,6 +17,8 @@ class PKTool {
         {
             txt.font="pk_word2_fnt"
             txt.text = '+' + hp
+            if(item.isPlayer)
+                txt.scaleX = txt.scaleY = 1.5;
         }
         this.showWordMC(txt,item.relateItem,y)
     }
@@ -38,7 +41,7 @@ class PKTool {
         mc.horizontalCenter = 0
         target.addChild(mc);
         mc.y = y
-        egret.Tween.get(mc).to({y:mc.y - 30},500).call(()=>{
+        egret.Tween.get(mc).to({y:mc.y - 50},500).call(()=>{
             this.removeWordList(mc)
         })
         return mc;

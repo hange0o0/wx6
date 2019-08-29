@@ -36,6 +36,7 @@ class S7 extends SBase{
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 30
         bullet.hitBack = 20
+        bullet.hitSkill = true
         bullet.atk = Math.ceil(this.hurt*playerData.atk)
 
         if(this.step <= 0)

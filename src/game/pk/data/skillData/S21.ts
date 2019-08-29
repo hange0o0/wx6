@@ -10,6 +10,7 @@ class S21 extends SBase{
 
     public onUse(){
         PKC.playerData.wudiStep = this.totalTime
+        return true;
     }
 
 

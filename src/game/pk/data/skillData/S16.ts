@@ -19,5 +19,6 @@ class S16 extends SBase{
         this.data.hurt = PKC.playerData.atk;
 
         PKCodeUI.getInstance().addTrap(this.data)
+        return true;
     }
 }

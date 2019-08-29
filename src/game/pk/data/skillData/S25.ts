@@ -3,7 +3,24 @@ class S25 extends SBase{
         super();
     }
 
+    public hurt = 200
+
+    public onCreate(){
+
+    }
+
+
     public onUse(){
-        PKC.playerData.atk += 10;
+        var monsterList = PKC.monsterList;
+        var len = monsterList.length;
+        for(var i=0;i<len;i++)
+        {
+            var monster = monsterList[i];
+            if(monster.isDie || monster.relateItem.fireStep <= 0)
+                continue;
+            monster.relateItem.fireStep = 1;
+            monster.addHp(-this.hurt)
+        }
+        return true;
     }
 }

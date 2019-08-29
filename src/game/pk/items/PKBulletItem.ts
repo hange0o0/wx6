@@ -26,6 +26,7 @@ class PKBulletItem extends game.BaseItem {
     public hitPass = false//命中后不消失
     public hitList = {}//已撞过
     public hitBack = 0//推后
+    public hitSkill = false//带刀技能
 
 
     public owner
@@ -58,6 +59,7 @@ class PKBulletItem extends game.BaseItem {
         this.hitList = {};
         this.hitBack = 0;
         this.atkR = 0;
+        this.hitSkill = false;
 
 
         this.setImage('')
@@ -83,6 +85,8 @@ class PKBulletItem extends game.BaseItem {
             {
                 this.hitList[item.onlyID] = true;
                 item.addHp(-this.atk)
+                if(this.hitSkill)
+                    PKC.playerData.addGunBuff(item);
                 if(this.hitBack)
                 {
                     item.relateItem.resetXY(item.x + this.hitBack*Math.cos(this.data.rota),item.y + this.hitBack*Math.sin(this.data.rota))

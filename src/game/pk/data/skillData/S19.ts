@@ -17,5 +17,6 @@ class S19 extends SBase{
 
     public onUse(){
         PKCodeUI.getInstance().addTrap(this.data)
+        return true;
     }
 }

@@ -19,9 +19,14 @@ class PKUI extends game.BaseUI_wx4{
     private skillInfoGroup: eui.Group;
     private skillInfoItem: PKSkillItem;
     private desText: eui.Label;
+    private skillNameText: eui.Label;
+    private skillCDText: eui.Label;
     private hpBar: eui.Image;
     private hpText: eui.BitmapLabel;
     private rateBar: eui.Image;
+    private monsterText: eui.Label;
+
+
 
 
 
@@ -112,7 +117,9 @@ class PKUI extends game.BaseUI_wx4{
         this.renewSkill()
         this.renewHp()
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
+        this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
         this.addPanelOpenEvent(GameEvent.client.HP_CHANGE,this.renewHp)
+        this.addPanelOpenEvent(GameEvent.client.SKILL_USE,this.renewSkillCD)
     }
 
     private renewSkill(){
@@ -126,7 +133,15 @@ class PKUI extends game.BaseUI_wx4{
     public showSkillInfo(data){
         this.skillInfoGroup.visible = true;
         this.skillInfoItem.data = data;
-        this.desText.text = '技能'+data.sid
+        var svo = data.getVO();
+
+        this.skillNameText.text = svo.name
+        var cd = svo.getCD();
+        if(cd)
+            this.setHtml(this.skillCDText,'技能间隔:' + this.createHtml(MyTool.toFixed(cd/1000,1) + '秒',0xFFFF00))
+        else
+            this.setHtml(this.skillCDText,this.createHtml('被动技能',0xECAEF9))
+        this.setHtml(this.desText, svo.getDes())
 
         for(var i=0;i<this.skillArr.length;i++)
         {
@@ -161,6 +176,32 @@ class PKUI extends game.BaseUI_wx4{
             playerData.hp = playerData.maxHp
         }
 
+        this.renewSkillCD();
+    }
+
+    private onTimer(){
+        var mNum = PKC.monsterList.length;
+        this.monsterText.text = '当前怪物数量:' + mNum + '/' + PKC.maxMonster
+        var rate = mNum/PKC.maxMonster
+        if(rate < 0.3)
+            this.monsterText.textColor = 0x00FF00
+        else if(rate > 0.7)
+            this.monsterText.textColor = 0xFF0000
+        else
+            this.monsterText.textColor = 0xFFFF00
+
+        if(mNum >= PKC.maxMonster)
+        {
+            console.log('fail')
+        }
+    }
+
+    private renewSkillCD(){
+        var len = this.skillArr.length;
+        for(var i=0;i<len;i++)
+        {
+            this.skillArr[i].onE()
+        }
     }
 
     public renewHp(){

@@ -32,6 +32,7 @@ class S5 extends SBase{
             bullet.speed = 35
             bullet.hitBack = 20
             bullet.hitPass = true
+            bullet.hitSkill = true
             bullet.atk = Math.ceil(this.hurt*playerData.atk)
         }
 

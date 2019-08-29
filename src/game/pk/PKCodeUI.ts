@@ -26,6 +26,8 @@ class PKCodeUI extends game.BaseContainer_wx4{
     public bulletArr = [];
     public bombArr = [];
     public trapArr = [];
+    public markArr = [];
+    public lineArr = [];
 
 
     public constructor() {
@@ -63,6 +65,15 @@ class PKCodeUI extends game.BaseContainer_wx4{
         while(this.trapArr.length)
         {
             TrapItem.freeItem(this.trapArr.pop())
+        }
+
+        while(this.markArr.length)
+        {
+            PKMarkItem.freeItem(this.markArr.pop())
+        }
+        while(this.lineArr.length)
+        {
+            PKLineItem.freeItem(this.lineArr.pop())
         }
 
 
@@ -142,7 +153,8 @@ class PKCodeUI extends game.BaseContainer_wx4{
             mItem.onE();
         }
 
-        for(var i=0;i<this.bombArr.length;i++)
+        len = this.bombArr.length
+        for(var i=0;i<len;i++)
         {
             var bombItem = this.bombArr[i];
             if(bombItem.isDie == 2)
@@ -150,12 +162,14 @@ class PKCodeUI extends game.BaseContainer_wx4{
                 BombItem.freeItem(bombItem);
                 this.bombArr.splice(i,1)
                 i--;
+                len -- ;
                 continue;
             }
             bombItem.testHit();
         }
 
-        for(var i=0;i<this.trapArr.length;i++)
+        len = this.trapArr.length
+        for(var i=0;i<len;i++)
         {
             var trapItem = this.trapArr[i];
             if(trapItem.isDie)
@@ -163,9 +177,41 @@ class PKCodeUI extends game.BaseContainer_wx4{
                 TrapItem.freeItem(trapItem);
                 this.trapArr.splice(i,1)
                 i--;
+                len --;
                 continue;
             }
             trapItem.testHit();
+        }
+
+        len = this.markArr.length
+        for(var i=0;i<len;i++)
+        {
+            var markItem = this.markArr[i];
+            if(markItem.isDie == 2)
+            {
+                PKMarkItem.freeItem(markItem);
+                this.markArr.splice(i,1)
+                i--;
+                len --;
+                continue;
+            }
+            markItem.onE();
+        }
+
+
+        len = this.lineArr.length
+        for(var i=0;i<len;i++)
+        {
+            var linetem = this.lineArr[i];
+            if(linetem.isDie == 2)
+            {
+                PKLineItem.freeItem(linetem);
+                this.lineArr.splice(i,1)
+                i--;
+                len --;
+                continue;
+            }
+            linetem.onE();
         }
 
         this.sortY();
@@ -216,6 +262,27 @@ class PKCodeUI extends game.BaseContainer_wx4{
         item.data = data
         item.x = PKC.playerData.x
         item.y = PKC.playerData.y
+    }
+
+
+    public addMark(x,y,data){
+        var item = PKMarkItem.createItem();
+        this.markArr.push(item);
+        this.bottomCon.addChild(item);
+
+        item.data = data
+        item.x = x
+        item.y = y
+    }
+
+    public addLine(data){
+        var item = PKLineItem.createItem();
+        this.lineArr.push(item);
+        this.bulletCon.addChild(item);
+
+        item.data = data
+        item.x = data.x
+        item.y = data.y
     }
 
 

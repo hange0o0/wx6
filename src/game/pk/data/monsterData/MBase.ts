@@ -59,7 +59,7 @@ class MBase {
         item.mid = id;
         item.onlyID = this.id;
         item.initData();
-        this.id++;;
+        this.id++;
         return item;
     }
 
@@ -79,6 +79,7 @@ class MBase {
 
     public stopEnd = 0//这个时间前停止行动
     public atkEnd = 0//这个时间前停止行动
+    public isFarAtk = true
 
     public relateItem//
     public buffList = [];

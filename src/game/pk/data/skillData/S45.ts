@@ -3,7 +3,15 @@ class S45 extends SBase{
         super();
     }
 
-    public onUse(){
-        PKC.playerData.atk += 10;
+    public dis = 200
+    public hitBack = 200
+
+    public onCreate(){
+
+        PKC.playerData.atkBuff['bomb'] = {
+            dis:100,
+            hurt:50
+        };
     }
+
 }

@@ -3,7 +3,16 @@ class S41 extends SBase{
         super();
     }
 
-    public onUse(){
-        PKC.playerData.atk += 10;
+    public addHp = 200
+    public hitBack = 200
+
+    public onCreate(){
+        this.addHp = 10
+    }
+    public onStep(){
+        if(PKC.actionStep%30 == 0)
+        {
+            PKC.playerData.addHp(this.addHp)
+        }
     }
 }

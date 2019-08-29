@@ -42,15 +42,19 @@ class PlayerItem extends game.BaseItem{
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
 
 
-        var hpStep = 1
-        this.body.source = 'role_'+hpStep+'_png'
-        this.leftHendMC.source = 'role_'+hpStep+'_png'
-        this.rightHendMC.source = 'role_'+hpStep+'_png'
+        this.renewSkin(1);
+
 
 
         //this.renewHp();
         //this.showStandMV();
         this.ctrlRota = -90
+    }
+
+    public renewSkin(hpStep){
+        this.body.source = 'role_'+hpStep+'_png'
+        this.leftHendMC.source = 'role_'+hpStep+'_png'
+        this.rightHendMC.source = 'role_'+hpStep+'_png'
     }
 
     public renewHp(){
@@ -193,7 +197,7 @@ class PlayerItem extends game.BaseItem{
 
 
     public onE(){
-        if(this.data.wudiStep > 0)
+        if(this.data.wudiStep > 0 && !this.data.isHide)
         {
             if(!this.wudiMC)
             {
@@ -309,6 +313,7 @@ class PlayerItem extends game.BaseItem{
                     monster.addHp(-Math.ceil(atk*playerData.doubleValue));
                 else
                     monster.addHp(-atk);
+                playerData.addGunBuff(monster)
                 if(playerData.hitBack)//可击退
                 {
                     var hitBack = playerData.hitBack
@@ -333,6 +338,7 @@ class PlayerItem extends game.BaseItem{
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 30
         bullet.hitBack = 20
+        bullet.hitSkill = true
         bullet.atk = Math.ceil(playerData.farAtkRate*playerData.atk)
         if(Math.random() < playerData.doubleRate)
             bullet.atk = Math.ceil(bullet.atk*playerData.doubleValue)
