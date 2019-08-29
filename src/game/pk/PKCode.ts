@@ -42,15 +42,22 @@ class PKCode_wx4 {
         //PKBulletManager_wx3.getInstance().actionAll();//攻击落实
         //this.actionFinish();
         //PlayManager.getInstance().onE();
+
+        var len = this.monsterList.length;
+        for(var i=0;i<len;i++)
+        {
+            var monster = this.monsterList[i];
+            monster.onStep();
+        }
     }
 
     //自动出战上怪
     public autoAction(){
-        if(this.actionStep > 50 && this.monsterList.length < 10)
+        if(this.actionStep > 50 && this.monsterList.length < 5)
         {
             var x = 50 + PKC.random()*(PKC.mapW - 50)
             var y = 50 + PKC.random()*(PKC.mapH - 50)
-            this.monsterList.push(PKCodeUI.getInstance().addMonster(4,x,y))
+            this.monsterList.push(PKCodeUI.getInstance().addMonster(_get['mid'] || 4,x,y))
         }
     }
 

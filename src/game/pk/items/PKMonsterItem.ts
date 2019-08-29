@@ -204,6 +204,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         if(PKC.actionStep < myData.atkEnd)
             return;
+        if(PKC.actionStep < myData.skillEnd)
+            return;
         if(playerData.isHide)
             return;
         if(this.yunStep)
@@ -211,6 +213,14 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
         this.monsterMV.scaleX = myData.x > playerData.x ?1:-1
         var dis = MyTool.getDis(playerData,this);
+        if(dis < myData.skillDis && myData.canSkill())
+        {
+            myData.skillFun();
+            myData.skillEnd = PKC.actionStep + myData.atkSpeed
+            return;
+        }
+
+
         //move
         if(!this.iceStep && dis > myData.atkDis){
             var speed = this.data.speed;

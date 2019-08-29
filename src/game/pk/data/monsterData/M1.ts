@@ -4,7 +4,7 @@ class M1 extends MBase{
     }
 
     public atkFun(){
-        MTool.markAtkFun(400,5,{
+        MTool.markAtkFun(200,5,{
             owner:this,
             hurt:50,
             mv:{

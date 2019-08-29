@@ -24,13 +24,14 @@ class MTool {
     }
 
 
+    //
     public static markAtkFun(r,num,markData){
 
         var playerData = PKC.playerData;
         var middle = {x:playerData.x,y:playerData.y};
         var markArr = []
         var keyObj = {}
-        var itemWidth = 50
+        var itemWidth = 100
         var testNum = 100
 
         if(middle.x-r < 0)
@@ -67,4 +68,23 @@ class MTool {
             PKCodeUI.getInstance().addMark(oo.x,oo.y,markData)
         }
     }
+
+    public static moveSkillFun(monster,skillData){
+        var playerData = PKC.playerData
+        if(skillData.hitPos)
+            var hitPoint = monster.getHitPos();
+        else
+            var hitPoint = monster
+        var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
+        PKCodeUI.getInstance().addLine(monster.x,monster.y,rota,{
+            isFollow:skillData.isFollow,
+            owner:monster,
+            len:1000,
+            type:'mark',
+            endFun:skillData.endFun
+        })
+    }
+
+
+
 }

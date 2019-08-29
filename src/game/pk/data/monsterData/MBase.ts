@@ -74,11 +74,14 @@ class MBase {
     public atk = 10
     public atkDis = 100
     public speed = 2
-    public atkSpeed = 30//帧
+    public atkSpeed = 60//帧
     public bulletSpeed = 10//子弹速度
+    public skillDis = 500//技能距离
 
     public stopEnd = 0//这个时间前停止行动
     public atkEnd = 0//这个时间前停止行动
+    public skillEnd = 0//这个时间前停止行动
+    public nextSkillBeign = 0//下次技能开始时间
     public isFarAtk = true
 
     public relateItem//
@@ -91,6 +94,7 @@ class MBase {
     public initData(){
         var vo = this.getVO();
         this.size = vo.width/2
+        this.atkDis = vo.atkrage + 200
     }
 
     public getHitPos(){
@@ -120,6 +124,14 @@ class MBase {
         this.relateItem.renewHp();
     }
 
+    public canSkill(){
+        return false;
+    }
+
+    public skillFun(){
+
+    }
+
 
     public move(){
 
@@ -130,6 +142,9 @@ class MBase {
     }
 
     public onDie(){
+
+    }
+    public onStep(){
 
     }
 }

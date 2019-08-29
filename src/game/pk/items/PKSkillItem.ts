@@ -68,6 +68,8 @@ class PKSkillItem extends game.BaseItem{
     }
 
     public onE(){
+        if(!this.data)
+            return;
         if(!this.data.isActive)
             return;
         var playerData = PKC.playerData

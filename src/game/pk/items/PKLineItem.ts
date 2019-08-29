@@ -24,16 +24,39 @@ class PKLineItem extends game.BaseItem{
     }
 
     public mc = new eui.Image();
-    public len = 1000;
+    public len = 800;
+
+
+    public wait = 30;
+    public isDie = 0;
+    public isFollow = 0;
+    public owner
+    public hurt
+
+    public type
+    public endFun
 
     public childrenCreated() {
         super.childrenCreated();
 
         this.addChild(this.mc)
+        this.mc.source = 'line_png'
+        this.mc.fillMode = 'repeat'
+        this.mc.anchorOffsetX = 3/2
     }
 
     public dataChanged(){
+        this.wait = 30
+        this.isDie = 0
+        this.isFollow = this.data.isFollow;
+        this.hurt = this.data.hurt;
+        this.len = this.data.len;
+        this.owner = this.data.owner;
+        this.type = this.data.type;
+        this.endFun = this.data.endFun;
 
+        this.mc.height = this.len
+        this.mc.scaleX = 1;
     }
 
     public remove(){
@@ -41,7 +64,45 @@ class PKLineItem extends game.BaseItem{
     }
 
     public onE(){
+        if(this.isDie)
+        {
+            if(this.isDie == 1)
+            {
+                this.wait --;
+                if(this.wait > 2)
+                    this.mc.scaleX += 3
+                else
+                    this.mc.scaleX -= 3
+                if(this.wait == 0)
+                {
+                    this.isDie = 2
+                }
+            }
+            return;
+        }
+        this.wait --;
+        if(this.isFollow && this.wait > 15)
+        {
+            var playerData = PKC.playerData;
+            var hitPoint = this.owner.getHitPos();
+            this.rotation = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
+        }
 
+        if(this.wait == 0)
+        {
+            if(this.type = 'mark')
+            {
+                this.isDie = 2;
+                this.endFun && this.endFun.apply(this.owner,[this.rotation + 90]);
+                return;
+            }
+            this.isDie = 1;
+            this.wait = 5;
+            if(this.checkHit())
+            {
+                PKC.playerData.addHp(-this.hurt,this.owner)
+            }
+        }
     }
 
     public checkHit()

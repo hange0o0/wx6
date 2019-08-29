@@ -9,7 +9,7 @@
 			"name":"hero"
 		},
 		{
-			"keys":"enemy48_png,enemy18_png,enemy46_png,enemy45_png,enemy44_png,enemy17_png,enemy16_png,enemy15_png,enemy74_png,enemy43_png,enemy14_png,enemy73_png,enemy41_png,enemy42_png,enemy72_png,enemy40_png,enemy12_png,enemy71_png,enemy36_png,enemy11_png,enemy9_png,enemy39_png,enemy69_png,enemy8_png,enemy7_png,enemy6_png,enemy5_png,enemy38_png,enemy68_png,enemy67_png,enemy66_png,enemy65_png,enemy64_png,enemy4_png,enemy63_png,enemy76_png,enemy70_png,enemy62_png,enemy61_png,enemy72_attack_png,effect2_png,enemy68_attack_png,480_json,600_json,960_json,pk_arrow_1_png,pk_arrow_png",
+			"keys":"enemy48_png,enemy18_png,enemy46_png,enemy45_png,enemy44_png,enemy17_png,enemy16_png,enemy15_png,enemy74_png,enemy43_png,enemy14_png,enemy73_png,enemy41_png,enemy42_png,enemy72_png,enemy40_png,enemy12_png,enemy71_png,enemy36_png,enemy11_png,enemy9_png,enemy39_png,enemy69_png,enemy8_png,enemy7_png,enemy6_png,enemy5_png,enemy38_png,enemy68_png,enemy67_png,enemy66_png,enemy65_png,enemy64_png,enemy4_png,enemy63_png,enemy76_png,enemy70_png,enemy62_png,enemy61_png,enemy72_attack_png,effect2_png,enemy68_attack_png,480_json,600_json,960_json,pk_arrow_1_png,pk_arrow_png,enemy1_png,enemy2_png,enemy3_png,enemy31_png,enemy32_png,enemy33_png,enemy34_png,enemy35_png",
 			"name":"monster"
 		}
 	],
@@ -1980,19 +1980,64 @@
 			"url":"data/skill.txt"
 		},
 		{
-			"name":"monster1_mv1_png",
+			"name":"enemy1_png",
 			"type":"image",
-			"url":"game_assets2/ani/monster1/monster1_mv1.png"
+			"url":"game_assets2/monster/enemy1.png"
 		},
 		{
-			"name":"monster1_mv2_png",
+			"name":"enemy2_png",
 			"type":"image",
-			"url":"game_assets2/ani/monster1/monster1_mv2.png"
+			"url":"game_assets2/monster/enemy2.png"
 		},
 		{
-			"name":"monster1_mv3_png",
+			"name":"enemy3_png",
 			"type":"image",
-			"url":"game_assets2/ani/monster1/monster1_mv3.png"
+			"url":"game_assets2/monster/enemy3.png"
+		},
+		{
+			"name":"monster1_mv_1_png",
+			"type":"image",
+			"url":"game_assets2/ani/monster1/monster1_mv_1.png"
+		},
+		{
+			"name":"monster1_mv_2_png",
+			"type":"image",
+			"url":"game_assets2/ani/monster1/monster1_mv_2.png"
+		},
+		{
+			"name":"monster1_mv_3_png",
+			"type":"image",
+			"url":"game_assets2/ani/monster1/monster1_mv_3.png"
+		},
+		{
+			"name":"line_png",
+			"type":"image",
+			"url":"game_assets/line.png"
+		},
+		{
+			"name":"enemy31_png",
+			"type":"image",
+			"url":"game_assets2/monster/enemy31.png"
+		},
+		{
+			"name":"enemy32_png",
+			"type":"image",
+			"url":"game_assets2/monster/enemy32.png"
+		},
+		{
+			"name":"enemy33_png",
+			"type":"image",
+			"url":"game_assets2/monster/enemy33.png"
+		},
+		{
+			"name":"enemy34_png",
+			"type":"image",
+			"url":"game_assets2/monster/enemy34.png"
+		},
+		{
+			"name":"enemy35_png",
+			"type":"image",
+			"url":"game_assets2/monster/enemy35.png"
 		}
 	]
 }

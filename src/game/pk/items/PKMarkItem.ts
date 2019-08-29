@@ -35,6 +35,8 @@ class PKMarkItem extends game.BaseItem{
     public childrenCreated() {
         super.childrenCreated();
 
+        this.mc.anchorOffsetX = 70/2
+        this.mc.anchorOffsetY = 68/2
         this.mv.addEventListener('complete',this.onMVComplete,this)
         //this.addChild(this.mc)
         //this.addChild(this.mv)
@@ -53,13 +55,15 @@ class PKMarkItem extends game.BaseItem{
         this.mv.stop();
 
         this.addChild(this.mc)
-        this.onE();
+
 
         this.waitCD = 30;
         this.isDie = 0
 
         this.owner = this.data.owner;
         this.hurt = this.data.hurt;
+
+        this.onE();
     }
 
     public onE(){
@@ -67,7 +71,7 @@ class PKMarkItem extends game.BaseItem{
             return;
 
         var playerData = PKC.playerData;
-        var isHit = MyTool.getDis(playerData,this)
+        var isHit = MyTool.getDis(playerData,this) < this.r
         this.scaleX = this.scaleY = isHit?1.5:1;
 
         this.waitCD --;

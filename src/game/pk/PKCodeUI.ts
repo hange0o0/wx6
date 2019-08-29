@@ -275,14 +275,15 @@ class PKCodeUI extends game.BaseContainer_wx4{
         item.y = y
     }
 
-    public addLine(data){
+    public addLine(x,y,rota,data){
         var item = PKLineItem.createItem();
         this.lineArr.push(item);
         this.bulletCon.addChild(item);
 
         item.data = data
-        item.x = data.x
-        item.y = data.y
+        item.x = x
+        item.y = y
+        item.rotation = rota;
     }
 
 

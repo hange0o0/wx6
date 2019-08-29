@@ -116,6 +116,7 @@ class PKUI extends game.BaseUI_wx4{
 
         this.renewSkill()
         this.renewHp()
+        this.onTimer()
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
         this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
         this.addPanelOpenEvent(GameEvent.client.HP_CHANGE,this.renewHp)
