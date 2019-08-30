@@ -24,6 +24,7 @@ class S22 extends SBase{
         bullet.speed = 50
         bullet.hitBack = 0
         bullet.hitPass = true
+        bullet.isSkill = true
         bullet.atk =  this.hurt
         bullet.atkR = 60
 

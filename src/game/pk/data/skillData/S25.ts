@@ -18,6 +18,8 @@ class S25 extends SBase{
             var monster = monsterList[i];
             if(monster.isDie || monster.relateItem.fireStep <= 0)
                 continue;
+            if(!monster.beSkillAble)
+                continue;
             monster.relateItem.fireStep = 1;
             monster.addHp(-this.hurt)
         }

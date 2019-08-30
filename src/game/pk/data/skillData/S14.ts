@@ -27,6 +27,11 @@ class S14 extends SBase{
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
+            if(monster.isDie)
+                continue;
+            if(!monster.beSkillAble)
+                continue;
+
             var dis = MyTool.getDis(monster,playerData)
             if(dis > this.minDis)
                 continue;

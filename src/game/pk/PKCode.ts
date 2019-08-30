@@ -16,6 +16,9 @@ class PKCode_wx4 {
     public actionStep = 0;
     public monsterList = [];
 
+    public monsterAddAtk = 0
+    public monsterAddSpeed = 0
+
 
 
 

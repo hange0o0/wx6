@@ -314,7 +314,7 @@ class PlayerItem extends game.BaseItem{
                 else
                     monster.addHp(-atk);
                 playerData.addGunBuff(monster)
-                if(playerData.hitBack)//可击退
+                if(playerData.hitBack && monster.hitBackAble)//可击退
                 {
                     var hitBack = playerData.hitBack
                     if(isDouble)

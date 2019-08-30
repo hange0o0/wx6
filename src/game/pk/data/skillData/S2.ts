@@ -72,7 +72,7 @@ class S2 extends SBase{
                 this.lastHitMonsterTime[monster.onlyID] = actionStep
                 monster.addHp(-atk);
                 playerData.addGunBuff(monster)
-                if(hitBack)//可击退
+                if(hitBack && monster.hitBackAble)//可击退
                 {
                     var rotaBase = PKTool.getRota(playerData,monster);
                     var x = Math.cos(rotaBase)*hitBack

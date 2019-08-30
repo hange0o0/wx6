@@ -73,6 +73,8 @@ class BombItem extends game.BaseItem{
             var mData =  arr[i];
             if(mData.isDie)
                 continue;
+            if(!mData.beSkillAble)
+                continue;
             if(Math.abs(this.x - mData.x) < dis && Math.abs(this.y - mData.y) < dis)
             {
                 this.playBoom();

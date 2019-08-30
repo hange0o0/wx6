@@ -71,9 +71,9 @@ class MBase {
     public size = 100//体积半径
     public hp = 100
     public maxHp = 100
-    public atk = 10
+    public _atk = 10
     public atkDis = 100
-    public speed = 2
+    public _speed = 2
     public atkSpeed = 60//帧
     public bulletSpeed = 10//子弹速度
     public skillDis = 500//技能距离
@@ -83,6 +83,10 @@ class MBase {
     public skillEnd = 0//这个时间前停止行动
     public nextSkillBeign = 0//下次技能开始时间
     public isFarAtk = true
+
+    public beSkillAble = true;
+    public trapAble = true;
+    public hitBackAble = true;
 
     public relateItem//
     public buffList = [];
@@ -95,6 +99,13 @@ class MBase {
         var vo = this.getVO();
         this.size = vo.width/2
         this.atkDis = vo.atkrage + 200
+    }
+
+    public get atk(){
+        return this._atk + PKC.monsterAddAtk
+    }
+    public get speed(){
+        return this._speed + PKC.monsterAddAtk
     }
 
     public getHitPos(){
@@ -145,6 +156,66 @@ class MBase {
 
     }
     public onStep(){
+        //雷电法师 召唤闪电
+        //幻影剌客  闪过去攻击
+        //宝石狂徒  远程，直线3个
+        //矿工    基础
+        //重装撕裂者 攻高
+        //狂战士   冲过去，过程会造成伤害
+        //斧王        冲过去攻击
+        //守卫者   拆陷阱
+        //掌旗使    大范围增加攻击力,移动速度
+        //回血，单体电
+        //蛮荒兽人 魔免
+        //盾卫    高防
+        //重装斧卫 击退
+        //近战巫师 死后变成毒巫师
+        //毒巫师 攻击时有几率分身
+        //铁甲卫士  不会被打退
+        //饥饿兽人  自动回血
+        //黑耀石菇  激光
+        //碧玉药菇     瞄准激光
+        //橙光仙菇     移动激光
+        //蓝瘦香菇  追踪激光
+        //炽红花菇  两条合起来的激光
+        //牛头人      一次复活
+        //豌豆射手  攻速快
+        //黑石守卫  攻击范围大
+        //橙石守卫  攻击范围大
+        //蓝石守卫  攻击范围大
+        //红石守卫  攻击范围大
+        //黑色风暴  远程风
+        //红色风暴  召唤风,持续一段时间
+        //蓝色风暴  召唤风+移动
+        //橙色风暴  追踪风
+        //溶岩精灵  喷火
+        //黑泥怪   自爆
+        //橙泥怪   自爆 血
+        //绿泥怪   自爆 定时分裂
+        //骷髅弓箭手 瞄准 ＋ 快剪
+        //骷髅士兵  平
+        //死神    闪过去攻击
+        //骷髅矿工  死后变骷髅士兵*2
+        //幽灵    前方随机多个球攻击
+        //亡灵    移动快
+        //蓝泥怪   自爆 速
+        //巫妖    扇形
+        //红袍怨灵 召唤骷髅弓箭
+        //木乃伊   吸血
+        //白袍怨灵 召唤骷髅士兵
+        //红泥怪   自爆 攻
+
+        //********ｂｏｓｓ都会召唤
+        //幽魂    死后分裂，３次
+        //幽鬼    击退
+        //地狱巨龙　喷火
+        //针刺兽   不会被打退 + 魔免
+        //钢刺兽  吸血
+        //大包兽   攻击范围大
+        //神圣波利  复活2次
+        //恶魔波利  死后爆出N个自爆
+        //巫鼠   前方随机多个球攻击
+        //天使    大范围加血
 
     }
 }

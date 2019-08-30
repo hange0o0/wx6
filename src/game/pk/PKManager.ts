@@ -70,7 +70,7 @@ class PKManager {
     }
 
     public getEnergyCost(){
-        return Math.min(Math.ceil(UM_wx4.level/5),6)
+        return Math.min(Math.ceil(UM_wx4.level/5),8)
     }
 
     public startGame(){

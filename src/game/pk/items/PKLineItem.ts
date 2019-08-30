@@ -35,6 +35,7 @@ class PKLineItem extends game.BaseItem{
 
     public type
     public endFun
+    public isFootPos
 
     public childrenCreated() {
         super.childrenCreated();
@@ -54,6 +55,7 @@ class PKLineItem extends game.BaseItem{
         this.owner = this.data.owner;
         this.type = this.data.type;
         this.endFun = this.data.endFun;
+        this.isFootPos = this.data.isFootPos;
 
         this.mc.height = this.len
         this.mc.scaleX = 1;
@@ -84,7 +86,10 @@ class PKLineItem extends game.BaseItem{
         if(this.isFollow && this.wait > 15)
         {
             var playerData = PKC.playerData;
-            var hitPoint = this.owner.getHitPos();
+            if(this.isFootPos)
+                var hitPoint = this.owner;
+            else
+                var hitPoint = this.owner.getHitPos();
             this.rotation = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
         }
 

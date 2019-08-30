@@ -32,6 +32,8 @@ class S13 extends SBase{
             var monster = monsterList[i];
             if(monster.isDie)
                 continue;
+            if(!monster.beSkillAble)
+                continue;
 
             var dis = MyTool.getDis(monster,playerData)
             if(!minMonster || dis < minDis)
@@ -68,6 +70,8 @@ class S13 extends SBase{
                 continue;
             if(this.hurtID[monster.onlyID])
                 continue
+            if(!monster.beSkillAble)
+                continue;
 
             var dis = MyTool.getDis(monster,this.lastMonster)
             if(dis <= minDis)

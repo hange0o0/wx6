@@ -113,7 +113,9 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
     private onDieFinish(){
-        this.data.isDie = 2;
+        this.data.onDie();
+        if(this.data.isDie)
+            this.data.isDie = 2;
     }
 
     public setIce(step){
@@ -199,6 +201,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         this.runBuff();
         if(myData.isDie)//buff会至死
             return;
+        myData.onStep();
 
         if(PKC.actionStep < myData.stopEnd)
             return;
@@ -220,11 +223,22 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         }
 
+        var canAtk = dis <= myData.atkDis && this.canAttackPos(playerData)
+
+        //atk
+        if(canAtk){
+            this.atk()
+            myData.atkFun();
+
+            myData.atkEnd = PKC.actionStep + myData.atkSpeed
+            return
+        }
 
         //move
-        if(!this.iceStep && dis > myData.atkDis){
+        if(!this.iceStep){
             var speed = this.data.speed;
-            var angle = Math.atan2(playerData.y-myData.y,playerData.x-myData.x)
+            var atkPos = this.getAttackPos(playerData)
+            var angle = Math.atan2(atkPos.y-myData.y,atkPos.x-myData.x)
             var x = Math.cos(angle)*speed
             var y = Math.sin(angle)*speed
 
@@ -236,15 +250,18 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         }
 
-        //atk
-        if(dis <= myData.atkDis){
-            this.atk()
-            this.data.atkFun();
 
-            myData.atkEnd = PKC.actionStep + myData.atkSpeed
-            return
-        }
 
+    }
+
+    //在可以攻击的位置
+    private canAttackPos(playerData){
+        return true;
+    }
+
+    //获得可以攻击的位置
+    private getAttackPos(playerData){
+        return playerData;
     }
 
     private runBuff(){

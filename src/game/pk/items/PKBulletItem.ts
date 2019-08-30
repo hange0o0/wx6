@@ -24,6 +24,7 @@ class PKBulletItem extends game.BaseItem {
     public atk = 0
     public atkR = 0
     public hitPass = false//命中后不消失
+    public isSkill = false//是技能
     public hitList = {}//已撞过
     public hitBack = 0//推后
     public hitSkill = false//带刀技能
@@ -60,6 +61,7 @@ class PKBulletItem extends game.BaseItem {
         this.hitBack = 0;
         this.atkR = 0;
         this.hitSkill = false;
+        this.isSkill = false;
 
 
         this.setImage('')
@@ -80,6 +82,8 @@ class PKBulletItem extends game.BaseItem {
                 continue;
             if(this.hitList[item.onlyID])
                 continue;
+            if(this.isSkill && !item.beSkillAble)
+                continue;
             var dis = MyTool.getDis(this,item.getHitPos());
             if(dis < item.size + this.atkR)
             {
@@ -87,7 +91,7 @@ class PKBulletItem extends game.BaseItem {
                 item.addHp(-this.atk)
                 if(this.hitSkill)
                     PKC.playerData.addGunBuff(item);
-                if(this.hitBack)
+                if(this.hitBack && item.hitBackAble)
                 {
                     item.relateItem.resetXY(item.x + this.hitBack*Math.cos(this.data.rota),item.y + this.hitBack*Math.sin(this.data.rota))
                 }

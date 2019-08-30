@@ -14,6 +14,7 @@ class M3 extends MBase{
         this.skillEnd = Number.MAX_VALUE
         MTool.moveSkillFun(this,{
             isFollow:true,
+            isFootPos:true,
             endFun:this.skillEndFun,
 
         })

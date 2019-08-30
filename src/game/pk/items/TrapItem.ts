@@ -131,6 +131,10 @@ class TrapItem extends game.BaseItem{
             var mData =  arr[i];
             if(mData.isDie)
                 continue;
+            if(!mData.beSkillAble)
+                continue;
+            if(!mData.trapAble)
+                continue;
             if(t < (this.hurtMonster[mData.onlyID] || 0))
                 continue
             if(Math.abs(this.x - mData.x) < dis && Math.abs(this.y - mData.y) < dis)

@@ -45,6 +45,8 @@ class S9 extends SBase{
             var monster = monsterList[i];
             if(monster.isDie)
                 continue;
+            if(!monster.beSkillAble)
+                continue;
 
             var dis = MyTool.getDis(monster,playerData)
             if(dis < this.distance)

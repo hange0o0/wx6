@@ -284,6 +284,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
         item.x = x
         item.y = y
         item.rotation = rota;
+
     }
 
 

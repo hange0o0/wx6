@@ -71,13 +71,14 @@ class MTool {
 
     public static moveSkillFun(monster,skillData){
         var playerData = PKC.playerData
-        if(skillData.hitPos)
+        if(skillData.isFootPos)
             var hitPoint = monster.getHitPos();
         else
             var hitPoint = monster
         var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
         PKCodeUI.getInstance().addLine(monster.x,monster.y,rota,{
             isFollow:skillData.isFollow,
+            isFootPos:skillData.isFootPos,
             owner:monster,
             len:1000,
             type:'mark',
