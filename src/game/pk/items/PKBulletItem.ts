@@ -17,6 +17,7 @@ class PKBulletItem extends game.BaseItem {
     }
 
     private mc: eui.Image;
+    private mv: egret.MovieClip;
 
 
     public endTime = 0
@@ -28,6 +29,9 @@ class PKBulletItem extends game.BaseItem {
     public hitList = {}//已撞过
     public hitBack = 0//推后
     public hitSkill = false//带刀技能
+    public rotaAdd = 0
+    public hurtTimeCD = 0
+    public moveFun
 
 
     public owner
@@ -43,8 +47,21 @@ class PKBulletItem extends game.BaseItem {
     }
 
     public setImage(url,rota=0){
+        if(this.mv)
+        {
+            AniManager_wx3.getInstance().removeMV(this.mv)
+            this.mv = null;
+        }
         this.mc.source = url;
         this.mc.rotation = rota
+    }
+
+    public setMV(skillID){
+        this.mv = AniManager_wx3.getInstance().getAni(skillID);
+        this.addChild(this.mv);
+        this.mv.x = this.mv.y = 25;
+        this.mc.source = ''
+        this.mv.rotation = -this.rotation
     }
 
     public dataChanged(){
@@ -60,34 +77,52 @@ class PKBulletItem extends game.BaseItem {
         this.hitList = {};
         this.hitBack = 0;
         this.atkR = 0;
+        this.rotaAdd = 0;
+        this.hurtTimeCD = Number.MAX_VALUE;
         this.hitSkill = false;
         this.isSkill = false;
+        this.moveFun = null;
 
 
         this.setImage('')
     }
 
     public onE(){
+        if(this.rotaAdd)
+        {
+            this.mc.rotation += this.rotaAdd
+        }
+
         //move
-        this.x += this.speed*Math.cos(this.data.rota)
-        this.y += this.speed*Math.sin(this.data.rota)
+        if(this.moveFun)
+        {
+            this.moveFun(this)
+        }
+        else
+        {
+            this.x += this.speed*Math.cos(this.data.rota)
+            this.y += this.speed*Math.sin(this.data.rota)
+        }
+
+
 
         //atk
         var arr = this.owner.isPlayer?PKC.monsterList:[PKC.playerData]
         var len = arr.length;
+        var t = PKC.actionStep
         for(var i=0;i<len;i++)
         {
             var item = arr[i];
             if(item.isDie)
                 continue;
-            if(this.hitList[item.onlyID])
+            if(this.hitList[item.onlyID] && t - this.hitList[item.onlyID] < this.hurtTimeCD)
                 continue;
             if(this.isSkill && !item.beSkillAble)
                 continue;
             var dis = MyTool.getDis(this,item.getHitPos());
             if(dis < item.size + this.atkR)
             {
-                this.hitList[item.onlyID] = true;
+                this.hitList[item.onlyID] = t;
                 item.addHp(-this.atk)
                 if(this.hitSkill)
                     PKC.playerData.addGunBuff(item);

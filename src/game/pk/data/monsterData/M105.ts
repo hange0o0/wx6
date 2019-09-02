@@ -1,5 +1,5 @@
-class M73 extends MBase{
-    //木乃伊   吸血
+class M105 extends MBase{
+    //钢刺兽  吸血
     constructor() {
         super();
     }

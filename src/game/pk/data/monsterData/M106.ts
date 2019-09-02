@@ -1,8 +1,9 @@
-class M4 extends MBase{
+class M106 extends MBase{
+    //大包兽   攻击范围大
     constructor() {
         super();
     }
-//矿工    基础
+
     public atkFun(){
         MTool.nearAtkFun(this)
     }

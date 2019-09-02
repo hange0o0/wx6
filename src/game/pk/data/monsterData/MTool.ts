@@ -3,15 +3,18 @@ class MTool {
 
     }
 
-    public static nearAtkFun(itemData){
+    public static nearAtkFun(itemData,fun?,fun2?){
         PKMonsterAction_wx3.getInstance().addList({
             target:itemData,
             onlyID:itemData.onlyID,
             step:PKTool.getStepByTime(itemData.getVO().mv_atk),
             fun:()=>{
+                fun2 && fun2();
                 if(MyTool.getDis(itemData,PKC.playerData) <= itemData.atkDis)
                 {
-                    PKC.playerData.addHp(-itemData.atk,itemData);
+                    var playerData = PKC.playerData
+                    playerData.addHp(-itemData.atk,itemData);
+                    fun && fun();
                 }
             }
         })
@@ -44,8 +47,9 @@ class MTool {
         else if(middle.y + r > PKC.mapH)
             middle.y = PKC.mapH - r;
 
-        markArr.push({x:playerData.x,y:playerData.y})
+        markArr.push({x:playerData.x + Math.random()*20-10,y:playerData.y + Math.random()*20-10})
         keyObj[this.getXYKey(playerData.x,playerData.y,itemWidth)] = 1;
+        num --;
 
         while(num > 0 && testNum > 0)
         {
@@ -72,9 +76,9 @@ class MTool {
     public static moveSkillFun(monster,skillData){
         var playerData = PKC.playerData
         if(skillData.isFootPos)
-            var hitPoint = monster.getHitPos();
-        else
             var hitPoint = monster
+        else
+            var hitPoint = monster.getHitPos();
         var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
         PKCodeUI.getInstance().addLine(monster.x,monster.y,rota,{
             isFollow:skillData.isFollow,
@@ -86,6 +90,15 @@ class MTool {
         })
     }
 
-
+    public static addNewMonster(data){
+        var mData = PKCodeUI.getInstance().addMonster(data.mid,data.x,data.y);
+        if(data.hp)
+        {
+            mData.hp = data.hp;
+            mData.relateItem.renewHp();
+        }
+        PKC.monsterList.push(mData)
+        return mData
+    }
 
 }

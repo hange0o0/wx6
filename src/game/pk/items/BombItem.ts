@@ -75,6 +75,8 @@ class BombItem extends game.BaseItem{
                 continue;
             if(!mData.beSkillAble)
                 continue;
+            if(!mData.trapAble)
+                continue;
             if(Math.abs(this.x - mData.x) < dis && Math.abs(this.y - mData.y) < dis)
             {
                 this.playBoom();

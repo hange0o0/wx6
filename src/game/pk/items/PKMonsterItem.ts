@@ -61,13 +61,18 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
 
     }
+    public resetHpBarY(){
+        this.hpBar.y = 300 - this.data.getVO().height*this.data.scale - 20
+        this.monsterMV.scaleX = this.monsterMV.scaleY = this.data.scale
+
+    }
 
     public dataChanged(){
         this.data.relateItem = this;
         this.monsterMV.load(this.data.mid)
         this.monsterMV.stand();
         this.monsterMV.alpha = 1;
-        this.hpBar.y = 300 - this.data.getVO().height - 20
+        this.resetHpBarY();
 
         this.iceStep = 0;
         this.yunStep = 0;
@@ -130,7 +135,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
         this.iceStep = Math.max(step,this.iceStep);
         this.addChild(this.iceMC);
-        this.iceMC.scaleX = this.iceMC.scaleY = this.data.getVO().height/140
+        this.iceMC.scaleX = this.iceMC.scaleY = this.data.getVO().height/140*this.data.scale
     }
 
     public setYun(step){
@@ -202,6 +207,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         if(myData.isDie)//buff会至死
             return;
         myData.onStep();
+        myData.onDelay();
 
         if(PKC.actionStep < myData.stopEnd)
             return;
@@ -214,12 +220,44 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         if(this.yunStep)
             return;
 
-        this.monsterMV.scaleX = myData.x > playerData.x ?1:-1
+        this.monsterMV.scaleX = (myData.x > playerData.x ?1:-1)*myData.scale
+
+        //踩陷阱
+        if(myData.mid == 8 && myData.targetTrap && !myData.targetTrap.isDie)
+        {
+            this.monsterMV.scaleX = (myData.x > myData.targetTrap.x ?1:-1)*myData.scale
+            var dis = MyTool.getDis(myData.targetTrap,this);
+            if(dis < 50)
+            {
+                this.atkMV()
+                myData.atkEnd = PKC.actionStep + myData.atkSpeed
+                myData.targetTrap.isDie = 2
+                myData.targetTrap = null;
+                return;
+            }
+
+
+            var speed = this.data.speed;
+            var angle = Math.atan2(myData.targetTrap.y-myData.y,myData.targetTrap.x-myData.x)
+            var x = Math.cos(angle)*speed
+            var y = Math.sin(angle)*speed
+
+            var targetX = this.x + x
+            var targetY = this.y+y
+
+            this.resetXY(targetX,targetY)
+            this.runMV();
+            return;
+        }
+
+
+        this.monsterMV.scaleX = (myData.x > playerData.x ?1:-1)*myData.scale
+
         var dis = MyTool.getDis(playerData,this);
         if(dis < myData.skillDis && myData.canSkill())
         {
             myData.skillFun();
-            myData.skillEnd = PKC.actionStep + myData.atkSpeed
+            myData.lastSkillTime = PKC.actionStep;
             return;
         }
 
@@ -227,9 +265,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
         //atk
         if(canAtk){
-            this.atk()
+            this.atkMV()
             myData.atkFun();
-
             myData.atkEnd = PKC.actionStep + myData.atkSpeed
             return
         }
@@ -246,7 +283,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             var targetY = this.y+y
 
             this.resetXY(targetX,targetY)
-            this.run();
+            this.runMV();
             return;
         }
 
@@ -318,17 +355,17 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
 
-    public run(){
+    public runMV(){
         if(this.monsterMV.state != MonsterMV.STAT_RUN )
             this.monsterMV.run();
     }
 
-    public stand(){
+    public standMV(){
         if(this.monsterMV.state != MonsterMV.STAT_STAND)
             this.monsterMV.stand();
     }
 
-    public die(){
+    public dieMV(){
         this.monsterMV.die();
         //this.bar.width = 0;
         //this.barGroup.visible = false;
@@ -337,13 +374,22 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         //    PlayManager.getInstance().showDropCoin(this)
     }
 
-    public atk(){
+    public atkMV(){
         this.monsterMV.atk();
     }
 
     public renewHp(){
         this.hpBar.data = this.data;
+        this.hpBar.visible = this.data.hp > 0
         //this.hpBar.visible = this.data.hp < this.data.maxHp;
+    }
+
+    public stopMV(){
+        this.monsterMV.stop();
+    }
+
+    public playMV(){
+        this.monsterMV.play();
     }
 
 

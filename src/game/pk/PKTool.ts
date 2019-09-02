@@ -6,6 +6,7 @@ class PKTool {
             return;
         var y = item.isPlayer?-40:300 - item.getVO().height - 20;
         var txt = this.txtPool.shift() || new eui.BitmapLabel()
+        txt.text = ''
         txt.letterSpacing = -5
         txt.scaleX = txt.scaleY = 1;
         if(hp < 0)

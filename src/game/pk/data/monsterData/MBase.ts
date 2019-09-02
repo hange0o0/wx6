@@ -1,71 +1,10 @@
 class MBase {
-    private static id = 1;
-    public static getClass(id){
-        switch (Math.floor(id)){
-            case 1:return M1;
-            case 2:return M2;
-            case 3:return M3;
-            case 4:return M4;
-            case 5:return M5;
-            case 6:return M6;
-            case 7:return M7;
-            case 9:return M9;
-            case 10:return M10;
-            case 11:return M11;
-            case 13:return M13;
-            case 14:return M14;
-            case 15:return M15;
-            case 16:return M16;
-            case 17:return M17;
-            case 18:return M18;;
-            case 31:return M31;
-            case 32:return M32;
-            case 33:return M33;
-            case 34:return M34;
-            case 35:return M35;
-            case 36:return M36;
-            case 38:return M38;
-            case 39:return M39;
-            case 40:return M40;
-            case 41:return M41;
-            case 42:return M42;
-            case 43:return M43;
-            case 44:return M44;
-            case 45:return M45;
-            case 46:return M46;
-            case 48:return M48;
-            case 61:return M61;
-            case 62:return M62;
-            case 63:return M63;
-            case 64:return M64;
-            case 65:return M65;
-            case 66:return M66;
-            case 67:return M67;
-            case 68:return M68;
-            case 69:return M69;
-            case 70:return M70;
-            case 71:return M71;
-            case 72:return M72;
-            case 73:return M73;
-            case 75:return M75;
-            case 76:return M76;
 
-        }
-    }
-
-    public static getItem(id){
-        var cls = this.getClass(id);
-        var item = new cls();
-        item.mid = id;
-        item.onlyID = this.id;
-        item.initData();
-        this.id++;
-        return item;
-    }
 
 
     public mid;
     public onlyID = 0;
+    public scale = 1;
 
 
     public size = 100//体积半径
@@ -76,12 +15,17 @@ class MBase {
     public _speed = 2
     public atkSpeed = 60//帧
     public bulletSpeed = 10//子弹速度
-    public skillDis = 500//技能距离
+
 
     public stopEnd = 0//这个时间前停止行动
-    public atkEnd = 0//这个时间前停止行动
-    public skillEnd = 0//这个时间前停止行动
-    public nextSkillBeign = 0//下次技能开始时间
+    public atkEnd = 0//这个时间前停止行动 攻击中
+    public skillEnd = 0//这个时间前停止行动 技能中
+
+    public skillDis = 500//技能距离
+    public skillCD = 0//5000//技能间隔
+    public lastSkillTime = 0//下次技能开始时间
+
+
     public isFarAtk = true
 
     public beSkillAble = true;
@@ -99,13 +43,18 @@ class MBase {
         var vo = this.getVO();
         this.size = vo.width/2
         this.atkDis = vo.atkrage + 200
+
+
+        this.lastSkillTime = PKC.actionStep
+
+        this.onCreate();
     }
 
     public get atk(){
         return this._atk + PKC.monsterAddAtk
     }
     public get speed(){
-        return this._speed + PKC.monsterAddAtk
+        return this._speed + PKC.monsterAddSpeed
     }
 
     public getHitPos(){
@@ -129,20 +78,22 @@ class MBase {
         {
             this.hp = 0;
             this.isDie = 1;
-            this.relateItem.die();
+            this.relateItem.dieMV();
         }
         PKTool.showHpChange(this,v)
         this.relateItem.renewHp();
     }
 
     public canSkill(){
-        return false;
+        return this.skillCD && PKC.actionStep - this.lastSkillTime >= this.skillCD;
     }
 
     public skillFun(){
 
     }
-
+MV
+    public onCreate(){
+    }
 
     public move(){
 
@@ -155,6 +106,26 @@ class MBase {
     public onDie(){
 
     }
+
+    private delayStep  = 0;
+    private delayFun ;
+    public runDelay(fun,cd){
+        this.delayStep = cd;
+        this.delayFun = fun;
+    }
+    public onDelay(){
+        if(this.delayStep > 0)
+        {
+            this.delayStep --;
+            if(this.delayStep == 0)
+            {
+                this.delayFun && this.delayFun.apply(this);
+            }
+        }
+    }
+
+
+
     public onStep(){
         //雷电法师 召唤闪电
         //幻影剌客  闪过去攻击
@@ -167,8 +138,9 @@ class MBase {
         //掌旗使    大范围增加攻击力,移动速度
         //回血，单体电
         //蛮荒兽人 魔免
+        //基础
+        //烧
         //盾卫    高防
-        //重装斧卫 击退
         //近战巫师 死后变成毒巫师
         //毒巫师 攻击时有几率分身
         //铁甲卫士  不会被打退
@@ -217,5 +189,83 @@ class MBase {
         //巫鼠   前方随机多个球攻击
         //天使    大范围加血
 
+    }
+
+
+    /****************************************************************************/
+    private static id = 1;
+    public static getClass(id){
+        switch (Math.floor(id)){
+            case 1:return M1;
+            case 2:return M2;
+            case 3:return M3;
+            case 4:return M4;
+            case 5:return M5;
+            case 6:return M6;
+            case 7:return M7;
+            case 8:return M8;
+            case 9:return M9;
+            case 10:return M10;
+            case 11:return M11;
+            case 13:return M13;
+            case 14:return M14;
+            case 15:return M15;
+            case 16:return M16;
+            case 17:return M17;
+            case 18:return M18;;
+            case 31:return M31;
+            case 32:return M32;
+            case 33:return M33;
+            case 34:return M34;
+            case 35:return M35;
+            case 36:return M36;
+            case 38:return M38;
+            case 39:return M39;
+            case 40:return M40;
+            case 41:return M41;
+            case 42:return M42;
+            case 43:return M43;
+            case 44:return M44;
+            case 45:return M45;
+            case 46:return M46;
+            case 48:return M48;
+            case 61:return M61;
+            case 62:return M62;
+            case 63:return M63;
+            case 64:return M64;
+            case 65:return M65;
+            case 66:return M66;
+            case 67:return M67;
+            case 68:return M68;
+            case 69:return M69;
+            case 70:return M70;
+            case 71:return M71;
+            case 72:return M72;
+            case 73:return M73;
+            case 75:return M75;
+            case 76:return M76;
+
+            case 101:return M101;
+            case 102:return M102;
+            case 103:return M103;
+            case 104:return M104;
+            case 105:return M105;
+            case 106:return M106;
+            case 107:return M107;
+            case 108:return M108;
+            case 109:return M109;
+            case 110:return M110;
+
+        }
+    }
+
+    public static getItem(id){
+        var cls = this.getClass(id);
+        var item = new cls();
+        item.mid = id;
+        item.onlyID = this.id;
+        item.initData();
+        this.id++;
+        return item;
     }
 }

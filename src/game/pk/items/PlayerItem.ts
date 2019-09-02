@@ -5,7 +5,8 @@ class PlayerItem extends game.BaseItem{
     }
 
     private roleCon: eui.Group;
-    private body: eui.Image;
+    private body: eui.Group;
+    private bodyMC: eui.Image;
     private leftCon: eui.Group;
     private leftKnifeMC: eui.Image;
     private leftHendMC: eui.Image;
@@ -13,6 +14,7 @@ class PlayerItem extends game.BaseItem{
     private rightKnifeMC: eui.Image;
     private rightHendMC: eui.Image;
     private hpBar: HPBar;
+
 
 
 
@@ -52,22 +54,13 @@ class PlayerItem extends game.BaseItem{
     }
 
     public renewSkin(hpStep){
-        this.body.source = 'role_'+hpStep+'_png'
+        this.bodyMC.source = 'role_'+hpStep+'_png'
         this.leftHendMC.source = 'role_'+hpStep+'_png'
         this.rightHendMC.source = 'role_'+hpStep+'_png'
     }
 
     public renewHp(){
         this.hpBar.data = this.data;
-        var hpStep = 1//Math.min(8,9-Math.ceil(8*this.data.hp/this.data.maxHp))
-        //if(this.lastHpStep != hpStep)
-        //{
-        //    this.lastHpStep = hpStep
-            this.body.source = 'role_'+hpStep+'_png'
-            this.leftHendMC.source = 'role_'+hpStep+'_png'
-            this.rightHendMC.source = 'role_'+hpStep+'_png'
-        //}
-
     }
 
     public resetXY(x,y){
@@ -211,7 +204,10 @@ class PlayerItem extends game.BaseItem{
         }
         else
             MyTool.removeMC(this.wudiMC)
+
         var playerData = this.data
+        if(playerData.stopEnd > PKC.actionStep)
+            return;
         if(playerData.isFar)
         {
             this.testFarAtk()
@@ -236,6 +232,8 @@ class PlayerItem extends game.BaseItem{
         this.ctrlRota = rota1;
 
 
+        if(playerData.stopEnd > PKC.actionStep)
+            return;
         if(playerData.isSkillingStopMove)
             return;
 

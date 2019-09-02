@@ -49,10 +49,14 @@ class PKMarkItem extends game.BaseItem{
     public dataChanged(){
         MyTool.removeMC(this.mv);
 
-        this.mv.setData(PKTool.getMVList(this.data.mv.url,this.data.mv.num),84)
-        this.mv.anchorOffsetX = this.data.mv.anX;
-        this.mv.anchorOffsetY = this.data.mv.anY;
-        this.mv.stop();
+        if(this.data.mv)
+        {
+            this.mv.setData(PKTool.getMVList(this.data.mv.url,this.data.mv.num),84)
+            this.mv.anchorOffsetX = this.data.mv.anX;
+            this.mv.anchorOffsetY = this.data.mv.anY;
+            this.mv.stop();
+        }
+
 
         this.addChild(this.mc)
 
@@ -77,6 +81,11 @@ class PKMarkItem extends game.BaseItem{
         this.waitCD --;
         if(this.waitCD <= 0)
         {
+            if(this.data.endFun)
+            {
+                this.data.endFun.apply(this.data.owner,[this]);
+                return;
+            }
             this.isDie = 1
             MyTool.removeMC(this.mc);
             this.addChild(this.mv);

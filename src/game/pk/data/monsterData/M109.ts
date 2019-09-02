@@ -1,5 +1,5 @@
-class M68 extends MBase{
-    //幽灵    前方随机多个球攻击
+class M109 extends MBase{
+    //巫鼠   前方随机多个球攻击
     constructor() {
         super();
     }
@@ -22,7 +22,7 @@ class M68 extends MBase{
     private shootNum = 0
     private lastShootNum = 0
     private shootFun(){
-        this.shootNum = 8;
+        this.shootNum = 16;
         this.lastShootNum = 0;
         this.relateItem.stopMV();
     }
@@ -47,10 +47,22 @@ class M68 extends MBase{
         rota -= Math.PI/3
 
         var bullet = PKCodeUI.getInstance().shoot(this,rota + Math.PI/3*2*Math.random(),hitPoint);
-        bullet.setImage( 'enemy68_attack_png');
+
         bullet.endTime = PKC.actionStep + 150
         bullet.speed = 7
         bullet.rotaAdd = 30
-        bullet.atk = this.atk
+
+
+        if(Math.random() < 0.5)
+        {
+            bullet.setImage( 'bullet9_png');
+            bullet.atk = this.atk
+        }
+        else
+        {
+            bullet.setImage( 'bullet10_png');
+            bullet.atk = this.atk*2
+        }
+
     }
 }

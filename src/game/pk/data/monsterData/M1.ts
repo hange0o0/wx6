@@ -2,11 +2,11 @@ class M1 extends MBase{
     constructor() {
         super();
     }
-
+//雷电法师 召唤闪电
     public atkFun(){
         MTool.markAtkFun(200,5,{
             owner:this,
-            hurt:50,
+            hurt:this.atk,
             mv:{
                 url:'monster1_mv',
                 num:3,

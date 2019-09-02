@@ -19,6 +19,7 @@ class MonsterMV extends eui.Group {
     //
     //public speed = 0;//增加or减少速度百分比
     public runing = false
+    public atkStop = false
 
     public mv = new egret.MovieClip()
     public mcFactory = new egret.MovieClipDataFactory()
@@ -34,11 +35,20 @@ class MonsterMV extends eui.Group {
         //this.mc.cacheAsBitmap = true;
         this.addChild(this.mv);
         this.mv.addEventListener(egret.Event.COMPLETE,this.onEnd,this)
+        //this.mv.addEventListener(egret.Event.ENTER_FRAME,this.onE,this)
 
         //
         //MyTool.addTestBlock(this)
 
     }
+
+    //private onE(e){
+    //    if(this.atkStop && this.state == MonsterMV.STAT_ATK)
+    //    {
+    //        if(this.mv.currentFrame == 3)
+    //            this.mv.stop();
+    //    }
+    //}
 
     //private initAtkMV(){
     //    if(this.atkMV)
@@ -89,6 +99,8 @@ class MonsterMV extends eui.Group {
 
         this.anchorOffsetX = mw/2
         this.anchorOffsetY = mh
+
+        //this.atkStop = [31,32,33,34,35].indexOf(vo.id) != -1
     }
 
     public run(){

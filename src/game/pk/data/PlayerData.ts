@@ -48,6 +48,8 @@ class PlayerData{
 
     public skillCD = {}//技能CD结束时间
 
+    public stopEnd = 0;
+
     public getAtk(){
         //var hpStep = Math.ceil(8*this.hp/this.maxHp)
         return Math.ceil(this.atk * (2 - this.hp/this.maxHp))

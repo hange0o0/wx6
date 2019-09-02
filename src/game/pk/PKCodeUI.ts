@@ -39,7 +39,6 @@ class PKCodeUI extends game.BaseContainer_wx4{
         super.childrenCreated();
 
         this.roleCon.addChild(this.playerItem)
-        this.playerItem.data = PKC.playerData;
         PKC.playerData.relateItem = this.playerItem;
 
     }
@@ -80,6 +79,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
         this.con.width = this.bg.width = PKC.mapW
         this.con.height = this.bg.height = PKC.mapH
         PKC.playerData.initData();
+        this.playerItem.data = PKC.playerData;
         this.playerItem.resetXY(this.con.width/2,this.con.height/2)
         this.renewConY();
         this.height = GameManager_wx4.uiHeight

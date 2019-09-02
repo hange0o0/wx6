@@ -18,7 +18,7 @@ class S5 extends SBase{
         var rota = item.ctrlRota/180*Math.PI;
         var rota90 = rota - Math.PI/2;
         var num = 3
-        var des = 30*num
+        var des = 40*num
         var dStart  = -des/2
         var dAdd = 20
         for(var i=0;i<num;i++)
