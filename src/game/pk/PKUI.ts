@@ -36,6 +36,8 @@ class PKUI extends game.BaseUI_wx4{
     public skillArr = [];
     public middleR = 180
 
+    public redArr = [];
+
     public constructor() {
         super();
         this.skinName = "PKUISkin";
@@ -43,6 +45,14 @@ class PKUI extends game.BaseUI_wx4{
 
     public childrenCreated() {
         super.childrenCreated();
+
+        for(var i=0;i<10;i++)
+        {
+            var mc = new eui.Image('common_redpoint_01_png')
+            mc.anchorOffsetX = mc.anchorOffsetY = 32/2
+            this.redArr.push(mc)
+            this.addChildAt(mc,0)
+        }
 
 
         for(var i=1;i<=6;i++)
@@ -173,20 +183,80 @@ class PKUI extends game.BaseUI_wx4{
         if (this.touchID) {
             ui.playerItem.move(this.touchID)
         }
+        ui.onE();
         if(this.touchID || playerData.isSkilling)
         {
             ui.renewConY();
         }
-        ui.onE();
+
 
         if(playerData.hp <= 0)
         {
             playerData.hp = playerData.maxHp
         }
 
+        var len = PKC.monsterList.length;
+        var redIndex = 0;
+        var hh = this.height + 30
+        for(var i=0;i<len;i++)
+        {
+            var monster = PKC.monsterList[i];
+            if(monster.isDie)
+                continue;
+            var x = monster.x + ui.con.x
+            var y = monster.y + ui.con.y
+            if(x > -30 && x < 670 && y > -30 && y<hh)
+                continue;
+            this.setMonsterRed(x,y,this.redArr[redIndex])
+            redIndex ++;
+            if(redIndex >=10)
+                break
+
+        }
+
+        for(var i= redIndex;i<10;i++)
+        {
+            this.redArr[i].visible = false;
+        }
+
         this.renewSkillCD();
 
         this.rateBar.width = 326*(PKC.maxStep - PKC.actionStep)/PKC.maxStep
+    }
+
+    private setMonsterRed(x,y,mc){
+        mc.visible = true
+
+        var r = 16;
+        var wr = 320-r
+
+        var playerY = (this.height-320)/2
+        var angle = Math.atan2(y-playerY,x-320)
+        if(angle >= 0)
+            var hr = this.height - playerY - r;
+        else
+            var hr = (playerY - r);
+
+        var hh = Math.abs(Math.tan(angle)*wr);
+
+        if(hh > hr)//x在0-640内
+        {
+            var ww = Math.abs(hr/Math.tan(angle));
+            if(Math.abs(angle) < Math.PI/2)
+                mc.x = (320 + ww);
+            else
+                mc.x = (320 - ww);
+            mc.y = y > playerY?this.height-r:r;
+        }
+        else
+        {
+            mc.x = x > 320?640-r:r;
+            if(angle >= 0)
+                mc.y = playerY + hh
+            else
+                mc.y = playerY - hh
+        }
+
     }
 
     private onTimer(){

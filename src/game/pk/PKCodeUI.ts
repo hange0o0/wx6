@@ -7,7 +7,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
     }
 
 
-    private con: eui.Group;
+    public con: eui.Group;
     private bg: eui.Image;
     public bottomCon: eui.Group;
     public roleCon: eui.Group;
@@ -46,9 +46,19 @@ class PKCodeUI extends game.BaseContainer_wx4{
     public renewConY(){
         this.con.y = (GameManager_wx4.uiHeight - 320)/2 - this.playerItem.y;
         this.con.x = 320 - this.playerItem.x
+
+        var x = this.con.x%200;
+        var y = this.con.y%200
+        if(x > 0)
+            x -= 200
+        if(y > 0)
+            y -= 200
+        this.bg.x = x
+        this.bg.y = y
     }
 
     public onShow(){
+        this.bg.source = 'bg_'+Math.ceil(Math.random()*10)+'_jpg'
         while(this.monsterArr.length)
         {
             PKMonsterItem_wx3.freeItem(this.monsterArr.pop())
@@ -77,14 +87,15 @@ class PKCodeUI extends game.BaseContainer_wx4{
 
         PKC.initData()
 
-        this.con.width = this.bg.width = PKC.mapW
-        this.con.height = this.bg.height = PKC.mapH
         PKC.playerData.initData();
         this.playerItem.data = PKC.playerData;
         this.playerItem.resetXY(this.con.width/2,this.con.height/2)
         this.playerItem.showStandMV();
         this.renewConY();
         this.height = GameManager_wx4.uiHeight
+
+        this.bg.height = 200 + Math.ceil(GameManager_wx4.uiHeight/200)*200
+        this.bg.width = 200 + Math.ceil(GameManager_wx4.uiWidth/200)*200
     }
 
     public sortY(){

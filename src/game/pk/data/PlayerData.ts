@@ -85,6 +85,7 @@ class PlayerData{
         this.behurtAdd = 0;
         this.rebornDec = 0;
         this.coinAdd = 0;
+        this.stopEnd = 0;
         this.atkBuff = {}
         this.skillCD = {}
 

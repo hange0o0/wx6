@@ -101,16 +101,16 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
     public resetXY(x,y){
 
-        var r = 40;
-        if(x < r)
-            x = r;
-        else if(x > PKC.mapW - r)
-            x = PKC.mapW - r;
-
-        if(y < r)
-            y = r
-        else if(y > PKC.mapH - r)
-            y = PKC.mapH - r
+        //var r = 40;
+        //if(x < r)
+        //    x = r;
+        //else if(x > PKC.mapW - r)
+        //    x = PKC.mapW - r;
+        //
+        //if(y < r)
+        //    y = r
+        //else if(y > PKC.mapH - r)
+        //    y = PKC.mapH - r
 
 
         this.x = this.data.x = x;

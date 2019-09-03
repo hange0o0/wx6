@@ -7,8 +7,8 @@ class PKCode_wx4 {
     }
 
     public frameRate = 30   //PKTool.getStepByTime 也要改
-    public mapW = 640
-    public mapH = 640
+    //public mapW = 640
+    //public mapH = 640
 
     public maxMonster = 20
 
@@ -58,11 +58,12 @@ class PKCode_wx4 {
 
     //自动出战上怪
     public autoAction(){
-        while(this.autoMonster[0] && this.autoMonster[0].step <= this.actionStep)
+
+        while(this.autoMonster[0] && this.autoMonster[0].step <= this.actionStep)// && this.monsterList.length == 0
         {
             var data = this.autoMonster.shift()
             var mid = _get['mid'] || data.id;
-            this.monsterList.push(PKCodeUI.getInstance().addMonster(mid,data.x,data.y))
+            this.monsterList.push(PKCodeUI.getInstance().addMonster(mid,this.playerData.x + data.x,this.playerData.y + data.y))
         }
     }
 
@@ -71,16 +72,15 @@ class PKCode_wx4 {
     public initData(){
         this.actionStep = 0;
         this.monsterList.length = 0;
-        PKC.mapW = 1000
-        PKC.mapH = 1000
         PKMonsterAction_wx3.getInstance().init();
-        this.autoMonster = this.getLevelMonster(UM_wx4.level);
+        this.autoMonster = this.getLevelMonster(1);
         this.maxStep = this.autoMonster[this.autoMonster.length-1].step;
         //PKBulletManager_wx3.getInstance().freeAll();
     }
 
     public getLevelMonster(level){
-        this.randomSeed = level*1234567890;
+        //this.randomSeed = level*1234567890;
+        this.randomSeed = Math.random()*1234567890;
 
         var maxCost = 50 + level*Math.pow(1.012,level)*50;  //每一关增加的花费
         var stepCost = maxCost/Math.min(300,27 + level*3)/30;//每一关增加的时间
@@ -127,8 +127,8 @@ class PKCode_wx4 {
                 list.push({
                     id:vo.id,
                     step:step,
-                    x:50 + PKC.random()*(PKC.mapW - 50),
-                    y:50 + PKC.random()*(PKC.mapH - 50)
+                    x:-500 + PKC.random()*1000,
+                    y:-500 + PKC.random()*1000
                 })
                 monsterCost += vo.cost;
             }
@@ -154,8 +154,8 @@ class PKCode_wx4 {
                         list.push({
                             id:bossid,
                             step:step,
-                            x:(PKC.mapW - 200)/2 + PKC.random()*200,
-                            y:(PKC.mapH - 200)/2 + PKC.random()*200,
+                            x:-500 + PKC.random()*1000,
+                            y:-500 + PKC.random()*1000
                         })
                     }
                 }

@@ -37,16 +37,6 @@ class MTool {
         var itemWidth = 100
         var testNum = 100
 
-        if(middle.x-r < 0)
-            middle.x = r;
-        else if(middle.x + r > PKC.mapW)
-            middle.x = PKC.mapW - r;
-
-        if(middle.y-r < 0)
-            middle.y = r;
-        else if(middle.y + r > PKC.mapH)
-            middle.y = PKC.mapH - r;
-
         markArr.push({x:playerData.x + Math.random()*20-10,y:playerData.y + Math.random()*20-10})
         keyObj[this.getXYKey(playerData.x,playerData.y,itemWidth)] = 1;
         num --;
