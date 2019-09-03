@@ -100,6 +100,17 @@ class PlayerData{
 
 
         var skill = _get['skill']?_get['skill'].split(','):[]
+        if(skill.length == 0)
+        {
+            for(var i=0;i<51;i++)
+            {
+                skill.push(i+1);
+            }
+            ArrayUtil_wx4.random(skill,3);
+            skill.length = 6
+        }
+
+
         this.skills = {}
         this.skillsList = []
         for(var i=0;i<skill.length;i++)
@@ -253,7 +264,7 @@ class PlayerData{
         {
             if(this.wudiStep > 0)
                 return;
-            if(Math.random() < this.missRate)
+            if(enemy && Math.random() < this.missRate)
             {
                 var y = 300 - enemy.getVO().height - 20;
                 PKTool.showWordMC(new eui.Image('miss_png'),enemy.relateItem,y)

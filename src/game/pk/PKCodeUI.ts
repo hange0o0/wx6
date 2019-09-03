@@ -75,12 +75,14 @@ class PKCodeUI extends game.BaseContainer_wx4{
             PKLineItem.freeItem(this.lineArr.pop())
         }
 
+        PKC.initData()
 
         this.con.width = this.bg.width = PKC.mapW
         this.con.height = this.bg.height = PKC.mapH
         PKC.playerData.initData();
         this.playerItem.data = PKC.playerData;
         this.playerItem.resetXY(this.con.width/2,this.con.height/2)
+        this.playerItem.showStandMV();
         this.renewConY();
         this.height = GameManager_wx4.uiHeight
     }
@@ -284,7 +286,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
         item.x = x
         item.y = y
         item.rotation = rota;
-
+        return item;
     }
 
 

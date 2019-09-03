@@ -20,7 +20,7 @@ class GameTool extends egret.EventDispatcher {
             //AniManager_wx3.getInstance().preLoadMV(103)
             AniManager_wx3.getInstance().preLoadMV(112)
             AniManager_wx3.getInstance().preLoadMV(128)
-            AniManager_wx3.getInstance().preLoadMV(200)
+            //AniManager_wx3.getInstance().preLoadMV(200)
         //}
     }
 }

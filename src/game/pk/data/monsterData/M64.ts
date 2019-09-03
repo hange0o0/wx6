@@ -4,9 +4,21 @@ class M64 extends MBase{
         super();
     }
 
+    private lineItem;
+    public onBeHit(){
+        if(this.lineItem && this.lineItem.owner == this && !this.lineItem.isDie)
+        {
+            this.lineItem.isDie = 2;
+            this.lineItem = null
+            this.relateItem.standMV();
+        }
+    }
+
+
+
     public atkFun(){
         this.relateItem.stopMV()
-        MTool.moveSkillFun(this,{
+        this.lineItem = MTool.moveSkillFun(this,{
             isFollow:true,
             endFun:this.skillEndFun,
         })
@@ -20,6 +32,7 @@ class M64 extends MBase{
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 50
         bullet.atk = this.atk
+        this.lineItem = null;
     }
 
 }

@@ -3,4 +3,8 @@ class M5 extends MBase{
     constructor() {
         super();
     }
+
+    public atkFun(){
+        MTool.nearAtkFun(this)
+    }
 }

@@ -3,6 +3,9 @@ class M6 extends MBase{
     constructor() {
         super();
     }
+    public atkFun(){
+        MTool.nearAtkFun(this)
+    }
 
     public skillDis = 500//技能距离
     public skillCD = PKTool.getStepByTime(5000)//技能间隔
@@ -11,9 +14,17 @@ class M6 extends MBase{
         return super.canSkill() && MyTool.getDis(this,PKC.playerData)>300
     }
 
+    private lineItem;
+    //public onBeHit(){
+    //    if(this.lineItem && this.lineItem.owner == this && !this.lineItem.isDie)
+    //    {
+    //        this.lineItem.isDie = 2;
+    //        this.lineItem = null
+    //    }
+    //}
     public skillFun(){
         this.skillEnd = Number.MAX_VALUE
-        MTool.moveSkillFun(this,{
+        this.lineItem = MTool.moveSkillFun(this,{
             isFollow:true,
             isFootPos:true,
             endFun:this.skillEndFun,

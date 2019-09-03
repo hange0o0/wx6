@@ -21,7 +21,9 @@ class PKCode_wx4 {
 
 
 
+    public autoMonster = [];
 
+    public maxStep = 0
     public randomSeed = 99999999;
     public random(seedIn?){
         var seed = seedIn || this.randomSeed;
@@ -56,19 +58,109 @@ class PKCode_wx4 {
 
     //自动出战上怪
     public autoAction(){
-        if(this.actionStep > 50 && this.monsterList.length < 5)
+        while(this.autoMonster[0] && this.autoMonster[0].step <= this.actionStep)
         {
-            var x = 50 + PKC.random()*(PKC.mapW - 50)
-            var y = 50 + PKC.random()*(PKC.mapH - 50)
-            this.monsterList.push(PKCodeUI.getInstance().addMonster(_get['mid'] || 4,x,y))
+            var data = this.autoMonster.shift()
+            var mid = _get['mid'] || data.id;
+            this.monsterList.push(PKCodeUI.getInstance().addMonster(mid,data.x,data.y))
         }
     }
 
 
 
     public initData(){
+        this.actionStep = 0;
+        this.monsterList.length = 0;
+        PKC.mapW = 1000
+        PKC.mapH = 1000
         PKMonsterAction_wx3.getInstance().init();
+        this.autoMonster = this.getLevelMonster(UM_wx4.level);
+        this.maxStep = this.autoMonster[this.autoMonster.length-1].step;
         //PKBulletManager_wx3.getInstance().freeAll();
+    }
 
+    public getLevelMonster(level){
+        this.randomSeed = level*1234567890;
+
+        var maxCost = 50 + level*Math.pow(1.012,level)*50;  //每一关增加的花费
+        var stepCost = maxCost/Math.min(300,27 + level*3)/30;//每一关增加的时间
+        var nowCost = 0;
+        var step = 50;
+        var monsterCost = -10;
+        var monsterList = [];
+        var mlv = Math.ceil(level/3);
+        for(var s in MonsterVO.data)
+        {
+            if(MonsterVO.data[s].level <= mlv)
+            {
+                monsterList.push(MonsterVO.data[s])
+            }
+        }
+        if(monsterList.length > 10)//同一次最多出场10种怪物
+        {
+            var temp = [];
+            for(var i=0;i<10;i++)
+            {
+                var index = Math.floor(this.random()*monsterList.length)
+                temp.push(monsterList[index])
+                monsterList.splice(index,1);
+            }
+            monsterList = temp;
+        }
+
+        ArrayUtil_wx4.sortByField(monsterList,['cost','id'],[0,0]);
+        var minRate = this.random()*0.8;//出现小怪的机率
+        var minRateAdd = 0.2 + this.random()*0.3;//出现小怪的机率
+        var list = [];
+        //list.push(103+'|' + step + '|' +50)
+
+        var needAddBoss = level%5 == 0
+        var bossRate = Math.max(0.5,1-level/50);
+        while(nowCost < maxCost)
+        {
+            while(monsterCost < nowCost)
+            {
+                if(this.random() < minRate)
+                    var vo = monsterList[Math.floor(monsterList.length*this.random()*minRateAdd)]
+                else
+                    var vo = monsterList[Math.floor(monsterList.length*this.random())]
+                list.push({
+                    id:vo.id,
+                    step:step,
+                    x:50 + PKC.random()*(PKC.mapW - 50),
+                    y:50 + PKC.random()*(PKC.mapH - 50)
+                })
+                monsterCost += vo.cost;
+            }
+            step++;
+            nowCost += stepCost
+
+
+            if(needAddBoss && nowCost/maxCost > bossRate)
+            {
+                var boss = [101,102,104,105,106,107,108,109,110]
+                needAddBoss = false;
+                nowCost += 10;//固定10费
+                var bossNum = Math.ceil(level/(9*5))
+                if(bossNum == 1)
+                    list.push(boss[Math.floor(level/5)] + '|' + step)
+                else
+                {
+                    for(var i=0;i<bossNum;i++)
+                    {
+                        var index = Math.floor(Math.random() * boss.length)
+                        var bossid =  boss[index]
+                        boss.splice(index,1)
+                        list.push({
+                            id:bossid,
+                            step:step,
+                            x:(PKC.mapW - 200)/2 + PKC.random()*200,
+                            y:(PKC.mapH - 200)/2 + PKC.random()*200,
+                        })
+                    }
+                }
+            }
+        }
+        return list
     }
 }

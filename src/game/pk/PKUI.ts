@@ -58,6 +58,13 @@ class PKUI extends game.BaseUI_wx4{
         this.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchEnd, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
         this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchEnd, this);
+
+        this.addBtnEvent(this.monsterText,()=>{
+            PKCodeUI.getInstance().onShow();
+            this.renewSkill()
+            this.renewHp()
+            this.onTimer()
+        })
     }
 
     private onTouchBegin(e: egret.TouchEvent) {
@@ -178,6 +185,8 @@ class PKUI extends game.BaseUI_wx4{
         }
 
         this.renewSkillCD();
+
+        this.rateBar.width = 326*(PKC.maxStep - PKC.actionStep)/PKC.maxStep
     }
 
     private onTimer(){

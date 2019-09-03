@@ -42,7 +42,7 @@ class MBase {
     public initData(){
         var vo = this.getVO();
         this.size = vo.width/2
-        this.atkDis = vo.atkrage + 200
+        this.atkDis = vo.atkrage + this.size + 40
 
 
         this.lastSkillTime = PKC.actionStep
@@ -82,6 +82,10 @@ class MBase {
         }
         PKTool.showHpChange(this,v)
         this.relateItem.renewHp();
+        if(v<0)
+        {
+            this.onBeHit();
+        }
     }
 
     public canSkill(){
@@ -104,6 +108,10 @@ MV
     }
 
     public onDie(){
+
+    }
+
+    public onBeHit(){
 
     }
 

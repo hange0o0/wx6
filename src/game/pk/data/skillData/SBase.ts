@@ -52,6 +52,7 @@ class SBase {
             case 48:return S48;
             case 49:return S49;
             case 50:return S50;
+            case 51:return S51;
         }
     }
 

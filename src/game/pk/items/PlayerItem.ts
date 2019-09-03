@@ -26,6 +26,7 @@ class PlayerItem extends game.BaseItem{
     private atkStep = 0
     private ctrlRota = 0//控制面向的方向
 
+    private lastMoveTime //上次移动的时间
     private wudiMC
 
     public childrenCreated() {
@@ -88,12 +89,48 @@ class PlayerItem extends game.BaseItem{
         egret.Tween.removeTweens(this.body);
     }
 
+    public isAtking(){
+        if(this.mvKey == 'atk')
+            return true;
+        if(this.mvKey == 'double')
+            return true;
+        if(this.mvKey == 'shoot')
+            return true;
+        return false;
+    }
+
 
     public showWalkMV(){
+        if(this.isAtking())
+            return;
+        if(this.mvKey == 'walk')
+            return;
         this.mvKey = 'walk'
+
+        egret.Tween.removeTweens(this.leftCon);
+        this.leftCon.scaleX = 1;
+        this.leftCon.rotation =  20
+        this.leftCon.x = -10;
+        this.leftCon.y = 35;
+        egret.Tween.get(this.leftCon,{loop:true}).to({x:-5,y:30},100).to({x:-15,y:40},200).to({x:-10,y:35},100);
+
+        egret.Tween.removeTweens(this.rightCon);
+        this.rightCon.scaleX = 1;
+        this.rightCon.rotation =  -20
+        this.rightCon.x = 90;
+        this.rightCon.y = 35;
+        egret.Tween.get(this.rightCon,{loop:true}).to({x:95,y:40},100).to({x:85,y:30},200).to({x:90,y:35},100);
+
+
+        egret.Tween.removeTweens(this.body);
+        this.body.x = 40
+        this.body.y = 40
     }
 
     public showStandMV(){
+        if(this.mvKey == 'stand')
+            return;
+
         this.mvKey = 'stand'
 
         egret.Tween.removeTweens(this.leftCon);
@@ -112,12 +149,14 @@ class PlayerItem extends game.BaseItem{
 
 
         egret.Tween.removeTweens(this.body);
-        this.body.x = 35
-        this.body.y = 50
+        this.body.x = 40
+        this.body.y = 40
+
     }
 
 
     public showAtkMV(){
+        this.mvKey = 'atk'
         this.atkStep ++;
         egret.Tween.removeTweens(this.body);
         if(this.atkStep %2 == 0) //
@@ -150,7 +189,7 @@ class PlayerItem extends game.BaseItem{
     }
 
     public showDoubleMV(){
-
+        this.mvKey = 'double'
         egret.Tween.removeTweens(this.leftCon);
         this.leftCon.scaleX = -1;
         this.leftCon.rotation =  80
@@ -171,6 +210,7 @@ class PlayerItem extends game.BaseItem{
     }
 
     public showShootMV(){
+        this.mvKey = 'shoot'
         this.cleanTween()
         this.leftCon.rotation = 0
         this.leftCon.x = 30;
@@ -222,9 +262,13 @@ class PlayerItem extends game.BaseItem{
             var angle = PKTool.getRota(playerData,playerData.hitEnemy);
             this.roleCon.rotation = angle/Math.PI*180+90
         }
+
+        if(this.mvKey != 'stand' && PKC.actionStep - this.lastMoveTime > 10 && !this.isAtking())
+            this.showStandMV()
     }
 
     public move(touchID){
+        this.lastMoveTime = PKC.actionStep
         var playerData = this.data
 
         var angle = Math.atan2(touchID.y2-touchID.y1,touchID.x2-touchID.x1)
@@ -275,7 +319,7 @@ class PlayerItem extends game.BaseItem{
         var targetY = this.y+y
         this.resetXY(targetX,targetY)
 
-        var showWalk = !playerData.hitEnemy && !playerData.isSkilling
+        var showWalk = !playerData.hitEnemy && !playerData.isSkilling //
         if(showWalk || playerData.isHide)
         {
             this.roleCon.rotation = this.ctrlRota  + 90

@@ -292,6 +292,8 @@ if(window["wx"])
     window["sendClientError"] = sendClientError
     window["GameManager_wx4"] = GameManager_wx4
     window["BasePanel"] = BasePanel
+    window["PKSkillItem"] = PKSkillItem
+    window["HPBar"] = HPBar
 
 
     var wx =  window["wx"];
