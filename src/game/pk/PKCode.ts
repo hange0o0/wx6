@@ -6,6 +6,7 @@ class PKCode_wx4 {
         return this.instance;
     }
 
+    public isAuto = false;
     public frameRate = 30   //PKTool.getStepByTime 也要改
 
 
@@ -59,6 +60,31 @@ class PKCode_wx4 {
 
     //自动出战上怪
     public autoAction(){
+        if(this.actionStep < 50)
+            return;
+        if(this.isAuto)
+        {
+            if(this.monsterList.length == 0)
+            {
+                if(this.autoMonster.length == 0)
+                {
+                    var mlv = UM_wx4.level;
+                    for(var s in MonsterVO.data)
+                    {
+                        if(MonsterVO.data[s].level <= mlv)
+                        {
+                            this.autoMonster.push(MonsterVO.data[s])
+                        }
+                    }
+                    ArrayUtil_wx4.random(this.autoMonster,3)
+                    this.playerData.randomSKill();
+                }
+                var rota = Math.PI*2*Math.random()
+                this.monsterList.push(PKCodeUI.getInstance().addMonster(this.autoMonster.pop().id,this.playerData.x + Math.cos(rota)*500,this.playerData.y + Math.sin(rota)*500))
+            }
+            return;
+        }
+
         while(this.canAddMonster())// && this.monsterList.length == 0
         {
             var data = this.autoMonster.shift()
@@ -68,8 +94,6 @@ class PKCode_wx4 {
     }
 
     private canAddMonster(){
-        if(this.actionStep < 50)
-            return false;
         if(!this.autoMonster[0])
             return false;
         if(this.monsterList.length < 3)
@@ -104,7 +128,7 @@ class PKCode_wx4 {
         var step = 50;
         var monsterCost = -10;
         var monsterList = [];
-        var mlv = Math.ceil(level/3);
+        var mlv = level;
         for(var s in MonsterVO.data)
         {
             if(MonsterVO.data[s].level <= mlv)

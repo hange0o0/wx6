@@ -123,6 +123,28 @@ class PlayerData{
         }
     }
 
+    //重新随机自动玩家技能
+    public randomSKill(){
+        var skill = []
+        for(var i=0;i<51;i++)
+        {
+            skill.push(i+1);
+        }
+        ArrayUtil_wx4.random(skill,3);
+        skill.length = 6
+
+
+        this.skills = {}
+        this.skillsList = []
+        for(var i=0;i<skill.length;i++)
+        {
+            var sItem = SBase.getItem(skill[i])
+            this.skillsList.push(sItem)
+            this.skills[sItem.sid] = sItem
+            sItem.onCreate();
+        }
+    }
+
     public addBuff(buff){
           this.buffArr.push(buff);
     }

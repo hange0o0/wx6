@@ -128,6 +128,7 @@ class PKUI extends game.BaseUI_wx4{
         this.resetTouchGroup()
         this.height = GameManager_wx4.uiHeight
         this.addChildAt(PKCodeUI.getInstance(),0)
+        PKC.isAuto = false;
         PKCodeUI.getInstance().onShow();
 
 

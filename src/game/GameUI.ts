@@ -25,6 +25,8 @@ class GameUI extends game.BaseUI_wx4 {
     private startBtn1: eui.Button;
 
 
+
+    private moveState = 0
     public constructor() {
         super();
         this.skinName = "GameUISkin";
@@ -61,7 +63,7 @@ class GameUI extends game.BaseUI_wx4 {
         })
 
         this.addBtnEvent(this.startBtn1,()=>{
-
+            PKUI.getInstance().show();
         })
 
         this.addBtnEvent(this.startBtn2,()=>{
@@ -137,7 +139,9 @@ class GameUI extends game.BaseUI_wx4 {
         }
         this.showTips();
         this.addChildAt(PKCodeUI.getInstance(),0)
+        PKC.isAuto = true;
         PKCodeUI.getInstance().onShow()
+
     }
 
     private showTips(){
@@ -174,18 +178,57 @@ class GameUI extends game.BaseUI_wx4 {
     private onE(){
         if(!this.visible)
             return
+        if(PKC.isStop)
+            return;
         var ui = PKCodeUI.getInstance();
         var playerData = PKC.playerData;
-        if(playerData.isSkilling)
+        var monster = PKC.monsterList[0]
+        if(monster && monster.isDie)
         {
-            ui.renewConY();
-        }
-        ui.onE();
 
-        if(playerData.hp <= 0)
-        {
-            playerData.hp = playerData.maxHp
         }
+        if(monster && !monster.isDie)
+        {
+            var len = MyTool.getDis(monster,playerData);
+
+            if(len > playerData.atkDis -10)
+            {
+                ui.playerItem.move({
+                    x1:playerData.x,
+                    y1:playerData.y,
+                    x2:monster.x,
+                    y2:monster.y,
+                })
+                this.moveState = 1
+                if(Math.random() < 0.01)//用技能
+                {
+                    playerData.useSkill(ArrayUtil_wx4.randomOne(playerData.skillsList).sid)
+                }
+            }
+            else if(this.moveState == -1 || len < 40 + (playerData.atkDis-40)/3)
+            {
+                ui.playerItem.move({
+                    x2:playerData.x,
+                    y2:playerData.y,
+                    x1:monster.x,
+                    y1:monster.y,
+                })
+
+                if(len > 40 + (playerData.atkDis-40)/3*2)
+                    this.moveState = 0;
+                else
+                    this.moveState = -1
+            }
+            else
+            {
+                this.moveState = 0
+            }
+
+
+        }
+
+        ui.onE();
+        ui.renewConY();
     }
 
 

@@ -278,7 +278,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
         var bullet = PKBulletItem2.createItem();
         var owner = PKC.playerData;
         this.bulletArr2.push(bullet);
-        this.playerItem.addChild(bullet);
+        this.bulletCon.addChild(bullet);
         bullet.data = {
             owner:owner,
             rota:rota,

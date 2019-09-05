@@ -25,6 +25,8 @@ class PKBulletItem2 extends game.BaseItem {
     public rota;
     public isDie = 0
     public scale = 1
+
+    public moveLen = 0
     public constructor() {
         super();
         this.skinName = "PKBulletItemSkin";
@@ -53,10 +55,9 @@ class PKBulletItem2 extends game.BaseItem {
         this.isDie = 0;
         this.scaleX = 0.5*this.scale
         this.scaleY = 0.5
-        this.x = 40
-        this.y = 40
+        this.moveLen = 40
 
-
+        this.resetXY();
     }
 
     public onE(){
@@ -67,8 +68,15 @@ class PKBulletItem2 extends game.BaseItem {
             this.isDie = 1;
         this.scaleX += 0.15*this.scale
         this.scaleY += 0.15
-        this.x += this.speed*Math.cos(this.rota)
-        this.y += this.speed*Math.sin(this.rota)
+
+        this.moveLen += this.speed
+
+        this.resetXY();
+    }
+
+    private resetXY(){
+        this.x = PKC.playerData.x + this.moveLen*Math.cos(this.rota)
+        this.y = PKC.playerData.y + this.moveLen*Math.sin(this.rota)
     }
 
     public remove(){

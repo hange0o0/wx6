@@ -305,7 +305,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         }
 
-
+        this.standMV()
 
     }
 

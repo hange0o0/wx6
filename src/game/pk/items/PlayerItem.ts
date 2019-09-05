@@ -28,6 +28,7 @@ class PlayerItem extends game.BaseItem{
 
     private lastMoveTime //上次移动的时间
     private wudiMC
+    private stateYunMV
 
     public childrenCreated() {
         super.childrenCreated();
@@ -49,6 +50,7 @@ class PlayerItem extends game.BaseItem{
 
 
 
+        this.hpBar.visible = !PKC.isAuto
         this.renewHp();
         //this.showStandMV();
         this.ctrlRota = -90
@@ -249,8 +251,32 @@ class PlayerItem extends game.BaseItem{
             MyTool.removeMC(this.wudiMC)
 
         var playerData = this.data
-        if(playerData.stopEnd > PKC.actionStep)
+        if(playerData.stopEnd > PKC.actionStep)//表现晕
+        {
+
+            if(!this.stateYunMV)
+            {
+                this.stateYunMV = new MovieSimpleSpirMC2()
+                this.stateYunMV.x =  40 -  154/4
+                this.stateYunMV.y = -10
+                this.stateYunMV.setData('effect2_png',154/2,39,2,1000/6)
+                this.stateYunMV.stop()
+            }
+            if(!this.stateYunMV.parent)
+            {
+                this.addChild(this.stateYunMV)
+                this.stateYunMV.play()
+            }
+
             return;
+        }
+
+        if(this.stateYunMV && this.stateYunMV.parent)
+        {
+            MyTool.removeMC(this.stateYunMV)
+            this.stateYunMV.stop()
+        }
+
         if(playerData.isFar)
         {
             this.testFarAtk()

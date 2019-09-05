@@ -4,6 +4,7 @@ class M42 extends MBase{
         super();
     }
 
+    public atkDisAdd = 60//判断命中时，增加的判断距离
     public atkFun(){
         MTool.nearAtkFun(this,()=>{
             PKC.playerData.stopEnd = PKC.actionStep + 10

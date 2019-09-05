@@ -10,7 +10,7 @@ class MTool {
             step:itemData.getVO().mvAtk,
             fun:()=>{
                 fun2 && fun2();
-                if(MyTool.getDis(itemData,PKC.playerData) <= itemData.atkDis + 20)
+                if(MyTool.getDis(itemData,PKC.playerData) <= itemData.atkDis + itemData.atkDisAdd)
                 {
                     var playerData = PKC.playerData
                     playerData.addHp(-itemData.atk,itemData);

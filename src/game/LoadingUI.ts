@@ -135,7 +135,8 @@ class LoadingUI extends game.BaseUI_wx4 {
         RES.loadGroup('hero');
         RES.loadGroup('monster');
 
-        PKUI.getInstance().show();
+        GameUI.getInstance().show();
+        //PKUI.getInstance().show();
     }
 
     public onShow(){
