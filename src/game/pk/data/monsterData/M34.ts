@@ -12,8 +12,8 @@ class M34 extends MBase{
         var playerData = PKC.playerData
         var hitPoint = this.getHitPos();
         var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)
-        rota -= Math.PI/3
-        var step = Math.PI/3*2/4
+        rota -= Math.PI/2
+        var step = Math.PI/2*2/4
 
         for(var i = 0;i<5;i++)
         {

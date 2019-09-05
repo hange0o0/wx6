@@ -256,34 +256,52 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         var dis = MyTool.getDis(playerData,this);
         if(dis < myData.skillDis && myData.canSkill())
         {
+            myData.moveStartTime = 0;
             myData.skillFun();
             myData.lastSkillTime = PKC.actionStep;
             return;
         }
 
-        var canAtk = dis <= myData.atkDis && this.canAttackPos(playerData)
+        var canAtk = dis <= myData.atkDis && myData.lastAtkTime + myData.atkSpeed < PKC.actionStep
 
         //atk
         if(canAtk){
+            myData.moveStartTime = 0;
             this.atkMV()
             myData.atkFun();
-            myData.atkEnd = PKC.actionStep + myData.atkSpeed
+            myData.atkEnd = PKC.actionStep + myData.atkStop
+            myData.lastAtkTime = PKC.actionStep
             return
         }
 
         //move
-        if(!this.iceStep){
+        if(!this.iceStep && dis > myData.atkDis){
             var speed = this.data.speed;
-            var atkPos = this.getAttackPos(playerData)
+            var atkPos = playerData
             var angle = Math.atan2(atkPos.y-myData.y,atkPos.x-myData.x)
+
+            if(myData.moveStartTime && PKC.actionStep - myData.moveStartTime > 200)//长时间移动
+            {
+                myData.changeRandomPos(dis,angle);
+                return;
+            }
+
+
             var x = Math.cos(angle)*speed
             var y = Math.sin(angle)*speed
 
+            if(this.data.isFarAtk && dis < myData.atkDis/2)//远程离太近，要远离
+            {
+                x *= -1
+                y *= -1
+            }
             var targetX = this.x + x
-            var targetY = this.y+y
+            var targetY = this.y + y
 
             this.resetXY(targetX,targetY)
             this.runMV();
+            if(!myData.moveStartTime)
+                myData.moveStartTime = PKC.actionStep
             return;
         }
 
@@ -291,15 +309,15 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
     }
 
-    //在可以攻击的位置
-    private canAttackPos(playerData){
-        return true;
-    }
-
-    //获得可以攻击的位置
-    private getAttackPos(playerData){
-        return playerData;
-    }
+    ////在可以攻击的位置
+    //private canAttackPos(playerData){
+    //    return true;
+    //}
+    //
+    ////获得可以攻击的位置
+    //private getAttackPos(playerData){
+    //    return playerData;
+    //}
 
     private runBuff(){
         if(this.yunStep)

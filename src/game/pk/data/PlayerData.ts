@@ -71,7 +71,7 @@ class PlayerData{
         var playerData = PKManager.getInstance().getPlayerValue();
         this.atk = Math.ceil(playerData.atk * gunVO.atk/100);
         this.hp = playerData.hp
-        this.speed = 12
+        this.speed = 10
         this.atkSpeed = PKTool.getStepByTime(gunVO.atkspeed)
         this.hitBack = gunVO.atkback
         this.atkDis = gunVO.atkdis
@@ -303,6 +303,7 @@ class PlayerData{
             this.hp = 0;
         }
 
+        this.relateItem.renewHp();
         PKTool.showHpChange(this,v)
         EM_wx4.dispatchEventWith(GameEvent.client.HP_CHANGE)
     }

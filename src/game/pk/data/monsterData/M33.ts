@@ -12,11 +12,11 @@ class M33 extends MBase{
         var playerData = PKC.playerData
         var hitPoint = this.getHitPos();
         var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)
-        rota -= Math.PI/3
+        rota -= Math.PI/2
 
         for(var i = 0;i<5;i++)
         {
-            var bullet = PKCodeUI.getInstance().shoot(this,rota + Math.PI/3*2*Math.random(),hitPoint);
+            var bullet = PKCodeUI.getInstance().shoot(this,rota + Math.PI/2*2*Math.random(),hitPoint);
             bullet.setImage( 'bullet1_png');
             bullet.endTime = PKC.actionStep + 150
             bullet.speed = 7

@@ -1,4 +1,4 @@
-class M75 extends MBase{
+class M74 extends MBase{
     //白袍怨灵 召唤骷髅士兵
     constructor() {
         super();

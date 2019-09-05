@@ -24,6 +24,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
     public playerItem = new PlayerItem()
     public monsterArr = [];
     public bulletArr = [];
+    public bulletArr2 = [];
     public bombArr = [];
     public trapArr = [];
     public markArr = [];
@@ -66,6 +67,10 @@ class PKCodeUI extends game.BaseContainer_wx4{
         while(this.bulletArr.length)
         {
             PKBulletItem.freeItem(this.bulletArr.pop())
+        }
+        while(this.bulletArr2.length)
+        {
+            PKBulletItem2.freeItem(this.bulletArr2.pop())
         }
         while(this.bombArr.length)
         {
@@ -143,6 +148,21 @@ class PKCodeUI extends game.BaseContainer_wx4{
                 continue;
             }
             bItem.onE();
+        }
+
+        var len = this.bulletArr2.length;
+        for(var i=0;i<len;i++)
+        {
+            var bItem2 = this.bulletArr2[i];
+            if(bItem2.isDie)
+            {
+                PKBulletItem2.freeItem(bItem2);
+                this.bulletArr2.splice(i,1)
+                len--;
+                i--;
+                continue;
+            }
+            bItem2.onE();
         }
 
 
@@ -250,6 +270,20 @@ class PKCodeUI extends game.BaseContainer_wx4{
             rota:rota,
             x:x,
             y:y
+        }
+        return bullet;
+    }
+
+    public playerAtk(type,rota,len){
+        var bullet = PKBulletItem2.createItem();
+        var owner = PKC.playerData;
+        this.bulletArr2.push(bullet);
+        this.playerItem.addChild(bullet);
+        bullet.data = {
+            owner:owner,
+            rota:rota,
+            type:type,
+            len:len
         }
         return bullet;
     }

@@ -49,7 +49,7 @@ class PlayerItem extends game.BaseItem{
 
 
 
-        //this.renewHp();
+        this.renewHp();
         //this.showStandMV();
         this.ctrlRota = -90
     }
@@ -159,6 +159,7 @@ class PlayerItem extends game.BaseItem{
         this.mvKey = 'atk'
         this.atkStep ++;
         egret.Tween.removeTweens(this.body);
+        var speed = Math.min(200,this.data.atkSpeed*(1000/PKC.frameRate)/2)
         if(this.atkStep %2 == 0) //
         {
             egret.Tween.removeTweens(this.leftCon);
@@ -166,11 +167,11 @@ class PlayerItem extends game.BaseItem{
             this.leftCon.rotation =  - 120
             this.leftCon.x = -20;
             this.leftCon.y = 50;
-            egret.Tween.get(this.leftCon).to({rotation:80,x:60,y:-20},200).to({rotation:20,x:-10,y:30},200);
+            egret.Tween.get(this.leftCon).to({rotation:80,x:60,y:-20},speed).to({rotation:20,x:-10,y:30},speed);
 
             this.body.x = 35
             this.body.y = 50
-            egret.Tween.get(this.body).to({x:45,y:35},200).to({x:40,y:40},200).call(this.showStandMV,this);
+            egret.Tween.get(this.body).to({x:45,y:35},speed).to({x:40,y:40},speed).call(this.showStandMV,this);
 
         }
         else
@@ -180,32 +181,34 @@ class PlayerItem extends game.BaseItem{
             this.rightCon.rotation =  120
             this.rightCon.x = 80 + 20;
             this.rightCon.y = 50;
-            egret.Tween.get(this.rightCon).to({rotation:-80,x:20,y:-20},200).to({rotation:-20,x:90,y:30},200);
+            egret.Tween.get(this.rightCon).to({rotation:-80,x:20,y:-20},speed).to({rotation:-20,x:90,y:30},speed);
 
             this.body.x = 45
             this.body.y = 50
-            egret.Tween.get(this.body).to({x:35,y:35},200).to({x:40,y:40},200).call(this.showStandMV,this);
+            egret.Tween.get(this.body).to({x:35,y:35},speed).to({x:40,y:40},speed).call(this.showStandMV,this);
         }
     }
 
     public showDoubleMV(){
         this.mvKey = 'double'
+        var speed = Math.min(200,this.data.atkSpeed*(1000/PKC.frameRate)/2)
+
         egret.Tween.removeTweens(this.leftCon);
         this.leftCon.scaleX = -1;
         this.leftCon.rotation =  80
         this.leftCon.x = 60;
         this.leftCon.y = -20;
-        egret.Tween.get(this.leftCon).to({rotation:-140,x:-20,y:60},200).wait(100).to({scaleX:1}).to({rotation:20,x:-10,y:30},200);
+        egret.Tween.get(this.leftCon).to({rotation:-140,x:-20,y:60},speed).wait(speed/2).to({scaleX:1}).to({rotation:20,x:-10,y:30},speed);
 
         egret.Tween.removeTweens(this.rightCon);
         this.rightCon.rotation =  -80
         this.rightCon.x = 20;
         this.rightCon.y = -20;
-        egret.Tween.get(this.rightCon).to({rotation:140,x:80+20,y:60},200).wait(100).to({scaleX:1}).to({rotation:-20,x:90,y:30},200);
+        egret.Tween.get(this.rightCon).to({rotation:140,x:80+20,y:60},speed).wait(speed/2).to({scaleX:1}).to({rotation:-20,x:90,y:30},speed);
 
         this.body.x = 40
         this.body.y = 50
-        egret.Tween.get(this.body).to({y:35},200).wait(100).to({y:40},200).call(this.showStandMV,this);
+        egret.Tween.get(this.body).to({y:35},speed).wait(speed/2).to({y:40},speed).call(this.showStandMV,this);
 
     }
 
@@ -296,12 +299,12 @@ class PlayerItem extends game.BaseItem{
                 if(monster.isDie)
                     continue;
                 var dis = MyTool.getDis(monster,playerData)
-                if(dis < 60)
+                if(dis < 60 + monster.size)
                 {
                     var rotaBase = PKTool.getRota(playerData,monster);
                     var rota2 = PKTool.resetAngle(rotaBase/Math.PI*180);
                     var rotaDes = Math.abs(rota2 - rota1)
-                    if(rotaDes > 60 && rotaDes < 300)
+                    if(rotaDes > 45 && rotaDes < 315)
                         continue;
                     //这个方向有怪
                     return;
@@ -352,7 +355,7 @@ class PlayerItem extends game.BaseItem{
                     continue;
                 //在攻击范围内，可造成伤害
                 if(isDouble)
-                    monster.addHp(-Math.ceil(atk*playerData.doubleValue));
+                    monster.addHp(-Math.ceil(atk*(1+playerData.doubleValue)));
                 else
                     monster.addHp(-atk);
                 playerData.addGunBuff(monster)
@@ -428,10 +431,16 @@ class PlayerItem extends game.BaseItem{
         {
             playerData.lastAtkTime = PKC.actionStep;
             var isDouble = Math.random() < playerData.doubleRate
-            if(isDouble)
+            var atkRota = PKTool.getRota(playerData,nearItem.getHitPos())
+            if (isDouble) {
                 this.showDoubleMV();
+                PKCodeUI.getInstance().playerAtk(2,atkRota,playerData.atkDis)
+            }
             else
+            {
                 this.showAtkMV();
+                PKCodeUI.getInstance().playerAtk(1,atkRota,playerData.atkDis)
+            }
             PKMonsterAction_wx3.getInstance().addList({
                 target:playerData,
                 onlyID:playerData.onlyID,

@@ -11,12 +11,12 @@ class PKTool {
         txt.scaleX = txt.scaleY = 1;
         if(hp < 0)
         {
-            txt.font=item.isPlayer?"pk_word4_fnt":"pk_word1_fnt"
+            txt.font = item.isPlayer?"pk_word4_fnt":"pk_word1_fnt"
             txt.text = hp
         }
         else
         {
-            txt.font="pk_word2_fnt"
+            txt.font = "pk_word2_fnt"
             txt.text = '+' + hp
             if(item.isPlayer)
                 txt.scaleX = txt.scaleY = 1.5;

@@ -7,7 +7,7 @@ class M63 extends MBase{
     private moveStep = 0
 
     private lastSplitTime
-
+    private splitCD = 10*PKC.frameRate
     public onCreate(){
         this.lastSplitTime = PKC.actionStep
     }
@@ -34,9 +34,11 @@ class M63 extends MBase{
         }
         else
         {
-            if(PKC.actionStep - this.lastSplitTime > 30)
+            if(PKC.actionStep - this.lastSplitTime > this.splitCD)
             {
                 this.lastSplitTime = PKC.actionStep;
+                if(PKC.monsterList.length > 30)
+                    return;
 
                 var rota = Math.random()*Math.PI*2
                 var r = this.size + this.size

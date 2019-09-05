@@ -7,10 +7,10 @@ class MTool {
         PKMonsterAction_wx3.getInstance().addList({
             target:itemData,
             onlyID:itemData.onlyID,
-            step:PKTool.getStepByTime(itemData.getVO().mv_atk),
+            step:itemData.getVO().mvAtk,
             fun:()=>{
                 fun2 && fun2();
-                if(MyTool.getDis(itemData,PKC.playerData) <= itemData.atkDis)
+                if(MyTool.getDis(itemData,PKC.playerData) <= itemData.atkDis + 20)
                 {
                     var playerData = PKC.playerData
                     playerData.addHp(-itemData.atk,itemData);
@@ -88,6 +88,7 @@ class MTool {
             mData.relateItem.renewHp();
         }
         PKC.monsterList.push(mData)
+        mData.isCall = true;
         return mData
     }
 

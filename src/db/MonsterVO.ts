@@ -11,38 +11,45 @@ class MonsterVO {
 
     public width: number;
     public height: number;
-    public atk: number;
-    public headoff: number;
-    public heightoff: number;
-    public atkcd: number;
-    public atkrage: number;
-    public level: number;
     public mcheight: number;
-    public mcnum: number;
+    public mcwidth: number;
+
+
+
+
+
+
+    public id: number;
     public name: string;
+    public des: string;
+    public level: number;
+    public diesound: number;
+    public cost: number;
+
+    public atk: number;
+    public atkcd: number;
+    public atkstop: number;
+    public atkrage: number;
+    public isfar: number;
     public speed: number;
     public hp: number;
-    public def: number;//对刀的攻击力
-    public id: number;
-    public mcwidth: number;
-    public mv_atk: number;
-    public atkx: number;
-    public atky: number;
-    public mvid: number;
-    public diesound: number;
 
+
+    public mvAtk;//攻击前摇
     public constructor() {
 
     }
 
     public reInit(){
         this.atkcd = this.atkcd * 1000
-        this.mv_atk = this.mv_atk * 1000
+        this.atkstop = this.atkstop * 1000
+
+        if(this.isHero)
+            this.mvAtk = 15
+        else
+            this.mvAtk = 10
     }
 
-    public getAtkDis(){
-        return this.width/2 + this.atkrage
-    }
 
     public isHero(){
         return this.id > 100;

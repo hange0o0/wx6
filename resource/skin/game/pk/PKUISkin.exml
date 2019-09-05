@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="PKUISkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" states="s1,s2,s3" >
-	<e:Image left="0" right="0" bottom="0" height="360" source="black_bg_alpha2_png"/>
+	<w:Config id="16d006d90e5"/>
+	<e:Image left="0" right="0" bottom="0" height="360" source="black_bg_alpha_png"/>
 	<e:Group bottom="20" left.s2="30" x="380" right.s1="30" left.s3="30">
 		<ns1:PKSkillItem x="0" y="0" skinName="PKSkillItemSkin" id="s1"/>
 		<ns1:PKSkillItem x="10" y="10" skinName="PKSkillItemSkin" id="s2"/>
@@ -28,11 +29,11 @@
 			</e:layout>
 		</e:Group>
 	</e:Group>
-	<e:Group y="30" horizontalCenter="0" height="32">
+	<e:Group y="30" horizontalCenter="0" height="32" visible="false">
 		<e:Image source="boss_hp1_png" x="0" y="0"/>
 		<e:Image id="hpBar" source="boss_hp3_png" x="0" y="0" fillMode="clip"/>
 		<e:BitmapLabel id="hpText" font="pk_word3_fnt" text="123" horizontalCenter="0" verticalCenter="0" letterSpacing="-5"/>
-		<e:Image id="rateBar" source="yellor_bg_png" x="14" y="32" height="5" width="326"/>
 	</e:Group>
-	<e:Label id="monsterText" text="Label" y="80" horizontalCenter="0" stroke="3" cacheAsBitmap="true"/>
+	<e:Label id="monsterText" text="Label" stroke="3" cacheAsBitmap="true" size="26" textColor="0xffff66" horizontalCenter="0" y="50" bold="true"/>
+	<e:Image id="rateBar" source="yellor_bg_png" x="0" height="5" width="640" bottom="360"/>
 </e:Skin>

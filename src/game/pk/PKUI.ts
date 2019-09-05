@@ -178,6 +178,8 @@ class PKUI extends game.BaseUI_wx4{
     public onE(){
         if(!this.visible)
             return
+        if(PKC.isStop)
+            return;
         var ui = PKCodeUI.getInstance();
         var playerData = PKC.playerData;
         if (this.touchID) {
@@ -221,7 +223,20 @@ class PKUI extends game.BaseUI_wx4{
 
         this.renewSkillCD();
 
-        this.rateBar.width = 326*(PKC.maxStep - PKC.actionStep)/PKC.maxStep
+        if(PKC.maxStep <= PKC.actionStep )
+        {
+            PKC.isStop = true;
+            if(PKC.haveReborn)
+            {
+                console.log('fail')
+            }
+            else
+            {
+                RebornUI.getInstance().show();
+            }
+            return;
+        }
+        this.rateBar.width = 640*(PKC.maxStep - PKC.actionStep)/PKC.maxStep
     }
 
     private setMonsterRed(x,y,mc){
@@ -260,20 +275,33 @@ class PKUI extends game.BaseUI_wx4{
     }
 
     private onTimer(){
-        var mNum = PKC.monsterList.length;
-        this.monsterText.text = '当前怪物数量:' + mNum + '/' + PKC.maxMonster
-        var rate = mNum/PKC.maxMonster
-        if(rate < 0.3)
-            this.monsterText.textColor = 0x00FF00
-        else if(rate > 0.7)
-            this.monsterText.textColor = 0xFF0000
-        else
-            this.monsterText.textColor = 0xFFFF00
-
-        if(mNum >= PKC.maxMonster)
+        var mLen = PKC.monsterList.length;
+        var mNum = mLen + PKC.autoMonster.length;
+        var callNum = 0;
+        for(var i=0;i<mLen;i++)
         {
-            console.log('fail')
+            if(PKC.monsterList[i].isCall)
+            {
+                mNum --;
+                callNum ++;
+            }
         }
+        if(callNum)
+            this.monsterText.text = '当前剩余怪物数量：' + mNum + ' + ' + callNum;
+        else
+            this.monsterText.text = '当前剩余怪物数量：' + mNum;
+        //var rate = mNum/PKC.maxMonster
+        //if(rate < 0.3)
+        //    this.monsterText.textColor = 0x00FF00
+        //else if(rate > 0.7)
+        //    this.monsterText.textColor = 0xFF0000
+        //else
+        //    this.monsterText.textColor = 0xFFFF00
+        //
+        //if(mNum >= PKC.maxMonster)
+        //{
+        //    console.log('fail')
+        //}
     }
 
     private renewSkillCD(){

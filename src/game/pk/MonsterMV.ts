@@ -93,7 +93,7 @@ class MonsterMV extends eui.Group {
         }
 
         this.mcFactory = MonsterMV.factory[id];
-        this.mv.y = vo.heightoff
+        //this.mv.y = vo.heightoff
         this.width = mw
         this.height = mh
 

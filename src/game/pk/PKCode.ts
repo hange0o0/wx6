@@ -7,10 +7,7 @@ class PKCode_wx4 {
     }
 
     public frameRate = 30   //PKTool.getStepByTime 也要改
-    //public mapW = 640
-    //public mapH = 640
 
-    public maxMonster = 20
 
     public playerData = new PlayerData()
     public actionStep = 0;
@@ -23,6 +20,10 @@ class PKCode_wx4 {
 
     public autoMonster = [];
 
+    public isStop = false
+    public haveReborn = false
+
+    public maxBossNum = 0
     public maxStep = 0
     public randomSeed = 99999999;
     public random(seedIn?){
@@ -58,8 +59,7 @@ class PKCode_wx4 {
 
     //自动出战上怪
     public autoAction(){
-
-        while(this.autoMonster[0] && this.autoMonster[0].step <= this.actionStep)// && this.monsterList.length == 0
+        while(this.canAddMonster())// && this.monsterList.length == 0
         {
             var data = this.autoMonster.shift()
             var mid = _get['mid'] || data.id;
@@ -67,14 +67,30 @@ class PKCode_wx4 {
         }
     }
 
+    private canAddMonster(){
+        if(this.actionStep < 50)
+            return false;
+        if(!this.autoMonster[0])
+            return false;
+        if(this.monsterList.length < 3)
+            return true;
+        if(this.monsterList.length >= 10)
+            return false;
+        return this.autoMonster[0].step <= this.actionStep
+    }
+
 
 
     public initData(){
+        this.monsterAddAtk = 0
+        this.monsterAddSpeed= 0
+        this.isStop = false;
+        this.haveReborn = false;
         this.actionStep = 0;
         this.monsterList.length = 0;
         PKMonsterAction_wx3.getInstance().init();
         this.autoMonster = this.getLevelMonster(1);
-        this.maxStep = this.autoMonster[this.autoMonster.length-1].step;
+        this.maxStep = this.autoMonster[this.autoMonster.length-1].step + (20 + this.maxBossNum*10)*this.frameRate;
         //PKBulletManager_wx3.getInstance().freeAll();
     }
 
@@ -115,7 +131,10 @@ class PKCode_wx4 {
         //list.push(103+'|' + step + '|' +50)
 
         var needAddBoss = level%5 == 0
-        var bossRate = Math.max(0.5,1-level/50);
+        var bossNum = Math.ceil(level/(9*5))
+        this.maxBossNum = needAddBoss?bossNum:0
+        
+        var bossRate = 0.5//Math.max(0.5,1-level/50);
         while(nowCost < maxCost)
         {
             while(monsterCost < nowCost)
@@ -141,7 +160,7 @@ class PKCode_wx4 {
                 var boss = [101,102,104,105,106,107,108,109,110]
                 needAddBoss = false;
                 nowCost += 10;//固定10费
-                var bossNum = Math.ceil(level/(9*5))
+
                 if(bossNum == 1)
                     list.push(boss[Math.floor(level/5)] + '|' + step)
                 else

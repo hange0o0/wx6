@@ -13,5 +13,5 @@
 			<e:Image id="rightHendMC" x="0" y="0" width="30" height="30"/>
 		</e:Group>
 	</e:Group>
-	<ns1:HPBar id="hpBar" y="-30" skinName="HPBarSkin" horizontalCenter="0" visible="false"/>
+	<ns1:HPBar id="hpBar" y="-50" skinName="HPBarSkin" horizontalCenter="0"/>
 </e:Skin>
