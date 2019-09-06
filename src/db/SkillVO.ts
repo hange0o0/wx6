@@ -63,8 +63,7 @@ class SkillVO {
         return MyTool.createHtml(str,0xFFFF00)
     }
 
-    public
-    getValue(index,level=-1){
+    public getValue(index,level=-1){
         if(level == -1)
             level = SkillManager.getInstance().getSkillLevel(this.id)
         var v = this['v' + index] || 0;

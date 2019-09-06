@@ -7,7 +7,9 @@ class M61 extends MBase{
     private moveStep = 0
     public atkFun(){
         this.moveStep = 15
-        MTool.nearAtkFun(this,null,()=>{
+        MTool.nearAtkFun(this,()=>{
+            PKC.playerData.stopEnd = Math.max(PKC.playerData.stopEnd,PKC.actionStep + 20)
+        },()=>{
             this.hp = 0
             this.isDie = 1;
             this.relateItem.dieMV();

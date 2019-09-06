@@ -32,6 +32,7 @@ class PKBulletItem extends game.BaseItem {
     public rotaAdd = 0
     public hurtTimeCD = 0
     public moveFun
+    public atkFun
 
 
     public owner
@@ -82,6 +83,7 @@ class PKBulletItem extends game.BaseItem {
         this.hitSkill = false;
         this.isSkill = false;
         this.moveFun = null;
+        this.atkFun = null;
 
 
         this.setImage('')
@@ -124,6 +126,8 @@ class PKBulletItem extends game.BaseItem {
             {
                 this.hitList[item.onlyID] = t;
                 item.addHp(-this.atk)
+                if(this.atkFun)
+                    this.atkFun();
                 if(this.hitSkill)
                     PKC.playerData.addGunBuff(item);
                 if(this.hitBack && item.hitBackAble)

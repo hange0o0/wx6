@@ -6,12 +6,31 @@ class S23 extends SBase{
     public dis = 200
     public hitBack = 200
 
+    private mv
     public onCreate(){
 
     }
 
     public onUse(){
         var playerData = PKC.playerData
+
+
+        if(!this.mv)
+        {
+            this.mv = new eui.Image('21_png')
+            this.mv.anchorOffsetX = 251/2
+            this.mv.anchorOffsetY = 251/2
+        }
+
+        PKCodeUI.getInstance().bottomCon.addChild(this.mv)
+        this.mv.x = playerData.x
+        this.mv.y = playerData.y
+        this.mv.scaleX = this.mv.scaleY = 0.3;
+        egret.Tween.get(this.mv).to({scaleX:2,scaleY:2},150).call(()=>{
+            MyTool.removeMC(this.mv);
+        })
+
+
 
         var monsterList = PKC.monsterList;
         var len = monsterList.length;

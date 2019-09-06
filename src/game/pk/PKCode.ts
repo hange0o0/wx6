@@ -80,7 +80,10 @@ class PKCode_wx4 {
                     this.playerData.randomSKill();
                 }
                 var rota = Math.PI*2*Math.random()
-                this.monsterList.push(PKCodeUI.getInstance().addMonster(this.autoMonster.pop().id,this.playerData.x + Math.cos(rota)*500,this.playerData.y + Math.sin(rota)*500))
+                var monster = PKCodeUI.getInstance().addMonster(this.autoMonster.pop().id,this.playerData.x + Math.cos(rota)*500,this.playerData.y + Math.sin(rota)*500)
+                this.monsterList.push(monster)
+                if(monster.mid == 65)
+                    monster.callAble = true
             }
             return;
         }
@@ -89,7 +92,10 @@ class PKCode_wx4 {
         {
             var data = this.autoMonster.shift()
             var mid = _get['mid'] || data.id;
-            this.monsterList.push(PKCodeUI.getInstance().addMonster(mid,this.playerData.x + data.x,this.playerData.y + data.y))
+            var monster =PKCodeUI.getInstance().addMonster(mid,this.playerData.x + data.x,this.playerData.y + data.y)
+            this.monsterList.push(monster)
+            if(monster.mid == 65)
+                monster.callAble = true
         }
     }
 

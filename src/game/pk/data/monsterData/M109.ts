@@ -51,18 +51,21 @@ class M109 extends MBase{
         bullet.endTime = PKC.actionStep + 150
         bullet.speed = 7
         bullet.rotaAdd = 30
-
+        bullet.atk = this.atk
 
         if(Math.random() < 0.5)
         {
             bullet.setImage( 'bullet9_png');
-            bullet.atk = this.atk
         }
         else
         {
             bullet.setImage( 'bullet10_png');
-            bullet.atk = this.atk*2
+            bullet.atkFun = this.onBlueAtk
         }
 
+    }
+
+    private onBlueAtk(){
+        PKC.playerData.stopEnd = Math.max(PKC.playerData.stopEnd,PKC.actionStep + 10)
     }
 }

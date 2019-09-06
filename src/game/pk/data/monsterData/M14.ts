@@ -3,6 +3,8 @@ class M14 extends MBase{
     constructor() {
         super();
     }
+
+    public beHitRate = 0.5
     public atkFun(){
         MTool.nearAtkFun(this)
     }

@@ -7,7 +7,9 @@ class M62 extends MBase{
     private moveStep = 0
     public atkFun(){
         this.moveStep = 15
-        MTool.nearAtkFun(this,null,()=>{
+        MTool.nearAtkFun(this,()=>{
+            PKC.playerData.beHitRate += 0.05
+        },()=>{
             this.hp = 0
             this.isDie = 1;
             this.relateItem.dieMV();

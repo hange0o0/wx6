@@ -18,6 +18,7 @@ class MBase {
     public _speed = 2
     public atkSpeed = 60//帧
     public atkStop = 60//帧
+    public beHitRate = 0
 
     public atkDisAdd = 20//判断命中时，增加的判断距离
 
@@ -86,6 +87,10 @@ class MBase {
     }
 
     public addHp(v){
+        if(v < 0 && this.beHitRate)
+        {
+            v = Math.floor(v*this.beHitRate)
+        }
         this.hp += v;
         if(this.hp > this.maxHp)
         {

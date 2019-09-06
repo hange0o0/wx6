@@ -7,11 +7,13 @@ class PlayerData{
 
     public size = 40//体积
 
+    public baseAtk = 40
     public atk = 40
     public hp = 1000;
     public hpDef = 1000;
     public maxHp = 1000;
     public speed = 12
+    public baseSpeed = 12
     public atkSpeed = PKTool.getStepByTime(600);  //攻击间隔上限300
     public hitBack = 100;
     public atkDis = 100;
@@ -24,6 +26,7 @@ class PlayerData{
     public behurtAdd = 0//被打时扣血更多
     public rebornDec = 0//复活CD减小
     public coinAdd = 0//金币加成
+    public beHitRate = 0
 
     public wudiStep = 0
 
@@ -69,9 +72,9 @@ class PlayerData{
         var gunVO = GunVO.getObject(this.gunid)
 
         var playerData = PKManager.getInstance().getPlayerValue();
-        this.atk = Math.ceil(playerData.atk * gunVO.atk/100);
+        this.atk = this.baseAtk = Math.ceil(playerData.atk * gunVO.atk/100);
         this.hp = playerData.hp
-        this.speed = 10
+        this.speed = this.baseSpeed = 10
         this.atkSpeed = PKTool.getStepByTime(gunVO.atkspeed)
         this.hitBack = gunVO.atkback
         this.atkDis = gunVO.atkdis
@@ -86,6 +89,7 @@ class PlayerData{
         this.rebornDec = 0;
         this.coinAdd = 0;
         this.stopEnd = 0;
+        this.beHitRate = 0;
         this.atkBuff = {}
         this.skillCD = {}
 
@@ -296,7 +300,8 @@ class PlayerData{
 
             if(this.behurtAdd)
                 v = Math.floor(v*(1+this.behurtAdd))
-
+            if(this.beHitRate)
+                v = Math.floor(v*(1+this.beHitRate))
 
             if(this.hpDef>0)
             {

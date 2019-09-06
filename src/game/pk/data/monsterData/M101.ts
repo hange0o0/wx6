@@ -18,8 +18,12 @@ class M101 extends MBase{
     public onDie(){
         if(this.step>1)
         {
-            var mData = MTool.addNewMonster({mid:101,x:this.x,y:this.y})
+            var mData = MTool.addNewMonster({mid:101,x:this.x + 100*Math.random()-50,y:this.y + 100*Math.random()-50})
+            mData.step = this.step - 1;
+            mData.scale = this.step/4
+            mData.relateItem.resetHpBarY()
 
+            var mData = MTool.addNewMonster({mid:101,x:this.x + 100*Math.random()-50,y:this.y + 100*Math.random()-50})
             mData.step = this.step - 1;
             mData.scale = this.step/4
             mData.relateItem.resetHpBarY()

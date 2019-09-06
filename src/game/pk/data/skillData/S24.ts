@@ -38,9 +38,25 @@ class S24 extends SBase{
                 var x = Math.cos(rotaBase)*hitBack
                 var y = Math.sin(rotaBase)*hitBack
                 monster.relateItem.resetXY(monster.x+x,monster.y+y)
-
             }
         }
+
+        var moveRota = rota1/180*Math.PI
+        var xx = playerData.x + 100 * Math.cos(moveRota)
+        var yy = playerData.y + 100 * Math.sin(moveRota)
+        var mv = PKTool.playMV({
+            mvType:1,
+            num:4,
+            key:'zhen',
+            type:'on',
+            anX:167/2,
+            anY:145/2,
+            item:playerData.relateItem,
+            once:true,
+            xy:{x:xx,y:yy}
+        })
+        mv.scaleX = mv.scaleY = 0.7
+
         return true;
     }
 }

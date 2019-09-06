@@ -7,7 +7,7 @@ class M106 extends MBase{
     public atkDisAdd = 100//判断命中时，增加的判断距离
     public atkFun(){
         MTool.nearAtkFun(this,()=>{
-            PKC.playerData.stopEnd = PKC.actionStep + 30
+            PKC.playerData.stopEnd = Math.max(PKC.playerData.stopEnd,PKC.actionStep + 30)
         })
     }
 }

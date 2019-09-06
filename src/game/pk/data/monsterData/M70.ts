@@ -7,7 +7,11 @@ class M70 extends MBase{
     private moveStep = 0
     public atkFun(){
         this.moveStep = 15
-        MTool.nearAtkFun(this,null,()=>{
+        MTool.nearAtkFun(this,()=>{
+            PKC.playerData.speed -= 1;
+            if(PKC.playerData.speed < 5)
+                PKC.playerData.speed = 5
+        },()=>{
             this.hp = 0
             this.isDie = 1;
             this.relateItem.dieMV();

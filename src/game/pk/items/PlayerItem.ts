@@ -251,7 +251,7 @@ class PlayerItem extends game.BaseItem{
             MyTool.removeMC(this.wudiMC)
 
         var playerData = this.data
-        if(playerData.stopEnd > PKC.actionStep)//表现晕
+        if(playerData.wudiStep<=0 && playerData.stopEnd > PKC.actionStep)//表现晕
         {
 
             if(!this.stateYunMV)
@@ -305,7 +305,7 @@ class PlayerItem extends game.BaseItem{
         this.ctrlRota = rota1;
 
 
-        if(playerData.stopEnd > PKC.actionStep)
+        if(playerData.wudiStep<=0 && playerData.stopEnd > PKC.actionStep)
             return;
         if(playerData.isSkillingStopMove)
             return;
