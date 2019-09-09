@@ -12,7 +12,8 @@ class S13 extends SBase{
     public lastMonster
     public leftNum
     public onCreate(){
-
+        this.hurt = this.getValue(1)
+        this.maxNum = this.getValue(2)
     }
 
     public onUse(){

@@ -6,6 +6,7 @@ class S21 extends SBase{
     public totalTime = 100
 
     public onCreate(){
+        this.totalTime = PKTool.getStepByTime(this.getValue(1)*1000)
     }
 
     public onUse(){

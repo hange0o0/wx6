@@ -7,7 +7,7 @@ class S1 extends SBase{
 
     public step = 0
     public onCreate(){
-
+        this.totalTime = this.getValue(1)
     }
 
     public onUse(){
@@ -18,14 +18,6 @@ class S1 extends SBase{
         playerData.hitEnemy = null
 
         this.step = this.totalTime
-
-        //playerData.addBuff({
-        //    sid:this.sid,
-        //    endTime:PKC.actionStep + this.totalTime,
-        //    onEnd:()=>{
-        //
-        //    }
-        //});
         return true;
     }
 

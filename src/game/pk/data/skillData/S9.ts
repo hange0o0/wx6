@@ -3,7 +3,6 @@ class S9 extends SBase{
         super();
     }
 
-    public hurt = 60
     public step = 100
     public iceStep = 100
     public distance = 500
@@ -11,6 +10,8 @@ class S9 extends SBase{
     public mv
     public onCreate(){
 
+        this.distance = this.getValue(1)
+        this.iceStep = PKTool.getStepByTime(this.getValue(2)*1000)
     }
 
     public onUse(){

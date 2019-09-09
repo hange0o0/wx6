@@ -7,7 +7,7 @@ class S47 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-
+        this.rate = this.getValue(1)/100
     }
     public onBeHit(enemy){
         if(enemy && !enemy.isDie)

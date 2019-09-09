@@ -3,10 +3,14 @@ class S7 extends SBase{
         super();
     }
 
+    public shootRota;
+    public num = 9
     public hurt = 1.5
     public step = 5
     public onCreate(){
 
+        this.num = this.getValue(1)
+        this.hurt = this.getValue(2)/100
     }
 
     public onUse(){
@@ -16,10 +20,17 @@ class S7 extends SBase{
 
 
 
-        this.step = 10;
+        this.step = this.num;
 
+        var monster = MTool.getNearMonster();
+        if(!monster)
+            return false;
 
-        item.roleCon.rotation = item.ctrlRota+90
+        var pos = monster.getHitPos();
+        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
+        item.roleCon.rotation = rota/Math.PI*180+90
+        this.shootRota = rota;
+
         item.showShootMV();
 
         return true;
@@ -31,7 +42,7 @@ class S7 extends SBase{
             return;
         this.step --;
 
-        var bullet = PKCodeUI.getInstance().shoot(playerData,(playerData.relateItem.ctrlRota - 5 + Math.random()*10)/180*Math.PI);
+        var bullet = PKCodeUI.getInstance().shoot(playerData,this.shootRota +  (Math.random()*10-5)/180*Math.PI);
         bullet.setImage( 'knife_'+playerData.gunid+'_png');
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 30

@@ -6,7 +6,7 @@ class S11 extends SBase{
     public distance = 300
     public step = 100
     public onCreate(){
-
+        this.distance = this.getValue(1)
     }
 
     public onUse(){

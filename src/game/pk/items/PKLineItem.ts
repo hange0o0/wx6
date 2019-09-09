@@ -47,7 +47,7 @@ class PKLineItem extends game.BaseItem{
     }
 
     public dataChanged(){
-        this.wait = 30
+        this.wait = 60
         this.isDie = 0
         this.isFollow = this.data.isFollow;
         this.hurt = this.data.hurt;
@@ -83,7 +83,7 @@ class PKLineItem extends game.BaseItem{
             return;
         }
         this.wait --;
-        if(this.isFollow && this.wait > 15)
+        if(this.isFollow && this.wait > 30)
         {
             var playerData = PKC.playerData;
             if(this.isFootPos)

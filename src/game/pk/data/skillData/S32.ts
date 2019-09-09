@@ -7,7 +7,7 @@ class S32 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-        PKC.playerData.doubleRate += 0.5;
+        PKC.playerData.doubleRate += this.getValue(1)/100;
     }
 
 }

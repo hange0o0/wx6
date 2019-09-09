@@ -14,6 +14,9 @@ class S26 extends SBase{
         this.mc.anchorOffsetX = 202/2
         this.mc.anchorOffsetY = 202/2
         this.mc.scaleX = this.mc.scaleY = 1.8;
+
+        this.totalStep = PKTool.getStepByTime(this.getValue(2)*1000)
+        this.addHp = this.getValue(1)
     }
 
     public onUse(){
@@ -43,5 +46,9 @@ class S26 extends SBase{
                 MyTool.removeMC(this.mc)
             }
         }
+    }
+
+    public onRemoveSkill(){
+        MyTool.removeMC(this.mc)
     }
 }

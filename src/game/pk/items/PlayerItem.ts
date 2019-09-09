@@ -330,7 +330,7 @@ class PlayerItem extends game.BaseItem{
                     var rotaBase = PKTool.getRota(playerData,monster);
                     var rota2 = PKTool.resetAngle(rotaBase/Math.PI*180);
                     var rotaDes = Math.abs(rota2 - rota1)
-                    if(rotaDes > 45 && rotaDes < 315)
+                    if(rotaDes > 30 && rotaDes < 330)
                         continue;
                     //这个方向有怪
                     return;
@@ -384,7 +384,7 @@ class PlayerItem extends game.BaseItem{
                     monster.addHp(-Math.ceil(atk*(1+playerData.doubleValue)));
                 else
                     monster.addHp(-atk);
-                playerData.addGunBuff(monster)
+                playerData.addGunBuff(monster,true)
                 if(playerData.hitBack && monster.hitBackAble)//可击退
                 {
                     var hitBack = playerData.hitBack

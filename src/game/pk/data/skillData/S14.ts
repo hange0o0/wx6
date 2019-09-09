@@ -5,11 +5,12 @@ class S14 extends SBase{
 
     public hurt = 100
     public maxNum = 5
-    public minDis = 200
+    public minDis = 300
 
 
     public onCreate(){
-
+        this.hurt = this.getValue(2)
+        this.maxNum = this.getValue(1)
     }
 
     public onUse(){
@@ -20,10 +21,6 @@ class S14 extends SBase{
         var monsterList = PKC.monsterList;
         var len = monsterList.length;
         var nearMonster = [];
-        var rota1 = PKTool.resetAngle(playerData.relateItem.ctrlRota);
-        var atkRota = 120
-        var atkRota1 = atkRota/2
-        var atkRota2 = 360 - atkRota1
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
@@ -35,14 +32,6 @@ class S14 extends SBase{
             var dis = MyTool.getDis(monster,playerData)
             if(dis > this.minDis)
                 continue;
-
-            var rotaBase = PKTool.getRota(playerData,monster);
-            var rota2 = PKTool.resetAngle(rotaBase/Math.PI*180);
-            var rotaDes = Math.abs(rota2 - rota1)
-            if(rotaDes > atkRota1 && rotaDes < atkRota2)
-            {
-                continue;
-            }
             nearMonster.push(monster)
         }
 

@@ -4,8 +4,6 @@ class S29 extends SBase{
     }
 
     public step = 0
-    public hitBack = 200
-
     public onCreate(){
 
     }

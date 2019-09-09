@@ -6,7 +6,7 @@ class S25 extends SBase{
     public hurt = 200
 
     public onCreate(){
-
+        this.hurt = this.getValue(1)
     }
 
 

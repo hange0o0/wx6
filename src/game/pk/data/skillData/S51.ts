@@ -8,8 +8,8 @@ class S51 extends SBase{
 
     public onCreate(){
         PKC.playerData.atkBuff['yun'] = {
-            step:30,
-            rate:0.1
+            step:PKTool.getStepByTime(this.getValue(2)),
+            rate:this.getValue(1)/100
         };
     }
 

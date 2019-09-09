@@ -37,7 +37,7 @@ class M63 extends MBase{
             if(PKC.actionStep - this.lastSplitTime > this.splitCD)
             {
                 this.lastSplitTime = PKC.actionStep;
-                if(PKC.monsterList.length > 30)
+                if(PKC.monsterList.length > PKC.maxMonsterNum)
                     return;
 
                 var rota = Math.random()*Math.PI*2

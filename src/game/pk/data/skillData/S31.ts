@@ -8,7 +8,7 @@ class S31 extends SBase{
 
     public onCreate(){
         PKC.playerData.atkBuff['xixue'] = {
-            value:1
+            value:this.getValue(1)
         };
     }
 

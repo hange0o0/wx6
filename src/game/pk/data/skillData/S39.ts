@@ -11,7 +11,7 @@ class S39 extends SBase{
     }
     public onUse(){
         var playerData = PKC.playerData;
-        var addValue = Math.ceil(playerData.hitBack * 0.5);
+        var addValue = Math.ceil(playerData.hitBack * this.getValue(1)/100);
         playerData.hitBack += addValue
     }
 }

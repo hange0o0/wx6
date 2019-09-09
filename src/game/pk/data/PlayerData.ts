@@ -12,8 +12,8 @@ class PlayerData{
     public hp = 1000;
     public hpDef = 1000;
     public maxHp = 1000;
-    public speed = 12
-    public baseSpeed = 12
+    public speed = 10
+    public baseSpeed = 10
     public atkSpeed = PKTool.getStepByTime(600);  //攻击间隔上限300
     public hitBack = 100;
     public atkDis = 100;
@@ -74,7 +74,7 @@ class PlayerData{
         var playerData = PKManager.getInstance().getPlayerValue();
         this.atk = this.baseAtk = Math.ceil(playerData.atk * gunVO.atk/100);
         this.hp = playerData.hp
-        this.speed = this.baseSpeed = 10
+        this.speed = this.baseSpeed = 8
         this.atkSpeed = PKTool.getStepByTime(gunVO.atkspeed)
         this.hitBack = gunVO.atkback
         this.atkDis = gunVO.atkdis
@@ -92,6 +92,10 @@ class PlayerData{
         this.beHitRate = 0;
         this.atkBuff = {}
         this.skillCD = {}
+        this.isSkilling = 0;
+        this.isSkillingStopMove = false;
+        this.isHide = false;
+        this.isFar = false;
 
 
 
@@ -115,16 +119,8 @@ class PlayerData{
             skill.length = 6
         }
 
+        this.initSkill(skill);
 
-        this.skills = {}
-        this.skillsList = []
-        for(var i=0;i<skill.length;i++)
-        {
-            var sItem = SBase.getItem(skill[i])
-            this.skillsList.push(sItem)
-            this.skills[sItem.sid] = sItem
-            sItem.onCreate();
-        }
     }
 
     //重新随机自动玩家技能
@@ -136,6 +132,17 @@ class PlayerData{
         }
         ArrayUtil_wx4.random(skill,3);
         skill.length = 6
+
+
+        this.initSkill(skill)
+    }
+
+    public initSkill(skill){
+
+        for(var i=0;i<this.skillsList.length;i++)
+        {
+            this.skillsList[i].onRemoveSkill()
+        }
 
 
         this.skills = {}
@@ -183,14 +190,14 @@ class PlayerData{
     }
 
     //对怪物加上攻击BUFF
-    public addGunBuff(monster){
+    public addGunBuff(monster,isNearAtk?){
         var monsterItem = monster.relateItem
         if(monster.hp <= 0)
         {
             var playerData = PKC.playerData
             if(this.atkBuff['xixue'])
                 playerData.addHp(this.atkBuff['xixue'].value)
-            if(this.atkBuff['gun'])
+            if(this.atkBuff['gun'] && isNearAtk)
             {
                 var num = this.atkBuff['gun'].num;
                 var hurt = Math.ceil(this.atkBuff['gun'].hurt*playerData.atk);
@@ -204,7 +211,7 @@ class PlayerData{
                     bullet.atk = hurt
                 }
             }
-            if(this.atkBuff['bomb'])
+            if(this.atkBuff['bomb'] && isNearAtk)
             {
                 var monsterList = PKC.monsterList;
                 var len = monsterList.length;
@@ -252,8 +259,11 @@ class PlayerData{
     public useSkill(id){
         if(id == 4)
         {
+            if(PKC.actionStep - this.skills[4].changeSkillTime < 30)
+                return
             if(this.isSkilling)
             {
+
                 if(this.isSkilling != 4)
                     return;
             }
@@ -315,6 +325,8 @@ class PlayerData{
             }
 
             this.onBehit(enemy)
+            if(enemy)
+                enemy.moveStartTime = 0;
             //if(this.isHide && !isBuff)
             //    return;
         }

@@ -17,6 +17,9 @@ class S20 extends SBase{
         this.defMC2.anchorOffsetX = 27/2
         this.defMC2.anchorOffsetY = 34/2
         this.defMC2.x = this.defMC2.y = 15;
+
+        this.addHp = this.getValue(1)
+        this.totalTime = PKTool.getStepByTime(this.getValue(2)*1000)
     }
 
     public onUse(){

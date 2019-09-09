@@ -42,7 +42,7 @@ class SkillVO {
             level = SkillManager.getInstance().getSkillLevel(this.id)
         var v = this.cd || 0;
         var vup = this.cdup || 0;
-        return v + vup*(level-1)
+        return v - vup*(level-1)
     }
 
     public getDes(){

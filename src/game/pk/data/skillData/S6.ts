@@ -3,10 +3,12 @@ class S6 extends SBase{
         super();
     }
 
+    public num = 9
     public hurt = 1.5
     public step = 5
     public onCreate(){
-
+        this.num = this.getValue(1)
+        this.hurt = this.getValue(2)/100
     }
 
     public onUse(){
@@ -15,9 +17,18 @@ class S6 extends SBase{
         playerData.isSkilling = this.sid;
 
 
-        var num = 10;
+        var num = this.num;
         var step = 10;
-        var startRota = (item.ctrlRota - num/2*step + step*0.5)/180*Math.PI
+
+
+        var monster = MTool.getNearMonster();
+        if(!monster)
+            return false;
+
+        var pos = monster.getHitPos();
+        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
+
+        var startRota = rota - (num-1)/2*step/180*Math.PI
 
         var addRota = step/180*Math.PI
         for(var i=0;i<num;i++)
@@ -33,7 +44,7 @@ class S6 extends SBase{
 
 
 
-        item.roleCon.rotation = item.ctrlRota+90
+        item.roleCon.rotation = rota/Math.PI*180+90
         item.showDoubleMV();
 
         return true;

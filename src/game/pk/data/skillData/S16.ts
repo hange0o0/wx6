@@ -6,18 +6,19 @@ class S16 extends SBase{
     public data = {
         id:16,
         hp:300,
-        hurtDis:100,
+        hurtDis:50,
         hurt:50,
     }
 
+    public hurtRate
 
     public onCreate(){
-
+        this.hurtRate = this.getValue(1)/100
+        this.data.hp = PKTool.getStepByTime(this.getValue(2)*1000)
     }
 
     public onUse(){
-        this.data.hurt = PKC.playerData.atk;
-
+        this.data.hurt = Math.ceil(PKC.playerData.atk * this.hurtRate);
         PKCodeUI.getInstance().addTrap(this.data)
         return true;
     }

@@ -3,9 +3,12 @@ class S22 extends SBase{
         super();
     }
     public hurt = 200
+    public totalTime = 200
+    public bulletSpeed = 50
 
     public onCreate(){
-
+        this.totalTime = Math.ceil(this.getValue(1)/this.bulletSpeed)
+        this.hurt = this.getValue(2)
     }
 
     public onUse(){
@@ -14,14 +17,21 @@ class S22 extends SBase{
 
 
 
-        var rota = item.ctrlRota/180*Math.PI;
+
+        var monster = MTool.getNearMonster();
+        if(!monster)
+            return false;
+
+        var pos = monster.getHitPos();
+        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
+        item.roleCon.rotation = rota/Math.PI*180+90
 
         var x = playerData.x
         var y = playerData.y
         var bullet = PKCodeUI.getInstance().shoot(playerData,rota,{x:x,y:y});
         bullet.setImage( 'skill22_png',90);
-        bullet.endTime = PKC.actionStep + 6
-        bullet.speed = 50
+        bullet.endTime = PKC.actionStep + this.totalTime
+        bullet.speed = this.bulletSpeed
         bullet.hitBack = 0
         bullet.hitPass = true
         bullet.isSkill = true
@@ -29,7 +39,6 @@ class S22 extends SBase{
         bullet.atkR = 60
 
 
-        item.roleCon.rotation = item.ctrlRota+90
         item.showDoubleMV();
         playerData.lastAtkTime = PKC.actionStep;
 

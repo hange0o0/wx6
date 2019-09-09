@@ -92,4 +92,31 @@ class MTool {
         return mData
     }
 
+    public static getNearMonster(){
+        var playerData = PKC.playerData
+        var monsterList = PKC.monsterList;
+        var len = monsterList.length;
+        if(len == 0)
+            return false;
+        var minMonster;
+        var minDis;
+        for(var i=0;i<len;i++)
+        {
+            var monster = monsterList[i];
+            if(monster.isDie)
+                continue;
+            if(!monster.beSkillAble)
+                continue;
+
+            var dis = MyTool.getDis(monster,playerData)
+            if(!minMonster || dis < minDis)
+            {
+                minMonster = monster
+                minDis = dis
+            }
+        }
+
+        return minMonster;
+    }
+
 }

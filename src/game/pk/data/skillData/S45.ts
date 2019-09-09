@@ -9,8 +9,8 @@ class S45 extends SBase{
     public onCreate(){
 
         PKC.playerData.atkBuff['bomb'] = {
-            dis:100,
-            hurt:50
+            dis:this.getValue(1),
+            hurt:this.getValue(2)
         };
     }
 

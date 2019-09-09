@@ -8,8 +8,8 @@ class S44 extends SBase{
 
     public onCreate(){
         PKC.playerData.atkBuff['fire'] = {
-            step:30*5,
-            hurt:10
+            step:PKTool.getStepByTime(this.getValue(2)*1000),
+            hurt:this.getValue(1)
         };
     }
 

@@ -19,6 +19,9 @@ class S30 extends SBase{
 
     public onCreate(){
 
+        this.addRate = this.getValue(1)/100
+        this.hurtRate = this.getValue(2)/100
+        this.total = PKTool.getStepByTime(this.getValue(3)*1000)
     }
 
 

@@ -9,7 +9,7 @@ class S43 extends SBase{
     public onCreate(){
         PKC.playerData.atkBuff['poison'] = {
             step:Number.MAX_VALUE,
-            hurt:10
+            hurt:this.getValue(1)
         };
     }
 

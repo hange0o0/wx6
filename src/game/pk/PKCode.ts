@@ -8,6 +8,7 @@ class PKCode_wx4 {
 
     public isAuto = false;
     public frameRate = 30   //PKTool.getStepByTime 也要改
+    public maxMonsterNum = 20   //场上最多存活怪物数量
 
 
     public playerData = new PlayerData()
@@ -120,7 +121,7 @@ class PKCode_wx4 {
         this.monsterList.length = 0;
         PKMonsterAction_wx3.getInstance().init();
         this.autoMonster = this.getLevelMonster(1);
-        this.maxStep = this.autoMonster[this.autoMonster.length-1].step + (20 + this.maxBossNum*10)*this.frameRate;
+        this.maxStep = this.autoMonster[this.autoMonster.length-1].step + (30 + this.maxBossNum*20)*this.frameRate;
         //PKBulletManager_wx3.getInstance().freeAll();
     }
 
@@ -173,11 +174,12 @@ class PKCode_wx4 {
                     var vo = monsterList[Math.floor(monsterList.length*this.random()*minRateAdd)]
                 else
                     var vo = monsterList[Math.floor(monsterList.length*this.random())]
+                var rotation = Math.PI*2*Math.random()
                 list.push({
                     id:vo.id,
                     step:step,
-                    x:-500 + PKC.random()*1000,
-                    y:-500 + PKC.random()*1000
+                    x:Math.cos(rotation) * 500,
+                    y:Math.sin(rotation) * 500,
                 })
                 monsterCost += vo.cost;
             }
@@ -203,8 +205,8 @@ class PKCode_wx4 {
                         list.push({
                             id:bossid,
                             step:step,
-                            x:-500 + PKC.random()*1000,
-                            y:-500 + PKC.random()*1000
+                            x:Math.cos(rotation) * 500,
+                            y:Math.sin(rotation) * 500,
                         })
                     }
                 }

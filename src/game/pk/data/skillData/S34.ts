@@ -7,6 +7,6 @@ class S34 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-        PKC.playerData.missRate += 0.5;
+        PKC.playerData.missRate += this.getValue(1)/100;
     }
 }

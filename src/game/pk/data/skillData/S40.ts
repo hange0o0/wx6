@@ -8,7 +8,7 @@ class S40 extends SBase{
 
     public onCreate(){
         var playerData = PKC.playerData;
-        var addValue = Math.ceil(playerData.maxHp * 0.5);
+        var addValue = this.getValue(1)
         playerData.maxHp += addValue
         playerData.hp += addValue
     }

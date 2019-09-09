@@ -228,7 +228,7 @@ class GameUI extends game.BaseUI_wx4 {
         }
 
         ui.onE();
-        ui.renewConY();
+        ui.renewConY(true);
     }
 
 

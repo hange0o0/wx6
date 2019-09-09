@@ -15,7 +15,7 @@ class M35 extends MBase{
         {
             this.lastSplitTime = PKC.actionStep;
 
-            if(PKC.monsterList.length > 30)
+            if(PKC.monsterList.length >= PKC.maxMonsterNum)
                 return;
 
 

@@ -6,7 +6,7 @@ class S5 extends SBase{
     public hurt = 1.5
     public step = 5
     public onCreate(){
-
+        this.hurt = this.getValue(1)/100
     }
 
     public onUse(){
@@ -14,8 +14,12 @@ class S5 extends SBase{
         var item = playerData.relateItem;
         playerData.isSkilling = this.sid;
 
+        var monster = MTool.getNearMonster();
+        if(!monster)
+            return false;
 
-        var rota = item.ctrlRota/180*Math.PI;
+        var pos = monster.getHitPos();
+        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
         var rota90 = rota - Math.PI/2;
         var num = 3
         var des = 40*(num-1)
@@ -38,9 +42,7 @@ class S5 extends SBase{
 
 
 
-
-
-        item.roleCon.rotation = item.ctrlRota+90
+        item.roleCon.rotation = rota/Math.PI*180+90
         item.showShootMV();
 
         return true;

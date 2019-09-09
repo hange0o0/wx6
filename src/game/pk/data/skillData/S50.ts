@@ -8,8 +8,8 @@ class S50 extends SBase{
 
     public onCreate(){
         PKC.playerData.atkBuff['gun'] = {
-            num:5,
-            hurt:0.3
+            num:this.getValue(1),
+            hurt:this.getValue(2)/100
         };
     }
 

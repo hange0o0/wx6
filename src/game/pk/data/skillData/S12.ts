@@ -5,7 +5,7 @@ class S12 extends SBase{
 
     public addHp = 100
     public onCreate(){
-
+        this.addHp = this.getValue(1)
     }
 
     public onUse(){

@@ -8,7 +8,7 @@ class S37 extends SBase{
 
     public onCreate(){
         var playerData = PKC.playerData;
-        var addValue = -Math.ceil(playerData.atkSpeed * 0.5);
+        var addValue = -Math.ceil(playerData.atkSpeed * this.getValue(1)/100);
         playerData.atkSpeed += addValue
     }
 

@@ -7,7 +7,8 @@ class S49 extends SBase{
     public hurt = 30
 
     public onCreate(){
-
+        this.dis = this.getValue(1)
+        this.hurt = this.getValue(2)
     }
 
 

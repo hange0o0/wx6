@@ -189,7 +189,7 @@ class PKUI extends game.BaseUI_wx4{
         ui.onE();
         if(this.touchID || playerData.isSkilling)
         {
-            ui.renewConY();
+            ui.renewConY(true);
         }
 
 
@@ -224,7 +224,7 @@ class PKUI extends game.BaseUI_wx4{
 
         this.renewSkillCD();
 
-        if(PKC.maxStep <= PKC.actionStep )
+        if(PKC.maxStep <= PKC.actionStep)
         {
             PKC.isStop = true;
             if(PKC.haveReborn)

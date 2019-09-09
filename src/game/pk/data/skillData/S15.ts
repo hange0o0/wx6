@@ -8,7 +8,8 @@ class S15 extends SBase{
 
 
     public onCreate(){
-
+        this.hurt = this.getValue(2)
+        this.hurtDis = this.getValue(1)
     }
 
     public onUse(){

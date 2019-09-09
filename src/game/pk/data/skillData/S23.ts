@@ -8,7 +8,8 @@ class S23 extends SBase{
 
     private mv
     public onCreate(){
-
+        this.dis = this.getValue(1)
+        this.hitBack = this.getValue(2)
     }
 
     public onUse(){

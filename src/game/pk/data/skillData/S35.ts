@@ -8,7 +8,7 @@ class S35 extends SBase{
 
     public onCreate(){
         var playerData = PKC.playerData;
-        var addSpeed = Math.ceil(playerData.speed * 0.5);
+        var addSpeed = Math.ceil(playerData.speed * this.getValue(1)/100);
         playerData.speed += addSpeed
     }
 

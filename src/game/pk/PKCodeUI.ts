@@ -44,12 +44,23 @@ class PKCodeUI extends game.BaseContainer_wx4{
 
     }
 
-    public renewConY(){
-        this.con.y = (GameManager_wx4.uiHeight - 320)/2 - this.playerItem.y;
-        this.con.x = 320 - this.playerItem.x
+    public renewConY(isE?){
+       var toY = (GameManager_wx4.uiHeight - 320)/2 - this.playerItem.y;
+        var toX = 320 - this.playerItem.x;
 
-        var x = this.con.x%200;
-        var y = this.con.y%200
+        if(isE && Math.abs(toY - this.con.y) + Math.abs(toX - this.con.x) > 60)
+        {
+            var rota = Math.atan2(toY - this.con.y,toX - this.con.x)
+            toY = this.con.y + Math.sin(rota)*30
+            toX = this.con.x + Math.cos(rota)*30
+        }
+
+
+        this.con.y = toY
+        this.con.x = toX
+
+        var x = toX%200;
+        var y = toY%200
         if(x > 0)
             x -= 200
         if(y > 0)

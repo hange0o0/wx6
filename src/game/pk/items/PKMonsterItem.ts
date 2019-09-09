@@ -266,7 +266,6 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
         //atk
         if(canAtk){
-            myData.moveStartTime = 0;
             this.atkMV()
             myData.atkFun();
             myData.atkEnd = PKC.actionStep + myData.atkStop

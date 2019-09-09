@@ -9,6 +9,9 @@ class S8 extends SBase{
     public distance = 100
     public onCreate(){
 
+        this.distance = this.getValue(1)
+        this.yunStep = PKTool.getStepByTime(this.getValue(2)*1000)
+        this.hurt = this.getValue(3)
     }
 
     public onUse(){

@@ -7,7 +7,7 @@ class S41 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-        this.addHp = 10
+        this.addHp = this.getValue(1)
     }
     public onStep(){
         if(PKC.actionStep%30 == 0)

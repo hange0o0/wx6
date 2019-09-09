@@ -4,13 +4,14 @@ class S2 extends SBase{
     }
 
     public atkRate = 1.5
-    public disRate = 1
+    public disRate = 0.5
     public totalStep = 60
 
     public endStep
     public lastHitMonsterTime = {}
     public onCreate(){
-
+        this.atkRate = this.getValue(1)/100
+        this.totalStep = this.getValue(2)
     }
 
     public onUse(){
@@ -56,7 +57,7 @@ class S2 extends SBase{
         var monsterList = PKC.monsterList;
         var len = monsterList.length;
         var atk = Math.ceil(playerData.getAtk()*this.atkRate);
-        var atkDis = Math.ceil(playerData.atkDis*this.disRate)
+        var atkDis = 40+Math.ceil((playerData.atkDis-40)*this.disRate)
         var hitBack = playerData.hitBack
         for(var i=0;i<len;i++)
         {

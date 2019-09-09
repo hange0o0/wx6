@@ -13,6 +13,8 @@ class S28 extends SBase{
         this.mc.anchorOffsetX = 216/2
         this.mc.anchorOffsetY = 176/2
         this.mc.scaleX = this.mc.scaleY = 0.8;
+
+        this.totalStep = PKTool.getStepByTime(this.getValue(1)*1000)
     }
     public onUse(){
         var playerData = PKC.playerData
@@ -49,5 +51,9 @@ class S28 extends SBase{
                 mv.scaleX = mv.scaleY = 1.5
             }
         }
+    }
+
+    public onRemoveSkill(){
+        MyTool.removeMC(this.mc)
     }
 }

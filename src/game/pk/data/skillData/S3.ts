@@ -4,15 +4,16 @@ class S3 extends SBase{
     }
 
     public atkRate = 1.5
-    public disRate = 1
+    public disRate = 0.5
     public totalStep = 5
-    public speed = 80
+    public speed = 60
 
     public endStep
     public rotation;
     public lastHitMonsterTime = {}
     public onCreate(){
-
+        this.atkRate = this.getValue(2)/100
+        this.totalStep = Math.ceil(this.getValue(1)/this.speed)
     }
 
     public onUse(){
@@ -21,12 +22,17 @@ class S3 extends SBase{
         this.endStep = PKC.actionStep + this.totalStep
 
 
+        var monster = MTool.getNearMonster();
+        if(!monster)
+            return false;
 
+        var pos = monster.getHitPos();
+        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
 
 
         var item = playerData.relateItem;
-        this.rotation = item.ctrlRota/180*Math.PI;
-        item.roleCon.rotation = item.ctrlRota  + 90
+        this.rotation = rota;
+        item.roleCon.rotation = rota/Math.PI*180+90
         item.cleanTween();
 
         item.leftCon.scaleX = -1;

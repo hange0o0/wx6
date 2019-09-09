@@ -53,6 +53,7 @@ class SBase {
             case 49:return S49;
             case 50:return S50;
             case 51:return S51;
+            case 52:return S52;
         }
     }
 
@@ -115,6 +116,10 @@ class SBase {
     }
 
     public onStep(){
+
+    }
+
+    public onRemoveSkill(){
 
     }
 }

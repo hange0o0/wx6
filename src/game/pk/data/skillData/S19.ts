@@ -12,7 +12,9 @@ class S19 extends SBase{
 
 
     public onCreate(){
-
+        this.data.hurtDis = this.getValue(1)
+        this.data.hurt = this.getValue(3)
+        this.data.hp = PKTool.getStepByTime(this.getValue(2)*1000)
     }
 
     public onUse(){

@@ -7,7 +7,7 @@ class S48 extends SBase{
     public hitBack = 200
 
     public onCreate(){
-        PKC.playerData.coinAdd += 0.5;
+        PKC.playerData.coinAdd += this.getValue(1)/100
     }
 
 }

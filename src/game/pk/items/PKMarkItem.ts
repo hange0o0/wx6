@@ -61,7 +61,7 @@ class PKMarkItem extends game.BaseItem{
         this.addChild(this.mc)
 
 
-        this.waitCD = 30;
+        this.waitCD = 60;
         this.isDie = 0
 
         this.owner = this.data.owner;
