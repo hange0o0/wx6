@@ -4,8 +4,6 @@ class SkillListItem extends game.BaseItem{
     private levelText: eui.Label;
     private rateText: eui.Label;
 
-
-
     public constructor() {
         super();
         this.skinName = "SkillListItemSkin";

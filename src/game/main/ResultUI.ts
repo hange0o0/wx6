@@ -7,23 +7,24 @@ class ResultUI extends game.BaseUI_wx4{
     }
 
     private bg: eui.Image;
+    private coinText: eui.Label;
+    private skillList: eui.List;
     private awardBtn: eui.Button;
     private shareBtn: eui.Button;
-    private coinText: eui.Label;
-    private coinAddText: eui.Label;
     private failGroup: eui.Group;
-    private failTipsGroup: eui.Group;
-    private barMC: eui.Rect;
+    private barMC: eui.Image;
     private rateText: eui.Label;
     private titleText: eui.Label;
-    private timeText: eui.Label;
-    private failText: eui.Label;
 
 
 
 
 
-    public addCoin = 0;
+
+
+
+    public isWin;
+    public result;
     public rate = 3;
     public constructor() {
         super();
@@ -36,19 +37,22 @@ class ResultUI extends game.BaseUI_wx4{
 
     public childrenCreated() {
         super.childrenCreated();
+
+        this.skillList.itemRenderer = ResultItem;
+
         this.addBtnEvent(this.awardBtn,()=>{
-            MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.addCoin,2),0xFFFF00),1000)
+            MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin,2),0xFFFF00),1000)
+            MyWindow.ShowTips('获得技能碎片：'+MyTool.createHtml('+' + this.result.skillNum,0xFFFF00),1000)
             this.close();
             SoundManager.getInstance().playEffect('coin')
         })
         this.addBtnEvent(this.shareBtn,()=>{
             ShareTool.openGDTV(()=>{
-                UM_wx4.addCoin(this.addCoin*(this.rate-1));
-                MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.addCoin*this.rate,2),0xFFFF00),1000)
+                MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin*this.rate,2),0xFFFF00),1000)
+                MyWindow.ShowTips('获得技能碎片：'+MyTool.createHtml('+' + this.result.skillNum*this.rate,0xFFFF00),1000)
                 this.close();
                 SoundManager.getInstance().playEffect('coin')
             })
-
         })
     }
 
@@ -61,9 +65,17 @@ class ResultUI extends game.BaseUI_wx4{
         this.renew();
     }
 
+    public show(isWin?){
+        PKC.isStop = true;
+        this.isWin = isWin;
+        super.show()
+    }
+
 
     public renew(){
-        //var PD = PKCode_wx4.getInstance();
+        var rate = PKC.monsterList.length/PKC.roundMonsterNum
+        this.result = this.isWin?PKManager.getInstance().getWinResult():PKManager.getInstance().getFailResult(1-rate)
+
         //var rate = PD.enemyHp / PD.enemyHpMax;
         //var coin = (PD.enemyHpMax - PD.enemyHp)/300*Math.pow(0.994,UM_wx4.level)
         //var add = BuffManager.getInstance().getCoinAdd();

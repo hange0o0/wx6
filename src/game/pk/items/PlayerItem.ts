@@ -381,7 +381,7 @@ class PlayerItem extends game.BaseItem{
                 if(rotaDes > atkRota1 && rotaDes < atkRota2)
                     continue;
                 //在攻击范围内，可造成伤害
-                var atk2 = 2-dis/playerData.atkDis
+                var atk2 = 1+Math.max(0,(100-dis)/100);
                 if(isDouble)
                     monster.addHp(-Math.ceil(atk*(1+playerData.doubleValue)*atk2));
                 else

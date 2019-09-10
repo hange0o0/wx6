@@ -23,8 +23,10 @@ class PKUI extends game.BaseUI_wx4{
     private skillCDText: eui.Label;
     private hpBar: eui.Image;
     private hpText: eui.BitmapLabel;
-    private rateBar: eui.Image;
     private monsterText: eui.Label;
+    private rateBar: eui.Image;
+    private stopBtn: eui.Image;
+
 
 
 
@@ -37,6 +39,8 @@ class PKUI extends game.BaseUI_wx4{
     public middleR = 180
 
     public redArr = [];
+    public showSkillTouchID;
+    public showSkillItem;
 
     public constructor() {
         super();
@@ -69,13 +73,39 @@ class PKUI extends game.BaseUI_wx4{
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
         this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchEnd, this);
 
-        this.addBtnEvent(this.monsterText,()=>{
-            PKCodeUI.getInstance().onShow();
-            this.renewSkill()
-            this.renewHp()
-            this.onTimer()
+        //this.addBtnEvent(this.monsterText,()=>{
+        //    PKCodeUI.getInstance().onShow();
+        //    this.renewSkill()
+        //    this.renewHp()
+        //    this.onTimer()
+        //})
+
+        this.addBtnEvent(this.stopBtn,()=>{
+
         })
+
+        GameManager_wx4.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onSkillMove,this)
+        GameManager_wx4.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.onSkillEnd,this)
+        GameManager_wx4.stage.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this.onSkillEnd,this)
     }
+
+    private onSkillMove(e){
+        if(e.touchPointID != this.showSkillTouchID)
+            return;
+        if(this.showSkillItem && this.skillInfoGroup.visible && !this.showSkillItem.hitTestPoint(e.stageX,e.stageY))
+        {
+            this.hideSkillInfo()
+        }
+    }
+
+    private onSkillEnd(e){
+        if(e.touchPointID != this.showSkillTouchID)
+            return;
+        this.showSkillItem = null;
+        this.hideSkillInfo()
+
+    }
+
 
     private onTouchBegin(e: egret.TouchEvent) {
         if (!this.touchID) {
@@ -149,7 +179,11 @@ class PKUI extends game.BaseUI_wx4{
         this.hideSkillInfo();
     }
 
-    public showSkillInfo(data){
+    public showSkillInfo(item,showSkillTouchID){
+        var data = item.data;
+        this.showSkillTouchID = showSkillTouchID
+        this.showSkillItem = item
+
         this.skillInfoGroup.visible = true;
         this.skillInfoItem.data = data;
         var svo = data.getVO();
@@ -195,7 +229,9 @@ class PKUI extends game.BaseUI_wx4{
 
         if(playerData.hp <= 0)
         {
-            playerData.hp = playerData.maxHp
+            if(!RebornUI.getInstance().stage)
+                RebornUI.getInstance().show();
+            return;
         }
 
         var len = PKC.monsterList.length;
@@ -229,15 +265,38 @@ class PKUI extends game.BaseUI_wx4{
             PKC.isStop = true;
             if(PKC.haveReborn)
             {
-                console.log('fail')
+                ResultUI.getInstance().show(false)
             }
             else
             {
-                RebornUI.getInstance().show();
+                this.showAddTimePanel();
             }
             return;
         }
         this.rateBar.width = 640*(PKC.maxStep - PKC.actionStep)/PKC.maxStep
+
+
+        if(PKC.monsterList.length + PKC.autoMonster.length == 0)
+            ResultUI.getInstance().show(true)
+    }
+
+    private showAddTimePanel(){
+        var panel = MyWindow.Confirm('时间到，观看广告可增加30秒的战斗时间',(b)=>{
+            if(b == 1)
+            {
+                ShareTool.openGDTV(()=>{
+                    PKC.haveReborn = true;
+                    PKC.isStop = false;
+                    PKC.maxStep += 30*PKC.frameRate
+                    panel.hide();
+                })
+                this.showAddTimePanel();
+            }
+            else
+            {
+                ResultUI.getInstance().show(false)
+            }
+        })
     }
 
     private setMonsterRed(x,y,mc){

@@ -23,6 +23,11 @@ class GunListItem extends game.BaseItem{
         var GM = GunManager.getInstance();
         if(this.lockGroup.visible)
         {
+            if(DEBUG)
+            {
+                GM.addGun(this.data.id);
+                return;
+            }
             ShareTool.openGDTV(()=>{
                 GM.addGun(this.data.id)
             })

@@ -7,10 +7,9 @@ class RebornUI extends game.BaseWindow_wx4{
     }
 
     private desText: eui.Label;
-    private cancelBtn: eui.Button;
-    private rebornBtn: eui.Button;
     private rebornGroup: eui.Group;
     private cdText: eui.Label;
+
 
 
     private shape = new egret.Shape()
@@ -28,20 +27,6 @@ class RebornUI extends game.BaseWindow_wx4{
 
     public childrenCreated() {
         super.childrenCreated();
-        this.addBtnEvent(this.cancelBtn,()=>{
-            this.hide();
-            ResultUI.getInstance().show();
-        })
-
-        this.addBtnEvent(this.rebornBtn,()=>{
-            this.isStoping = true;
-            ShareTool.openGDTV((type)=>{
-                this.hide();
-                //PKingUI.getInstance().reborn();
-                //PlayManager.getInstance().sendGameReborn(type)
-            },()=>{this.isStoping = false})
-        })
-
         this.rebornGroup.addChildAt(this.shape,1);
         this.shape.x = 130
         this.shape.y = 130
@@ -57,27 +42,23 @@ class RebornUI extends game.BaseWindow_wx4{
 
 
     private onE(){
-        if(!GameManager_wx4.getInstance().isActive)
-            return;
-        if(ChangeJumpUI.getInstance().stage)
-            return;
-        if(this.isStoping)
-            return;
         if(this.step <= 0)
         {
             this.hide();
-            ResultUI.getInstance().show();
+            PKC.playerData.hp = PKC.playerData.maxHp;
+            PKC.playerData.relateItem.renewHp();
+            PKC.playerData.wudiStep = 30*5;
             return;
         }
         this.step --;
-        var cd = Math.ceil(this.step/30);
-        this.cdText.text = cd + '';
-        MyTool.getSector(128,-90,-this.step/this.totalTime*360,0xFFFFFF,0.3,this.shape)
+        this.renew();
     }
 
 
     public renew(){
-
+        var cd = Math.ceil(this.step/30);
+        this.cdText.text = cd + '';
+        MyTool.getSector(128,-90,-this.step/this.totalTime*360,0xFFFFFF,0.3,this.shape)
     }
 
     public hide(){

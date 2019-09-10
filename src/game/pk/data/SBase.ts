@@ -64,7 +64,7 @@ class SBase {
         item.isActive = item.getVO().cd > 0;
         item.maxCD = PKTool.getStepByTime(item.getVO().getCD());
 
-        item.maxCD = 10
+        //item.maxCD = 10
         return item;
     }
 

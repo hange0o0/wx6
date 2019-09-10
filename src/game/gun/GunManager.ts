@@ -41,4 +41,8 @@ class GunManager extends egret.EventDispatcher {
         EM_wx4.dispatchEventWith(GameEvent.client.GUN_CHANGE)
     }
 
+    public getUnlockNum(){
+        return Math.min(50,5 + Math.floor(UM_wx4.level/3)*2);
+    }
+
 }

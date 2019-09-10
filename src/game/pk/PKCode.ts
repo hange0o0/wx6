@@ -20,12 +20,14 @@ class PKCode_wx4 {
 
 
 
+    public chooseSkill = [];//玩家选择的技能
     public autoMonster = [];
 
     public isStop = false
     public haveReborn = false
 
     public maxBossNum = 0
+    public roundMonsterNum = 0
     public maxStep = 0
     public randomSeed = 99999999;
     public random(seedIn?){
@@ -212,6 +214,7 @@ class PKCode_wx4 {
                 }
             }
         }
+        this.roundMonsterNum = list.length;
         return list
     }
 }

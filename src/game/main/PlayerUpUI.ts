@@ -8,11 +8,17 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
     }
 
     private sendBtn: eui.Button;
-    private inputText: eui.EditableText;
+    private playerItem: PlayerItem;
+    private atk1: eui.Label;
+    private atk2: eui.Label;
+    private hp1: eui.Label;
+    private hp2: eui.Label;
+    private coinText: eui.Label;
 
 
 
-    public data;
+
+    public cost;
     public constructor() {
         super();
         this.skinName = "PlayerUpUISkin";
@@ -23,13 +29,9 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
         super.childrenCreated();
         this.setTitle('问题与建议')
         this.addBtnEvent(this.sendBtn,()=>{
-            if(this.inputText.text)
-            {
-                sendFeedBack(this.inputText.text);
-                MyWindow.ShowTips('感谢你的反馈，我们会努力做得更好的！')
-                this.hide();
-            }
-
+            if(!UM_wx4.checkCoin(this.cost))
+                return;
+            PKManager.getInstance().upPlayerLevel();
         })
     }
 
@@ -42,7 +44,12 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
-        this.inputText.text = ''
+        this.renew();
+        this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renew)
+    }
+
+    public renew(){
+        this.cost = PKManager.getInstance().getUpCost()
     }
 
 }

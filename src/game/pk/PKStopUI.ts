@@ -1,24 +1,21 @@
-class SkillInfoUI extends game.BaseWindow_wx4 {
+class PKStopUI extends game.BaseWindow_wx4 {
 
-    private static _instance: SkillInfoUI;
-    public static getInstance(): SkillInfoUI {
+    private static _instance: PKStopUI;
+    public static getInstance(): PKStopUI {
         if(!this._instance)
-            this._instance = new SkillInfoUI();
+            this._instance = new PKStopUI();
         return this._instance;
     }
 
-    private nameText: eui.Label;
-    private skillCDText: eui.Label;
     private atkText: eui.Label;
     private rateText: eui.Label;
     private closeBtn: eui.Button;
 
 
-
     public skillID;
     public constructor() {
         super();
-        this.skinName = "SkillInfoUISkin";
+        this.skinName = "PKStopUISkin";
         this.canBGClose = false
     }
 

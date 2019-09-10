@@ -28,7 +28,7 @@ class GunListUI extends game.BaseWindow_wx4{
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('我的飞刀')
+        this.setTitle('更换武器')
         this.scroller.viewport = this.list;
         this.list.itemRenderer = GunListItem
         this.playerItem.x = 125
@@ -72,7 +72,7 @@ class GunListUI extends game.BaseWindow_wx4{
 
     public renew(){
         var list = ObjectUtil_wx4.objToArray(GunVO.data)
-        list.length = 5;
+        list.length = GunManager.getInstance().getUnlockNum();
         this.list.dataProvider = new eui.ArrayCollection(list)
     }
 
@@ -95,7 +95,7 @@ class GunListUI extends game.BaseWindow_wx4{
         arr.push(this.createText('攻击距离',vo.atkdis + ''))
         arr.push(this.createText('打退距离',vo.atkback + ''))
         arr.push(this.createText('暴击率',vo.doublerate + '%'))
-        arr.push(this.createText('暴击倍数',MyTool.toFixed(vo.doublevalue/100,1) + '倍'))
+        arr.push(this.createText('暴击倍数',MyTool.toFixed(vo.doublevalue,1) + '倍'))
         arr.push(this.createText('闪避率',vo.missrate + '%'))
         this.setHtml(this.atkText,arr.join('\n'));
 

@@ -9,6 +9,7 @@ class GameUI extends game.BaseUI_wx4 {
 
 
     private coinText: eui.Label;
+    private energyText: eui.Label;
     private soundBtn: eui.Image;
     private feedBackBtn: eui.Image;
     private ad1: eui.Image;
@@ -23,6 +24,8 @@ class GameUI extends game.BaseUI_wx4 {
     private addForceText: eui.Label;
     private startBtn2: eui.Button;
     private startBtn1: eui.Button;
+    private desText: eui.Label;
+
 
 
 
@@ -51,11 +54,11 @@ class GameUI extends game.BaseUI_wx4 {
         })
 
         this.addBtnEvent(this.skillBtn,()=>{
-
+            SkillListUI.getInstance().show()
         })
 
         this.addBtnEvent(this.levelBtn,()=>{
-
+            PlayerUpUI.getInstance().show();
         })
 
         this.addBtnEvent(this.addForceBtn,()=>{
@@ -63,11 +66,36 @@ class GameUI extends game.BaseUI_wx4 {
         })
 
         this.addBtnEvent(this.startBtn1,()=>{
-            PKUI.getInstance().show();
+            var PKM = PKManager.getInstance();
+            if(PKM.lastChooseData.length == 0)
+            {
+                var enery = PKM.getEnergyCost();
+                if(PKM.getEnergy() < enery)
+                {
+                    MyWindow.Confirm('体力不足'+enery+'点，可观看广告免去本次体力消耗。',(type)=>{
+                        if(type == 1)
+                        {
+                            ShareTool.openGDTV(()=>{
+                                PKM.initChooseSkill();
+                                SkillChooseUI.getInstance().show();
+                            })
+                        }
+
+                    },['取消', '观看广告'])
+                    return;
+                }
+                PKM.addEnergy(-enery);
+                PKM.initChooseSkill();
+            }
+            SkillChooseUI.getInstance().show();
+            //PKUI.getInstance().show();
         })
 
         this.addBtnEvent(this.startBtn2,()=>{
-
+            if(UM_wx4.level < 30)
+                MyWindow.Alert('闯关达到30后解锁')
+            else
+                MyWindow.Alert('功能正在开发中，很快就能和好友一起游戏啦')
         })
 
 
@@ -127,11 +155,10 @@ class GameUI extends game.BaseUI_wx4 {
 
 
         this.renewSound();
-        this.renew();
         this.renewCoin();
         this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renewCoin)
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
-        this.addPanelOpenEvent(GameEvent.client.GUN_CHANGE,this.renew)
+        this.addPanelOpenEvent(GameEvent.client.GUN_CHANGE,this.renewGun)
 
         if(UM_wx4.pastDayCoin.coin)
         {
@@ -235,7 +262,6 @@ class GameUI extends game.BaseUI_wx4 {
     public onVisibleChange(){
         if(this.visible)
         {
-            this.renew();
             this.showTips();
             if(UM_wx4.pastDayCoin.coin)
             {
@@ -246,9 +272,17 @@ class GameUI extends game.BaseUI_wx4 {
 
     private renewCoin(){
         this.coinText.text = NumberUtil_wx4.addNumSeparator(UM_wx4.coin);
+        this.renewRed();
     }
 
-    public renew(){
+    public renewGun(){
+        PKC.playerData.gunid = GunManager.getInstance().gunid;
+        PKC.playerData.relateItem.dataChanged();
+        this.renewRed();
+    }
 
+    private renewRed(){
+        this.equipRedMC.visible = GunManager.getInstance().myGun.length < GunManager.getInstance().getUnlockNum();
+        this.levelRedMC.visible = UM_wx4.coin >= PKManager.getInstance().getUpCost()
     }
 }

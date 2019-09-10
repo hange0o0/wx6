@@ -1,8 +1,7 @@
-class SkillChooseItem extends game.BaseItem{
+class SkillChooseItem1 extends game.BaseItem{
 
     private mc: eui.Image;
-    private levelText: eui.Label;
-    private nameText: eui.Label;
+
 
 
     public constructor() {

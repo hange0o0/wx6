@@ -17,7 +17,7 @@ class PKManager {
 
     public playerLevel = 1
     public atkAdd = 10
-    public hpAdd = 100
+    public hpAdd = 60
     public initData(data) {
         var energyData = data.energy;
         this.energy = energyData.v;
@@ -35,8 +35,8 @@ class PKManager {
     }
 
     public getPlayerValue(){
-        var atk = 50 + this.playerLevel*this.atkAdd
-        var hp = 500 + this.playerLevel*this.hpAdd
+        var atk = 60 + (this.playerLevel-1)*this.atkAdd
+        var hp = 600 + (this.playerLevel-1)*this.hpAdd
         if(UM_wx4.addForceEnd > TM_wx4.now())
         {
             atk = Math.ceil(atk*1.2);
@@ -73,7 +73,7 @@ class PKManager {
         return Math.min(Math.ceil(UM_wx4.level/5),8)
     }
 
-    public startGame(){
+    public initChooseSkill(){
         this.addEnergy(-this.getEnergy())
         this.lastChooseData = [];
         var mySkill = SkillManager.getInstance().mySkill.concat();
@@ -96,28 +96,58 @@ class PKManager {
         {
             SM.addSkill(s,result.skill[s])
         }
-        this.lastChooseData = null;
+        this.lastChooseData = [];
 
         UM_wx4.addCoin(result.coin)//save
     }
 
     public getWinResult(){
-        var skillArr = SkillManager.getInstance().getNewSkill(5 + UM_wx4.level)
+        var skillNum = 5 + UM_wx4.level;
+        var skillArr = SkillManager.getInstance().getNewSkill(skillNum)
         var coin = 50 + Math.floor(Math.pow(UM_wx4.level,1.5))*50
         return {
             skill:skillArr,
-            coin:coin
+            coin:coin,
+            skillNum:skillNum
         }
     }
 
     public getFailResult(rate){
-        var skillArr = SkillManager.getInstance().getNewSkill(Math.ceil(UM_wx4.level*0.5*rate))
+        var skillNum = Math.ceil(UM_wx4.level*0.5*rate);
+        var skillArr = SkillManager.getInstance().getNewSkill(skillNum)
         var coin = Math.ceil(Math.pow(UM_wx4.level,1.5)*rate*20)
         return {
             skill:skillArr,
-            coin:coin
+            coin:coin,
+            skillNum:skillNum
         }
     }
+
+    public getUpCost(){
+        return 50 + Math.floor(Math.pow(this.playerLevel,1.8))*50
+    }
+    public upPlayerLevel(){
+        var cost = this.getUpCost();
+        this.playerLevel ++;
+        UM_wx4.addCoin(-cost);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public sendKey
     public sendKeyName

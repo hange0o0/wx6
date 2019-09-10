@@ -12,38 +12,28 @@ class PKSkillItem extends game.BaseItem{
 
 
 
-    public isShowInfo = false
+    public touchTime = 0
     public childrenCreated() {
         super.childrenCreated();
         this.addBtnEvent(this,this.onClick)
 
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onBegin,this)
-        GameManager_wx4.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this)
-        //MyTool.addLongTouch(this,this.onLongTouch,this)
     }
 
-    private onBegin(){
+    private onBegin(e){
         if(!this.data)
             return;
-        PKUI.getInstance().showSkillInfo(this.data)
-        this.isShowInfo = true
-    }
-    private onMove(e){
-        if(!this.isShowInfo)
-            return;
-        if(!this.hitTestPoint(e.stageX,e.stageY))
-        {
-            PKUI.getInstance().hideSkillInfo()
-            this.isShowInfo = false
-        }
+        this.touchTime = egret.getTimer();
+        PKUI.getInstance().showSkillInfo(this,e.touchPointID)
     }
 
     private onClick(){
         if(!this.data)
             return;
+        if(egret.getTimer() - this.touchTime > 1000)
+            return;
         PKC.playerData.useSkill(this.data.sid)
         PKUI.getInstance().hideSkillInfo()
-        this.isShowInfo = false
     }
 
 

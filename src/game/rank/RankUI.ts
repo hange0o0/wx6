@@ -28,7 +28,7 @@ class RankUI extends game.BaseWindow_wx4{
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('排行榜')
+        this.setTitle('')
 
         this.infoBtn = new UserInfoBtn(this.openBtn, (res)=>{
             this.renewInfo(res);
@@ -68,13 +68,9 @@ class RankUI extends game.BaseWindow_wx4{
         if(!window['wx'])
             return;
         this.remove();
-        if(this.tab.selectedIndex == 2)
+        if(this.tab.selectedIndex == 1)
         {
             this.worldRank('level',UM_wx4.level);
-        }
-        else if(this.tab.selectedIndex == 3)
-        {
-            //this.worldRank('endless',UM_wx4.endLess);
         }
         else
         {
@@ -88,7 +84,6 @@ class RankUI extends game.BaseWindow_wx4{
         {
             return;
         }
-
 
         if(this.rankData[type])
         {
@@ -218,7 +213,7 @@ class RankUI extends game.BaseWindow_wx4{
 
             this.bitmap = platform.openDataContext.createDisplayObject(null, this.stage.stageWidth, this.stage.stageHeight);
             this.bitmap.x = 30;
-            this.bitmap.y = 130;
+            this.bitmap.y = 90;
             this.addChild(this.bitmap);
             this.bitmap.touchEnabled = false
 

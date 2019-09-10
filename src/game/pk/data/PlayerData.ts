@@ -68,7 +68,7 @@ class PlayerData{
     public initData(){
        this.isHide = false;
 
-        this.gunid = Math.ceil(Math.random()*50)//GunManager.getInstance().gunid
+        this.gunid = GunManager.getInstance().gunid
         var gunVO = GunVO.getObject(this.gunid)
 
         var playerData = PKManager.getInstance().getPlayerValue();
@@ -81,7 +81,7 @@ class PlayerData{
         this.lastAtkTime = 0
         this.bulletSpeed = 10
         this.doubleRate = gunVO.doublerate/100
-        this.doubleValue = gunVO.doublevalue/100
+        this.doubleValue = gunVO.doublevalue
         this.missRate = gunVO.missrate/100
         this.hpDef = 0;
         this.wudiStep = 0;
@@ -111,12 +111,13 @@ class PlayerData{
         var skill = _get['skill']?_get['skill'].split(','):[]
         if(skill.length == 0)
         {
-            for(var i=0;i<51;i++)
-            {
-                skill.push(i+1);
-            }
-            ArrayUtil_wx4.random(skill,3);
-            skill.length = 6
+            skill = PKC.chooseSkill
+            //for(var i=0;i<51;i++)
+            //{
+            //    skill.push(i+1);
+            //}
+            //ArrayUtil_wx4.random(skill,3);
+            //skill.length = 6
         }
 
         this.initSkill(skill);

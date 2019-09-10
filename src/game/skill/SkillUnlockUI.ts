@@ -12,7 +12,7 @@ class SkillUnlockUI extends game.BaseWindow_wx4 {
 
 
 
-    public data;
+    public index;
     public constructor() {
         super();
         this.skinName = "SkillUnlockUISkin";
@@ -21,11 +21,41 @@ class SkillUnlockUI extends game.BaseWindow_wx4 {
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('问题与建议')
+        this.setTitle('解锁技能位')
+
+        this.addBtnEvent(this.inviteBtn,this.onInvite)
+        this.addBtnEvent(this.refreshBtn,this.onRefresh)
 
     }
 
-    public show(){
+    private onInvite(){
+        var wx =  window["wx"];
+        if(wx)
+            wx.aldSendEvent("点击邀请好友")
+
+        ShareTool.share('加入我们，让我们一起割草无双',Config.getShare(0),{type:1,from:UM_wx4.gameid,index:this.index},()=>{
+            MyWindow.ShowTips('等待好友加入')
+            MyWindow.ShowTips('好友加入后，数据有一定延迟，请耐心等候')
+        },true)
+    }
+
+    private onRefresh(){
+        UM_wx4.renewFriendNew(()=>{
+            if(UM_wx4.shareUser[this.index])
+            {
+                SkillChooseUI.getInstance().chooseSkill[3+this.index] = 0;
+                SkillChooseUI.getInstance().renew();
+                this.hide();
+            }
+            else
+            {
+                MyWindow.ShowTips('还没有好友通过你的连接新加入游戏')
+            }
+        })
+    }
+
+    public show(index?){
+        this.index = index;
         super.show()
     }
 
@@ -34,6 +64,19 @@ class SkillUnlockUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
+        this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
+    }
+
+    private onTimer(){
+        var cd = 5*60 - (TM_wx4.now() - UM_wx4.initDataTime)
+        if(cd > 0)
+        {
+            this.refreshBtn.label = DateUtil_wx4.getStringBySecond(cd).substr(-5)
+        }
+        else
+        {
+            this.refreshBtn.label = '刷新'
+        }
     }
 
 }

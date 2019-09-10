@@ -426,6 +426,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
     public dieMV(){
         this.monsterMV.die();
+        this.data.getVO().playDieSound()
         //this.bar.width = 0;
         //this.barGroup.visible = false;
         //this.vo.playDieSound();

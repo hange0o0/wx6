@@ -58,16 +58,6 @@ class NotEnoughCoinUI extends game.BaseWindow_wx4 {
 
     public onShow(){
         this.coin = Math.max(1000,Math.floor(UM_wx4.getPassDayCoin()/5))
-        var add = BuffManager.getInstance().getCoinAdd();
-        if(add)
-        {
-            this.coin = Math.ceil(this.coin * (1+add/100));
-            this.coinAddText.text = '好友助力加成 +'+add+'%'
-        }
-        else
-        {
-            this.coinAddText.text = '没有好友助力加成'
-        }
         this.coinText.text = NumberUtil_wx4.addNumSeparator(this.coin,2);
         this.desText.text = '今日还可领取 '+(10 - UM_wx4.coinTimes)+' 次'
     }
