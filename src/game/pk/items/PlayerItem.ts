@@ -366,6 +366,7 @@ class PlayerItem extends game.BaseItem{
         var atkRota1 = atkRota/2
         var atkRota2 = 360 - atkRota1
         var atk = playerData.getAtk();
+        var beAtkStop = PKC.actionStep + 10;
         for(var i=0;i<len;i++)
         {
             var monster = monsterList[i];
@@ -380,10 +381,12 @@ class PlayerItem extends game.BaseItem{
                 if(rotaDes > atkRota1 && rotaDes < atkRota2)
                     continue;
                 //在攻击范围内，可造成伤害
+                var atk2 = 2-dis/playerData.atkDis
                 if(isDouble)
-                    monster.addHp(-Math.ceil(atk*(1+playerData.doubleValue)));
+                    monster.addHp(-Math.ceil(atk*(1+playerData.doubleValue)*atk2));
                 else
-                    monster.addHp(-atk);
+                    monster.addHp(-Math.ceil(atk*atk2));
+                monster.beAtkStop = beAtkStop;
                 playerData.addGunBuff(monster,true)
                 if(playerData.hitBack && monster.hitBackAble)//可击退
                 {

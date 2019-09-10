@@ -38,6 +38,10 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     public iceMC:eui.Image
     public monsterMV:PKMonsterMV_wx3 = new PKMonsterMV_wx3();
 
+    public randomWalkRota = 0;
+    public randomWalkTime = 0;
+    public randomWalk = false;
+
     public constructor() {
         super();
         this.skinName = "PKMonsterItemSkin";
@@ -124,6 +128,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
     public setIce(step){
+        if(!step)
+            return;
         if(!this.iceMC)
         {
             this.iceMC =  new eui.Image('effect_ice_png');
@@ -139,6 +145,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
     public setYun(step){
+        if(!step)
+            return;
         if(!this.yunStep)//表现晕
         {
             if(!this.stateYunMV)
@@ -156,6 +164,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
     }
 
     public setFire(step,hurt){
+        if(!step)
+            return;
         if(!this.fireStep)//表现晕
         {
             if(!this.stateFireMV)
@@ -178,6 +188,8 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
 
     public setPoison(step,hurt){
+        if(!step)
+            return;
         if(!this.poisonStep)//表现晕
         {
             if(!this.statePoisonMV)
@@ -208,12 +220,15 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         myData.onStep();
         myData.onDelay();
+        var t = PKC.actionStep
 
-        if(PKC.actionStep < myData.stopEnd)
+        if(t  < myData.stopEnd)
             return;
-        if(PKC.actionStep < myData.atkEnd)
+        if(t  < myData.atkEnd)
             return;
-        if(PKC.actionStep < myData.skillEnd)
+        if(t  < myData.skillEnd)
+            return;
+        if(t  < myData.beAtkStop)
             return;
         if(playerData.isHide)
             return;
@@ -230,7 +245,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             if(dis < 50)
             {
                 this.atkMV()
-                myData.atkEnd = PKC.actionStep + myData.atkSpeed
+                myData.atkEnd = t + myData.atkSpeed
                 myData.targetTrap.isDie = 2
                 myData.targetTrap = null;
                 return;
@@ -258,28 +273,36 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         {
             myData.moveStartTime = 0;
             myData.skillFun();
-            myData.lastSkillTime = PKC.actionStep;
+            myData.lastSkillTime = t;
+            this.randomWalkTime = 0;
             return;
         }
 
-        var canAtk = dis <= myData.atkDis && myData.lastAtkTime + myData.atkSpeed < PKC.actionStep
+        var canAtkDis = dis <= myData.atkDis
+        var canAtkTime = myData.lastAtkTime + myData.atkSpeed < t
 
         //atk
-        if(canAtk){
+        if(canAtkDis && canAtkTime){
             this.atkMV()
             myData.atkFun();
-            myData.atkEnd = PKC.actionStep + myData.atkStop
-            myData.lastAtkTime = PKC.actionStep
+            myData.atkEnd = t + myData.atkStop
+            myData.lastAtkTime = t
+            this.randomWalkTime = 0
             return
         }
 
         //move
-        if(!this.iceStep && dis > myData.atkDis){
+        if(!this.iceStep && dis > myData.atkDis && canAtkTime){
             var speed = this.data.speed;
             var atkPos = playerData
             var angle = Math.atan2(atkPos.y-myData.y,atkPos.x-myData.x)
 
-            if(myData.moveStartTime && PKC.actionStep - myData.moveStartTime > 200)//长时间移动
+            if(!myData.moveStartTime)
+                myData.moveStartTime = t
+            var noAtkTime = 10*30
+            if(myData.isFarAtk)
+                noAtkTime *= 1.5
+            if(myData.moveStartTime && t - myData.moveStartTime > noAtkTime)//长时间移动
             {
                 myData.changeRandomPos(dis,angle);
                 return;
@@ -299,13 +322,32 @@ class PKMonsterItem_wx3 extends game.BaseItem {
 
             this.resetXY(targetX,targetY)
             this.runMV();
-            if(!myData.moveStartTime)
-                myData.moveStartTime = PKC.actionStep
+
             return;
         }
 
-        this.standMV()
+        //随机走走
+        if(t - this.randomWalkTime > 100)
+        {
+            this.randomWalk = Math.random() < 0.8
+            this.randomWalkRota = Math.random()*Math.PI*2
+            this.randomWalkTime = t
+        }
 
+        if(this.randomWalk)
+        {
+            var speed = this.data.speed;
+            var x = Math.cos(this.randomWalkRota)*speed
+            var y = Math.sin(this.randomWalkRota)*speed
+            var targetX = this.x + x
+            var targetY = this.y + y
+            this.resetXY(targetX,targetY)
+            this.runMV();
+        }
+        else
+        {
+            this.standMV()
+        }
     }
 
     ////在可以攻击的位置

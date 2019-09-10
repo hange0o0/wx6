@@ -11,12 +11,14 @@ class M64 extends MBase{
             this.lineItem.isDie = 2;
             this.lineItem = null
             this.relateItem.standMV();
+            this.skillEnd = PKC.actionStep
         }
     }
 
 
 
     public atkFun(){
+        this.skillEnd = Number.MAX_VALUE
         this.relateItem.stopMV()
         this.lineItem = MTool.moveSkillFun(this,{
             isFollow:true,
@@ -33,6 +35,7 @@ class M64 extends MBase{
         bullet.speed = 50
         bullet.atk = this.atk
         this.lineItem = null;
+        this.skillEnd = PKC.actionStep
     }
 
 }

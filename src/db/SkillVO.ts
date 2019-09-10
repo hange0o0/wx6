@@ -39,14 +39,14 @@ class SkillVO {
 
     public getCD(level = -1){
         if(level == -1)
-            level = SkillManager.getInstance().getSkillLevel(this.id)
+            level = SkillManager.getInstance().getSkillLevel(this.id) || 1
         var v = this.cd || 0;
         var vup = this.cdup || 0;
         return v - vup*(level-1)
     }
 
     public getDes(){
-        var level = SkillManager.getInstance().getSkillLevel(this.id)
+        var level = SkillManager.getInstance().getSkillLevel(this.id) || 1
         var v1 = this.getValue(1,level)
         var v2 = this.getValue(2,level)
         var v3 = this.getValue(3,level)
@@ -65,7 +65,7 @@ class SkillVO {
 
     public getValue(index,level=-1){
         if(level == -1)
-            level = SkillManager.getInstance().getSkillLevel(this.id)
+            level = SkillManager.getInstance().getSkillLevel(this.id) || 1
         var v = this['v' + index] || 0;
         var vup = this['v' + index + 'up'] || 0;
         return v + vup*(level-1)

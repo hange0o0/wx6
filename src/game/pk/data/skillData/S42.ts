@@ -7,7 +7,7 @@ class S42 extends SBase{
     public totalTime = 200
 
     public onCreate(){
-        PKC.playerData.rebornDec = PKTool.getStepByTime(this.getValue(1))
+        PKC.playerData.rebornDec = PKTool.getStepByTime(this.getValue(1)*1000)
     }
 
 }

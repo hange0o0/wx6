@@ -68,7 +68,7 @@ class PlayerData{
     public initData(){
        this.isHide = false;
 
-        this.gunid = GunManager.getInstance().gunid
+        this.gunid = Math.ceil(Math.random()*50)//GunManager.getInstance().gunid
         var gunVO = GunVO.getObject(this.gunid)
 
         var playerData = PKManager.getInstance().getPlayerValue();
@@ -195,7 +195,7 @@ class PlayerData{
         if(monster.hp <= 0)
         {
             var playerData = PKC.playerData
-            if(this.atkBuff['xixue'])
+            if(this.atkBuff['xixue'] &&  playerData.hp < playerData.maxHp)
                 playerData.addHp(this.atkBuff['xixue'].value)
             if(this.atkBuff['gun'] && isNearAtk)
             {

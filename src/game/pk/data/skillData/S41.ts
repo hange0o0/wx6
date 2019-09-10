@@ -12,7 +12,9 @@ class S41 extends SBase{
     public onStep(){
         if(PKC.actionStep%30 == 0)
         {
-            PKC.playerData.addHp(this.addHp)
+            var playerData = PKC.playerData
+            if(playerData.hp < playerData.maxHp)
+                playerData.addHp(this.addHp)
         }
     }
 }

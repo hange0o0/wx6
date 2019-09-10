@@ -19,6 +19,7 @@ class MBase {
     public atkSpeed = 60//帧
     public atkStop = 60//帧
     public beHitRate = 0
+    public beAtkStop = 0//被攻击导至僵直
 
     public atkDisAdd = 20//判断命中时，增加的判断距离
 
@@ -64,6 +65,7 @@ class MBase {
 
 
         this.lastSkillTime = PKC.actionStep
+        this.lastAtkTime = PKC.actionStep - 100
 
         this.onCreate();
     }
@@ -266,12 +268,13 @@ MV
             case 9:return M9;
             case 10:return M10;
             case 11:return M11;
+            case 12:return M12;
             case 13:return M13;
             case 14:return M14;
             case 15:return M15;
             case 16:return M16;
             case 17:return M17;
-            case 18:return M18;;
+            case 18:return M18;
             case 31:return M31;
             case 32:return M32;
             case 33:return M33;

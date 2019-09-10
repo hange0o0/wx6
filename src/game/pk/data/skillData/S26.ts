@@ -37,7 +37,8 @@ class S26 extends SBase{
             var playerData = PKC.playerData;
             if(this.step%30 == 0 && MyTool.getDis(playerData,this.mc) < 200)
             {
-                playerData.addHp(this.addHp)
+                if(playerData.hp < playerData.maxHp)
+                    playerData.addHp(this.addHp)
             }
 
 

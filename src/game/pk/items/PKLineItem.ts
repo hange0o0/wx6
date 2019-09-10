@@ -66,6 +66,12 @@ class PKLineItem extends game.BaseItem{
     }
 
     public onE(){
+        if(this.owner.isDie)
+        {
+            this.isDie = 2;
+            return;
+        }
+
         if(this.isDie)
         {
             if(this.isDie == 1)

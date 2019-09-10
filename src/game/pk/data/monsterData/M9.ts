@@ -10,8 +10,8 @@ class M9 extends MBase{
 
 
     public onCreate(){
-        PKC.monsterAddAtk = 100
-        PKC.monsterAddSpeed = 10
+        PKC.monsterAddAtk = this.atk/2
+        PKC.monsterAddSpeed = 2
     }
 
     public onDie(){

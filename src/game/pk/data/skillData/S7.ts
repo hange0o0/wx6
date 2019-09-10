@@ -9,7 +9,7 @@ class S7 extends SBase{
     public step = 5
     public onCreate(){
 
-        this.num = this.getValue(1)
+        this.num = Math.floor(this.getValue(1))
         this.hurt = this.getValue(2)/100
     }
 

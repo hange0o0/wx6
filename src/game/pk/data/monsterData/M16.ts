@@ -6,7 +6,7 @@ class M16 extends MBase{
 
     public atkFun(){
         MTool.nearAtkFun(this)
-        if(Math.random() < 0.1 && PKC.monsterList.length < PKC.maxMonsterNum)
+        if(Math.random() < 0.2 && PKC.monsterList.length < PKC.maxMonsterNum)
         {
             var playerData = PKC.playerData
             var rota = Math.random()*Math.PI*2
