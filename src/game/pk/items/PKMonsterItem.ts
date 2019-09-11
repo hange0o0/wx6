@@ -230,8 +230,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         if(t  < myData.beAtkStop)
             return;
-        if(playerData.isHide)
-            return;
+
         if(this.yunStep)
             return;
 
@@ -278,11 +277,12 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             return;
         }
 
+        var canAtkPlayer = !playerData.isHide && playerData.wudiStep <= 0 && playerData.hp > 0
         var canAtkDis = dis <= myData.atkDis
         var canAtkTime = myData.lastAtkTime + myData.atkSpeed < t
 
         //atk
-        if(canAtkDis && canAtkTime){
+        if(canAtkDis && canAtkTime && canAtkPlayer){
             this.atkMV()
             myData.atkFun();
             myData.atkEnd = t + myData.atkStop
@@ -292,7 +292,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         }
 
         //move
-        if(!this.iceStep && dis > myData.atkDis && canAtkTime){
+        if(!this.iceStep && dis > myData.atkDis && canAtkTime && canAtkPlayer){
             var speed = this.data.speed;
             var atkPos = playerData
             var angle = Math.atan2(atkPos.y-myData.y,atkPos.x-myData.x)
@@ -334,7 +334,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             this.randomWalkTime = t
         }
 
-        if(this.randomWalk)
+        if(!this.iceStep && this.randomWalk)
         {
             var speed = this.data.speed;
             var x = Math.cos(this.randomWalkRota)*speed

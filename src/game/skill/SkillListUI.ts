@@ -34,6 +34,15 @@ class SkillListUI extends game.BaseWindow_wx4 {
         this.setTitle('图鉴')
         this.scroller.viewport = this.list;
         this.list.itemRenderer = SkillListItem
+
+        this.tab.addEventListener(egret.Event.CHANGE,this.onTab,this)
+        this.tab.selectedIndex = 0;
+
+        this.list.addEventListener(eui.ItemTapEvent.CHANGE, this.renewChoose, this);
+    }
+
+    private onTab(){
+        this.renew();
     }
 
     public show(){
@@ -45,11 +54,22 @@ class SkillListUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
+        this.renew();
         //this.inputText.text = ''
     }
 
     public renew(){
-        var list = ObjectUtil_wx4.objToArray(GunVO.data)
+        if(this.tab.selectedIndex == 1)
+        {
+            var list = ObjectUtil_wx4.objToArray(MonsterVO.data)
+        }
+        else
+        {
+            var list = ObjectUtil_wx4.objToArray(SkillVO.data)
+        }
+
+        ArrayUtil_wx4.sortByField(list,['level','id'],[0,0])
+
         this.list.dataProvider = new eui.ArrayCollection(list)
         this.list.selectedIndex = 0;
         this.renewChoose()
@@ -59,7 +79,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
     public renewChoose(){
         if(!this.list.selectedItem)
             return;
-        if(true)
+        if(this.tab.selectedIndex == 1)
         {
             this.renewMonsterInfo(this.list.selectedItem)
         }
@@ -71,12 +91,30 @@ class SkillListUI extends game.BaseWindow_wx4 {
 
     private renewSkillInfo(svo){
         this.nameText.text = svo.name
+        var SM = SkillManager.getInstance();
         var cd = svo.getCD();
         if(cd)
-            this.setHtml(this.rateText,'技能间隔:' + this.createHtml(MyTool.toFixed(cd/1000,1) + '秒',0xFFFF00))
+            this.setHtml(this.skillCDText,'技能间隔:' + this.createHtml(MyTool.toFixed(cd/1000,1) + '秒',0xFFFF00))
         else
-            this.setHtml(this.rateText,this.createHtml('被动技能',0xECAEF9))
+            this.setHtml(this.skillCDText,this.createHtml('被动技能',0xECAEF9))
         this.setHtml(this.atkText, svo.getDes())
+
+        var lv = SM.getSkillLevel(svo.id);
+        this.img.source = svo.getThumb();
+        this.nameText.text = svo.name + ' (lv.'+lv+')'
+        //this.levelText.text = 'lv.' + lv
+
+
+        var currentNum = SM.getSkillNum(svo.id)
+        var num1 = SM.getLevelNum(lv)
+        var num2 = SM.getLevelNum(lv+1)
+
+        var v1 = currentNum - num1
+        var v2 = num2 - num1
+        this.rateText.text = v1 + '/' + v2;
+        this.barMC.width = 100 * v1 / v2;
+
+
     }
 
     private renewMonsterInfo(mvo){

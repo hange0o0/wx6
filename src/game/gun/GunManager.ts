@@ -9,7 +9,7 @@ class GunManager extends egret.EventDispatcher {
     public gunid = 1;
 
     public initData(data){
-        var gunData = data.gun || {};
+        var gunData = data || {};
         this.myGun = gunData.myGun?gunData.myGun.split(','):['1']
         this.gunid = _get['gunid'] || gunData.gunid || 1;
     }

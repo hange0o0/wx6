@@ -138,6 +138,27 @@ class PlayerData{
         this.initSkill(skill)
     }
 
+    public debugSkill(skillID){
+        if(skillID)
+        {
+            this.skillCD = {}
+            this.initSkill([skillID])
+            this.useSkill(skillID)
+            return;
+        }
+        var skill = []
+        for(var i=0;i<52;i++)
+        {
+            skill.push(i+1);
+        }
+        this.initSkill(skill)
+        for(var i=0;i<this.skillsList.length;i++)
+        {
+            this.skillsList[i].maxCD = 10;
+        }
+        this.hp = this.maxHp = 99999;
+    }
+
     public initSkill(skill){
 
         for(var i=0;i<this.skillsList.length;i++)

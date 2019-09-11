@@ -11,7 +11,7 @@ class S2 extends SBase{
     public lastHitMonsterTime = {}
     public onCreate(){
         this.atkRate = this.getValue(1)/100
-        this.totalStep = this.getValue(2)
+        this.totalStep = PKTool.getStepByTime(1000*this.getValue(2))
     }
 
     public onUse(){

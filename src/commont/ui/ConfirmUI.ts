@@ -50,7 +50,8 @@ class ConfirmUI extends game.BaseWindow_wx4 {
     }
 
     private onClick(){
-        this.hide();
+        if(!this.sp.stopClose1)
+            this.hide();
         if(this.fun)
             this.fun(1);
     }

@@ -11,7 +11,7 @@ class S27 extends SBase{
     public lasPos = {x:0,y:0}
     public stopMoveTime = 5
     public onCreate(){
-        this.totalStep = PKTool.getStepByTime(this.getValue(2)*1000)
+        this.totalStep = PKTool.getStepByTime(this.getValue(1)*1000)
     }
 
     public onUse(){

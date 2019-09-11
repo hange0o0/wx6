@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="SkillChooseUISkin" width="580" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="SkillChooseUISkin" width="580" height="1060" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
-	<e:List id="list2" left="20" right="20" top="420" anchorOffsetY="0" height="400">
+	<e:List id="list2" left="20" right="20" top="420" anchorOffsetY="0" height="500">
 		<e:layout>
 		<e:TileLayout requestedColumnCount="4" horizontalGap="20" verticalGap="20" paddingLeft="0"/>
 		</e:layout>
 	</e:List>
-	<e:Group y="80" left="20" right="20" height="320">
+	<e:Group y="75" left="20" right="20" height="320">
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
 		<e:List id="list1" left="20" right="20" top="20" bottom="20">
 			<e:layout>
@@ -21,5 +21,5 @@
 			<e:HorizontalLayout gap="50"/>
 		</e:layout>
 	</e:Group>
-	<e:Label text="* 点击查看技能详请，拖动上阵技能" bottom="105" horizontalCenter="0" size="22"/>
+	<e:Label text="* 点击上下阵技能，长按查看详情" bottom="105" horizontalCenter="0" size="22"/>
 </e:Skin>

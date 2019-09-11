@@ -290,13 +290,12 @@ class PKUI extends game.BaseUI_wx4{
                     PKC.maxStep += 30*PKC.frameRate
                     panel.hide();
                 })
-                this.showAddTimePanel();
             }
             else
             {
                 ResultUI.getInstance().show(false)
             }
-        })
+        },['放弃', '观看广告'],{stopClose1:true})
     }
 
     private setMonsterRed(x,y,mc){

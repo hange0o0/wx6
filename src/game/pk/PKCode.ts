@@ -67,7 +67,7 @@ class PKCode_wx4 {
             return;
         if(this.isAuto)
         {
-            if(this.monsterList.length == 0)
+            if(this.monsterList.length < 2)
             {
                 if(this.autoMonster.length == 0)
                 {
@@ -80,7 +80,6 @@ class PKCode_wx4 {
                         }
                     }
                     ArrayUtil_wx4.random(this.autoMonster,3)
-                    this.playerData.randomSKill();
                 }
                 var rota = Math.PI*2*Math.random()
                 var monster = PKCodeUI.getInstance().addMonster(this.autoMonster.pop().id,this.playerData.x + Math.cos(rota)*500,this.playerData.y + Math.sin(rota)*500)

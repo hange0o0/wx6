@@ -8,6 +8,8 @@ class MonsterVO {
         return CM_wx4.table[this.dataKey]
     }
 
+    public isMonster = true;
+
 
     public width: number;
     public height: number;

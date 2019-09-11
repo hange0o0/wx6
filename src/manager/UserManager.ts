@@ -12,8 +12,16 @@ class UserManager_wx4 {
     }
 
     private _needUpUser = false;
+    private callSave = false
     public get needUpUser(){return this._needUpUser}
-    public set needUpUser(v){this._needUpUser = v;v && egret.callLater(this.localSave,this)}
+    public set needUpUser(v){
+        this._needUpUser = v;
+        if(v)
+        {
+            this.callSave = true;
+            egret.callLater(this.localSave,this)
+        }
+    }
 
 
     public nick
@@ -120,8 +128,9 @@ class UserManager_wx4 {
                 }
             }
         }
-        GunManager.getInstance().initData(data);
-        SkillManager.getInstance().initData(data);
+        GunManager.getInstance().initData(data.gunData);
+        SkillManager.getInstance().initData(data.skillData);
+        PKManager.getInstance().initData(data.pkData);
         this.testAddInvite();
         this.localSave();
 
@@ -327,6 +336,10 @@ class UserManager_wx4 {
             adLevel:UM_wx4.adLevel,
             addForceEnd:UM_wx4.addForceEnd,
 
+            pkData:PKManager.getInstance().getSave(),
+            skillData:SkillManager.getInstance().getSave(),
+            gunData:GunManager.getInstance().getSave(),
+
             //cdCoin:UM_wx4.cdCoin,
             //cdCoinTime:UM_wx4.cdCoinTime,
             //cdCoinGetTime:UM_wx4.cdCoinGetTime,
@@ -352,6 +365,9 @@ class UserManager_wx4 {
     }
 
     private localSave(){
+        if(!this.callSave)
+            return;
+        this.callSave = false;
         SharedObjectManager_wx4.getInstance().setMyValue('localSave',this.getUpdataData())
     }
 

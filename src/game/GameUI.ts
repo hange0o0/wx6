@@ -156,9 +156,11 @@ class GameUI extends game.BaseUI_wx4 {
 
         this.renewSound();
         this.renewCoin();
+        this.renewEnergy();
         this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renewCoin)
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
         this.addPanelOpenEvent(GameEvent.client.GUN_CHANGE,this.renewGun)
+        this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
 
         if(UM_wx4.pastDayCoin.coin)
         {
@@ -168,7 +170,29 @@ class GameUI extends game.BaseUI_wx4 {
         this.addChildAt(PKCodeUI.getInstance(),0)
         PKC.isAuto = true;
         PKCodeUI.getInstance().onShow()
+        PKC.playerData.randomSKill();
 
+    }
+
+    private onTimer(){
+        if(!this.visible)
+            return
+        this.renewEnergy();
+    }
+
+    private renewEnergy(){
+        var PKM = PKManager.getInstance()
+        var energy = PKM.getEnergy();
+        if(energy == 0)
+        {
+            this.energyText.text = DateUtil_wx4.getStringBySecond(PKM.getNextEnergyCD()).substr(-5)
+            this.energyText.textColor = 0xFF0000
+        }
+        else
+        {
+            this.energyText.text = energy + '/' + PKM.maxEnergy
+            this.energyText.textColor = 0xFCD766
+        }
     }
 
     private showTips(){
@@ -227,7 +251,7 @@ class GameUI extends game.BaseUI_wx4 {
                     y2:monster.y,
                 })
                 this.moveState = 1
-                if(Math.random() < 0.01)//用技能
+                if(playerData.skillsList.length && Math.random() < 0.01)//用技能
                 {
                     playerData.useSkill(ArrayUtil_wx4.randomOne(playerData.skillsList).sid)
                 }
@@ -267,6 +291,11 @@ class GameUI extends game.BaseUI_wx4 {
             {
                 PassDayAwardUI.getInstance().show();
             }
+
+            this.addChildAt(PKCodeUI.getInstance(),0)
+            PKC.isAuto = true;
+            PKCodeUI.getInstance().onShow()
+            PKC.playerData.randomSKill();
         }
     }
 

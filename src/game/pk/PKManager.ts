@@ -19,9 +19,10 @@ class PKManager {
     public atkAdd = 10
     public hpAdd = 60
     public initData(data) {
-        var energyData = data.energy;
-        this.energy = energyData.v;
-        this.lastEnergyTime = energyData.t;
+        data = data || {}
+        var energyData = data.energy || {};
+        this.energy = energyData.v || 0;
+        this.lastEnergyTime = energyData.t || 0;
         this.lastChooseData = data.choose || [];
         this.playerLevel = data.playerLevel || 1;
     }
@@ -67,6 +68,11 @@ class PKManager {
     public addEnergy(v){
         this.resetEnergy();
         this.energy += v;
+        UM_wx4.needUpUser = true
+    }
+
+    public getNextEnergyCD(){
+        return this.energyCD - (TM_wx4.now() - this.lastEnergyTime)
     }
 
     public getEnergyCost(){
@@ -74,7 +80,6 @@ class PKManager {
     }
 
     public initChooseSkill(){
-        this.addEnergy(-this.getEnergy())
         this.lastChooseData = [];
         var mySkill = SkillManager.getInstance().mySkill.concat();
         if(mySkill.length > 12)
@@ -87,7 +92,7 @@ class PKManager {
         {
             this.lastChooseData.push(mySkill[i].id)
         }
-
+        UM_wx4.needUpUser = true
     }
 
     public endGame(result){
@@ -96,9 +101,8 @@ class PKManager {
         {
             SM.addSkill(s,result.skill[s])
         }
-        this.lastChooseData = [];
-
         UM_wx4.addCoin(result.coin)//save
+        UM_wx4.needUpUser = true
     }
 
     public getWinResult(){

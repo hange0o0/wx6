@@ -26,6 +26,8 @@ class MovieSimpleSpirMC extends eui.Group{
     public constructor() {
         super();
         this.icon = new eui.Image();
+        this.icon.x = 0;
+        this.icon.y = 0;
         this.addChild(this.icon)
 
         return this;
@@ -140,6 +142,8 @@ class MovieSimpleSpirMC extends eui.Group{
         this.alpha = 1
         this.icon.width = undefined;
         this.icon.height = undefined;
+        this.icon.x = 0;
+        this.icon.y = 0;
         this.width = undefined;
         this.height = undefined;
         this.icon.scaleX = this.icon.scaleY = 1

@@ -208,6 +208,7 @@ class TrapItem extends game.BaseItem{
             {
                 var from = nearList[i]
                 var to = nearList[i+1]
+                to.addHp(-this.data.hurt)
                 PKTool.showLight(from,to)
             }
         }

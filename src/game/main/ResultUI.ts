@@ -26,6 +26,7 @@ class ResultUI extends game.BaseUI_wx4{
     public isWin;
     public result;
     public rate = 3;
+    public adUnionChannel;
     public constructor() {
         super();
         this.skinName = "ResultUISkin";
@@ -46,19 +47,29 @@ class ResultUI extends game.BaseUI_wx4{
             this.close();
             SoundManager.getInstance().playEffect('coin')
         })
+
         this.addBtnEvent(this.shareBtn,()=>{
             ShareTool.openGDTV(()=>{
                 MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin*this.rate,2),0xFFFF00),1000)
                 MyWindow.ShowTips('获得技能碎片：'+MyTool.createHtml('+' + this.result.skillNum*this.rate,0xFFFF00),1000)
                 this.close();
                 SoundManager.getInstance().playEffect('coin')
+                this.rate --
+                while(this.rate > 0)
+                {
+                    PKManager.getInstance().endGame(this.result);
+                    this.rate --
+                }
+
             })
         })
+
+
     }
 
     public close(){
         this.hide();
-        //PKingUI.getInstance().hide()
+        PKUI.getInstance().hide()
     }
 
     public onShow(){
@@ -75,6 +86,46 @@ class ResultUI extends game.BaseUI_wx4{
     public renew(){
         var rate = PKC.monsterList.length/PKC.roundMonsterNum
         this.result = this.isWin?PKManager.getInstance().getWinResult():PKManager.getInstance().getFailResult(1-rate)
+
+        var list = [];
+        for(var s in this.result.skill)
+        {
+            list.push({
+                id:s,
+                num:this.result.skill[s],
+                lastLevel:SkillManager.getInstance().getSkillLevel(s),
+            })
+        }
+
+        PKManager.getInstance().endGame(this.result);
+
+        for(var i=0;i<list.length;i++)
+        {
+            list[i].currentLevel = SkillManager.getInstance().getSkillLevel(list[i].id)
+        }
+        this.skillList.dataProvider = new eui.ArrayCollection(list);
+        this.coinText.text = '金币 +' + NumberUtil_wx4.addNumSeparator(this.result.coin);
+
+        this.failGroup.visible = !this.isWin;
+        if(this.failGroup.visible)
+        {
+
+            var mLen = PKC.monsterList.length;
+            var mNum = mLen + PKC.autoMonster.length;
+            var rate = mNum/PKC.roundMonsterNum
+            this.barMC.width = 360*rate;
+            this.rateText.text = '剩余怪物：'+(mNum)
+
+            this.titleText.text = '惜败！'
+            this.titleText.textColor = 0xFF0000
+        }
+        else
+        {
+            this.titleText.text = '大胜！'
+            this.titleText.textColor = 0xFFFF00
+        }
+
+
 
         //var rate = PD.enemyHp / PD.enemyHpMax;
         //var coin = (PD.enemyHpMax - PD.enemyHp)/300*Math.pow(0.994,UM_wx4.level)

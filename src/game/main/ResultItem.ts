@@ -22,10 +22,12 @@ class ResultItem extends game.BaseItem{
     }
 
     public dataChanged():void {
-        this.mc.source = ''
-        this.nameText.text = ''
-        this.upMC.visible
-        this.newMC.visible
+        var skillVO = SkillVO.getObject(this.data.id)
+        this.mc.source = skillVO.getThumb()
+        this.nameText.text = 'x' + this.data.num;
+        this.upMC.visible = this.data.lastLevel && this.data.lastLevel != this.data.currentLevel
+        this.newMC.visible = !this.data.lastLevel
+
     }
 
 

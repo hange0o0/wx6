@@ -10,6 +10,7 @@ class SkillManager extends egret.EventDispatcher {
     public maxLevel = 20;
     public levelBase = []
     public initData(data) {
+        data = data || {}
         this.mySkill = [];
         var arr = data.mySkill?data.mySkill.split(','):[]
         for(var i=0;i<arr.length;i++)
@@ -20,7 +21,19 @@ class SkillManager extends egret.EventDispatcher {
                 num:parseInt(temp[1]),
             })
         }
-        var levelArr = [1,4,10,20,45,70,100,150,200,250,300,350,400,450,500,550,600,650,700,750]//20
+        if(this.mySkill.length == 0)
+        {
+            for(var s in  SkillVO.data)
+            {
+                this.mySkill.push({
+                    id:parseInt(s),
+                    num:1,
+                })
+            }
+        }
+
+
+        var levelArr = [0,4,10,20,45,70,100,150,200,250,300,350,400,450,500,550,600,650,700,750]//20
         var count = 0;
         for(var i=0;i<levelArr.length;i++)
         {
@@ -35,7 +48,9 @@ class SkillManager extends egret.EventDispatcher {
         {
             arr.push(this.mySkill[i].id + '#' + this.mySkill[i].num)
         }
-        return arr.join(',')
+        return {
+            mySkill:arr.join(',')
+        }
     }
 
 

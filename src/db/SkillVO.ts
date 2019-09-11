@@ -34,7 +34,7 @@ class SkillVO {
     }
 
     public getThumb(){
-        return 'thum_'+this.id+'_png'
+        return 'skill_'+this.id+'_jpg'
     }
 
     public getCD(level = -1){
@@ -60,7 +60,7 @@ class SkillVO {
     }
 
     private createColor(str){
-        return MyTool.createHtml(str,0xFFFF00)
+        return ' ' + MyTool.createHtml(str,0xFFFF00) + ' '
     }
 
     public getValue(index,level=-1){
