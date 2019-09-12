@@ -234,10 +234,12 @@ class PKUI extends game.BaseUI_wx4{
         }
 
 
-        if(playerData.hp <= 0)
+        if(playerData.isDie == 1)
         {
-            if(!RebornUI.getInstance().stage)
-                RebornUI.getInstance().show();
+            playerData.isDie = 2;
+            RebornUI.getInstance().show();
+            this.touchID = null;
+            this.resetTouchGroup();
         }
 
         var len = PKC.monsterList.length;

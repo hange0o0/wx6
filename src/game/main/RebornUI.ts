@@ -42,6 +42,7 @@ class RebornUI extends game.BaseWindow_wx4{
         {
             this.hide();
             PKC.playerData.hp = PKC.playerData.maxHp;
+            PKC.playerData.isDie = 0
             PKC.playerData.relateItem.renewHp();
             PKC.playerData.wudiStep = 30*5;
             return;

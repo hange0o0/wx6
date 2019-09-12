@@ -52,6 +52,7 @@ class PlayerData{
     public skillCD = {}//技能CD结束时间
 
     public stopEnd = 0;
+    public isDie = 0;
 
     public getAtk(){
         //var hpStep = Math.ceil(8*this.hp/this.maxHp)
@@ -67,6 +68,7 @@ class PlayerData{
 
     public initData(){
        this.isHide = false;
+        this.isDie = 0;
 
         this.gunid = GunManager.getInstance().gunid
         var gunVO = GunVO.getObject(this.gunid)
@@ -364,6 +366,7 @@ class PlayerData{
         else if(this.hp <= 0)
         {
             this.hp = 0;
+            this.isDie = 1;
         }
 
         this.relateItem.renewHp();
