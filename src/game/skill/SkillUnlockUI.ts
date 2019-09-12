@@ -21,7 +21,7 @@ class SkillUnlockUI extends game.BaseWindow_wx4 {
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('解锁技能位')
+
 
         this.addBtnEvent(this.inviteBtn,this.onInvite)
         this.addBtnEvent(this.refreshBtn,this.onRefresh)
@@ -64,6 +64,7 @@ class SkillUnlockUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
+        this.setTitle('解锁技能位' + (this.index + 4))
         this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
     }
 

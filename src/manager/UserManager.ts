@@ -124,7 +124,7 @@ class UserManager_wx4 {
                 console.log(query)
                 if(query.type == '1')
                 {
-                    this.helpUser = query.from
+                    this.helpUser = {openid:query.from,index:query.index}
                 }
             }
         }

@@ -11,6 +11,7 @@ class GameUI extends game.BaseUI_wx4 {
     private coinText: eui.Label;
     private energyText: eui.Label;
     private soundBtn: eui.Image;
+    private rankBtn: eui.Image;
     private feedBackBtn: eui.Image;
     private ad1: eui.Image;
     private ad2: eui.Image;
@@ -27,6 +28,7 @@ class GameUI extends game.BaseUI_wx4 {
     private needEnergyText: eui.Label;
     private startBtn1: eui.Button;
     private desText: eui.Label;
+
 
 
 
@@ -63,6 +65,10 @@ class GameUI extends game.BaseUI_wx4 {
 
         this.addBtnEvent(this.levelBtn,()=>{
             PlayerUpUI.getInstance().show();
+        })
+
+        this.addBtnEvent(this.rankBtn,()=>{
+            RankUI.getInstance().show();
         })
 
         this.addBtnEvent(this.addForceBtn,()=>{

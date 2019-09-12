@@ -63,7 +63,9 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
 
     private startGame(){
         this.hide();
+        PKManager.getInstance().lastChooseData = [];
         PKUI.getInstance().show();
+        PKManager.getInstance().sendGameStart(UM_wx4.level);
     }
 
     public show(){

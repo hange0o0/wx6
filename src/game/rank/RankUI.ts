@@ -128,7 +128,7 @@ class RankUI extends game.BaseWindow_wx4{
         this.scroller.visible = true;
         var arr = this.rankData[type].list;
         var b = false;
-        var myScore = 1//type=='level'?UM_wx4.level:UM_wx4.endLess;
+        var myScore = UM_wx4.level
         for(var i=0;i<arr.length;i++) //更新自己成绩
         {
             arr[i].type = type;

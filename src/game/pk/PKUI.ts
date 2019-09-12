@@ -288,10 +288,11 @@ class PKUI extends game.BaseUI_wx4{
     }
 
     private showAddTimePanel(){
-        var panel = MyWindow.Confirm('时间到，观看广告可增加30秒的战斗时间',(b)=>{
+        var panel = MyWindow.Confirm('时间到，观看广告可延长30秒的战斗时间',(b)=>{
             if(b == 1)
             {
                 ShareTool.openGDTV(()=>{
+                    PKManager.getInstance().sendGameReborn('timeOver')
                     PKC.haveReborn = true;
                     PKC.isStop = false;
                     PKC.maxStep += 30*PKC.frameRate

@@ -70,7 +70,7 @@ class PKCodeUI extends game.BaseContainer_wx4{
     }
 
     public onShow(){
-        this.bg.source = 'bg_'+Math.ceil(Math.random()*10)+'_jpg'
+        this.bg.source = UM_wx4.getBG();//'bg_'+Math.ceil(Math.random()*10)+'_jpg'
         while(this.monsterArr.length)
         {
             PKMonsterItem_wx3.freeItem(this.monsterArr.pop())

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameUISkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Group x="10" y="20">
-		<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="160"/>
+		<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="220"/>
 		<e:Image source="coin_mc_png" x="9" y="9"/>
 		<e:Label id="coinText" text="Label" x="50" verticalCenter="0" size="24" textColor="0xfcd766"/>
 	</e:Group>
-	<e:Group x="180" y="20">
-		<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="130"/>
+	<e:Group x="240" y="20">
+		<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="150"/>
 		<e:Image x="9" source="common_energy_png" scaleX="0.9" scaleY="0.9" verticalCenter="0"/>
 		<e:Label id="energyText" text="Label" x="50" verticalCenter="0" size="24" textColor="0xFCD766"/>
 	</e:Group>
-	<e:Image id="soundBtn" source="sound_btn1_png" x="320" y="29"/>
-	<e:Image id="feedBackBtn" source="feed_back_btn_png" x="380" y="20" scaleX="0.5" scaleY="0.5"/>
+	<e:Group x="20" y="110">
+		<e:Image id="soundBtn" source="sound_btn1_png" x="0" y="9"/>
+		<e:Image id="rankBtn" source="rank_btn_png" x="20" y="37"/>
+		<e:Image id="feedBackBtn" source="feed_back_btn_png" x="60" y="0" scaleX="0.5" scaleY="0.5"/>
+		<e:layout>
+			<e:VerticalLayout gap="30"/>
+		</e:layout>
+	</e:Group>
 	<e:Image id="ad1" width="90" height="90" x="25" bottom="350"/>
 	<e:Image id="ad2" width="90" height="90" bottom="350" right="25"/>
 	<e:Image source="main_bg_01_png" bottom="0" left="0" right="0" scale9Grid="13,13,84,84"/>
