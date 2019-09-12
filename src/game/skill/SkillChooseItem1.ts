@@ -21,7 +21,7 @@ class SkillChooseItem1 extends game.BaseItem{
         {
             SkillChooseUI.getInstance().addChoose(this.data)
         }
-        else if(this.data == -1)
+        else if(this.data < 0)
         {
             SkillUnlockUI.getInstance().show(-this.data);
         }

@@ -171,7 +171,7 @@ class GameUI extends game.BaseUI_wx4 {
         if(PKM.lastChooseData.length == 0)
         {
             var enery = PKM.getEnergyCost();
-            this.needEnergyText.text = enery + '';
+            this.needEnergyText.text = '-' + enery + '';
             this.needEnergyGroup.visible = true
         }
         else
@@ -198,7 +198,7 @@ class GameUI extends game.BaseUI_wx4 {
         SoundManager.getInstance().playSound('bg')
 
 
-
+        this.startBtn1.label = '第 '+UM_wx4.level+' 天'
         this.renewSound();
         this.renewCoin();
         this.renewEnergy();
@@ -346,6 +346,7 @@ class GameUI extends game.BaseUI_wx4 {
     public onVisibleChange(){
         if(this.visible)
         {
+            this.startBtn1.label = '第 '+UM_wx4.level+' 天'
             this.showTips();
             this.renewNeedEnergy();
             if(UM_wx4.pastDayCoin.coin)

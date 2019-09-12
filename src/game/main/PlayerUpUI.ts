@@ -15,6 +15,8 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
     private hp1: eui.Label;
     private hp2: eui.Label;
     private coinText: eui.Label;
+    private levelText: eui.Label;
+
 
 
 
@@ -56,6 +58,7 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
+        this.actionStep = 5 + Math.random()*5;
         this.playerItem.data = PKC.playerData;
         this.renew();
         this.playerItem.showStandMV()
@@ -91,6 +94,8 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
 
         this.hp1.text = v1.hp + ''
         this.hp2.text = v2.hp + ''
+
+        this.levelText.text = '当前等级：'+PKM.playerLevel+'级'
     }
 
 }

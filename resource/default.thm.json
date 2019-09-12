@@ -25,8 +25,6 @@
 		"resource/skin/debug/DebugSkillListSkin.exml",
 		"resource/skin/debug/DebugUISkin.exml",
 		"resource/skin/debug/ScrollTestSkin.exml",
-		"resource/skin/game/buff/BuffItemSkin.exml",
-		"resource/skin/game/buff/BuffUISkin.exml",
 		"resource/skin/game/changeUser/ChangeJumpUISkin.exml",
 		"resource/skin/game/changeUser/ChangeUserItemSkin.exml",
 		"resource/skin/game/changeUser/ChangeUserUISkin.exml",

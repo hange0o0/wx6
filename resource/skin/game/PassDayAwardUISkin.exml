@@ -10,7 +10,6 @@
 	</e:Group>
 	<e:Group y="80" left="30" right="30" height="240">
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
-		<e:Label id="coinAddText" text="好友助力加成 30%" y="200" textColor="0xFFF2AD" size="18" horizontalCenter="0"/>
 		<e:Image source="main_shop_png" y="75" scaleX="1.5" scaleY="1.5" horizontalCenter="0.5"/>
 		<e:Label text="根据昨日成绩，你获得了以下奖励：" y="25" horizontalCenter="0" size="22" textColor="0xcccccc"/>
         <e:Label id="coinText" text="312K" y="140" size="40" horizontalCenter="0" bold="true" textColor="0xf9de40" stroke="5" strokeColor="0x301b05"/>

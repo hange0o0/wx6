@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="SkillChooseItem1Skin" width="130" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"  states="normal,lock" >
 	<e:Image left="0" right="0" top="0" source="dungeon_map_1b_a_jpg" source.lock="dungeon_map_1d_jpg" height="130"/>
+	<e:Label text="点击解锁" includeIn="lock" bottom="121" size="22" horizontalCenter="0"/>
 	<e:Image id="mc" source="" width="110" height="110" x="10" y="8" includeIn="normal"/>
 </e:Skin>

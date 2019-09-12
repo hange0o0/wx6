@@ -11,8 +11,8 @@ class PassDayAwardUI extends game.BaseWindow_wx4 {
     private btnGroup: eui.Group;
     private okBtn: eui.Button;
     private shareBtn: eui.Button;
-    private coinAddText: eui.Label;
     private coinText: eui.Label;
+
 
 
 
@@ -89,16 +89,6 @@ class PassDayAwardUI extends game.BaseWindow_wx4 {
 
     public onShow(){
         this.coin = UM_wx4.pastDayCoin.coin
-        var add = BuffManager.getInstance().getCoinAdd();
-        if(add)
-        {
-            this.coin = Math.ceil(this.coin * (1+add/100));
-            this.coinAddText.text = '好友助力加成 +'+add+'%'
-        }
-        else
-        {
-            this.coinAddText.text = '没有好友助力加成'
-        }
         this.coinText.text = NumberUtil_wx4.addNumSeparator(this.coin,2);
         this.btnGroup.addChild(this.shareBtn)
         //MyTool.removeMC(this.shareBtn);

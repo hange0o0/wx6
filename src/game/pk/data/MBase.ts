@@ -56,8 +56,10 @@ class MBase {
         this.size = vo.width/2
         this.atkDis = vo.atkrage + this.size + 40
 
-        this.hp = this.maxHp = vo.hp
-        this._atk = vo.atk
+        var rate = 1 + (UM_wx4.level-1)*0.2
+
+        this.hp = this.maxHp = Math.floor(vo.hp*rate)
+        this._atk = Math.floor(vo.atk *rate)
         this._speed = vo.speed/10
         this.atkSpeed = PKTool.getStepByTime(vo.atkcd);
         this.atkStop = PKTool.getStepByTime(vo.atkstop);

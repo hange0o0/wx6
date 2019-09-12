@@ -83,9 +83,14 @@ class DebugUI extends game.BaseUI_wx4 {
             MyWindow.ShowTips('第'+UM_wx4.level+'关')
         })
 
-        this.addB('加好友',()=>{
-            UM_wx4.shareUser.push({h:'',n:Math.random() + ''})
-            MyWindow.ShowTips('当前好友数量:' + UM_wx4.shareUser.length)
+        this.addB('加好友1',()=>{
+            UM_wx4.shareUser[1] = !UM_wx4.shareUser[1]
+            MyWindow.ShowTips(UM_wx4.shareUser[1])
+        })
+
+        this.addB('加好友2',()=>{
+            UM_wx4.shareUser[2] = !UM_wx4.shareUser[2]
+            MyWindow.ShowTips(UM_wx4.shareUser[2])
         })
 
         this.addB('跳过分享',()=>{

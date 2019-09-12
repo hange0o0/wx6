@@ -36,11 +36,12 @@
 		<e:Group x="48" y="106">
 			<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="200"/>
 			<e:Image source="coin_mc_png" x="9" y="9"/>
-			<e:Label id="coinText" text="Label" x="50" verticalCenter="0" size="24" textColor="0xFCD766"/>
+			<e:Label id="coinText" text="Label" verticalCenter="0" size="24" textColor="0xFCD766" right="30"/>
 		</e:Group>
 		<e:layout>
 			<e:VerticalLayout gap="30" verticalAlign="middle" horizontalAlign="center"/>
 		</e:layout>
 	</e:Group>
+	<e:Label id="levelText" text="Label" size="24" horizontalCenter="0" bottom="420"/>
 
 </e:Skin>

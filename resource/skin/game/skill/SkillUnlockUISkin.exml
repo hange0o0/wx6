@@ -8,10 +8,10 @@
 			<e:HorizontalLayout gap="30"/>
 		</e:layout>
 	</e:Group>
-	<e:Group x="118" y="120">
-		<e:Label text="邀请一位好友新加入游戏" y="0" size="24" x="0"/>
-		<e:Label text="即可" y="56" size="24" x="108"/>
-		<e:Label text="永久解锁此技能栏！" y="112" size="30" textColor="0xfcef94" x="24" bold="true"/>
+	<e:Group y="120" horizontalCenter="0">
+		<e:Label text="只需邀请一位好友新加入游戏" y="0" size="24" x="0"/>
+		<e:Label text="即可帮你" y="56" size="24" x="108"/>
+		<e:Label text="【永久解锁】此技能栏！" y="112" size="30" textColor="0xfcef94" x="24" bold="true"/>
 		<e:layout>
 			<e:VerticalLayout horizontalAlign="center" gap="30"/>
 		</e:layout>

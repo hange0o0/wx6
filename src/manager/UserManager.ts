@@ -44,7 +44,7 @@ class UserManager_wx4 {
     //public gunPosNum = 3;
     //public endLess = 0;
     public coinTimes = 0;
-    public helpUser = null;
+    public helpUser;
     //
     //public cdCoin = 0;
     //public cdCoinTime = 0;
@@ -55,7 +55,7 @@ class UserManager_wx4 {
     public isDelete = false
 
 
-    public shareUser = [];//buff玩家的数据   openid:{head,nick,time}
+    public shareUser = {};//buff玩家的数据   openid:{head,nick,time}
     public loginTime = 0
 
 
@@ -87,7 +87,7 @@ class UserManager_wx4 {
         this.dbid = data._id;
         this.loginTime = data.loginTime || TM_wx4.now();
         this.coin = data.coin || 0;
-        //this.shareUser = data.shareUser;
+        this.shareUser = data.shareUser;
         //this.helpUser = data.helpUser;
         //this.endLess = data.endLess || 0;
         this.level = data.level || 1;
@@ -269,9 +269,10 @@ class UserManager_wx4 {
             wx.cloud.callFunction({      //取玩家openID,
                 name: 'onShareIn',
                 data:{
-                    other:this.helpUser,
+                    other:this.helpUser.openid,
                     nick:UM_wx4.nick,
                     head:UM_wx4.head,
+                    index:this.helpUser.index
                 },
                 complete: (res) => {
                     console.log(res)

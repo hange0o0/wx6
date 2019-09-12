@@ -123,7 +123,7 @@ class PKCode_wx4 {
         this.actionStep = 0;
         this.monsterList.length = 0;
         PKMonsterAction_wx3.getInstance().init();
-        this.autoMonster = this.getLevelMonster(1);
+        this.autoMonster = this.getLevelMonster(UM_wx4.level);
         this.maxStep = this.autoMonster[this.autoMonster.length-1].step + (30 + this.maxBossNum*20)*this.frameRate;
         //PKBulletManager_wx3.getInstance().freeAll();
     }
