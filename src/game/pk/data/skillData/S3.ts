@@ -79,7 +79,7 @@ class S3 extends SBase{
             var monster = monsterList[i];
             if(monster.isDie)
                 continue;
-            if(this.lastHitMonsterTime[monster.onlyID] && actionStep - this.lastHitMonsterTime[monster.onlyID] < 5)
+            if(this.lastHitMonsterTime[monster.onlyID] && actionStep - this.lastHitMonsterTime[monster.onlyID] < 15)
                 continue;
 
             var dis = MyTool.getDis(monster,playerData)
@@ -87,7 +87,7 @@ class S3 extends SBase{
             {
                 this.lastHitMonsterTime[monster.onlyID] = actionStep
                 monster.addHp(-atk);
-                playerData.addGunBuff(monster)
+
                 if(hitBack && monster.hitBackAble)//可击退
                 {
                     var rotaBase = PKTool.getRota(playerData,monster);
@@ -95,6 +95,7 @@ class S3 extends SBase{
                     var y = Math.sin(rotaBase)*hitBack
                     monster.relateItem.resetXY(monster.x+x,monster.y+y)
                 }
+                playerData.addGunBuff(monster)
             }
         }
     }

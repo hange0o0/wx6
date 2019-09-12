@@ -128,12 +128,13 @@ class PKBulletItem extends game.BaseItem {
                 item.addHp(-this.atk)
                 if(this.atkFun)
                     this.atkFun();
-                if(this.hitSkill)
-                    PKC.playerData.addGunBuff(item);
+
                 if(this.hitBack && item.hitBackAble)
                 {
                     item.relateItem.resetXY(item.x + this.hitBack*Math.cos(this.data.rota),item.y + this.hitBack*Math.sin(this.data.rota))
                 }
+                if(this.hitSkill)
+                    PKC.playerData.addGunBuff(item);
                 if(!this.hitPass)
                     this.endTime = 0;
             }

@@ -264,6 +264,7 @@ class PlayerData{
                     anY:136/2,
                     item:monster.relateItem,
                     once:true,
+                    xy:monster.getHitPos()
                 })
             }
         }

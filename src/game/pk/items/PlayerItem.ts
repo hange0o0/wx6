@@ -387,7 +387,6 @@ class PlayerItem extends game.BaseItem{
                 else
                     monster.addHp(-Math.ceil(atk*atk2));
                 monster.beAtkStop = beAtkStop;
-                playerData.addGunBuff(monster,true)
                 if(playerData.hitBack && monster.hitBackAble)//可击退
                 {
                     var hitBack = playerData.hitBack
@@ -397,7 +396,7 @@ class PlayerItem extends game.BaseItem{
                     var y = Math.sin(rotaBase)*hitBack
                     monster.relateItem.resetXY(monster.x+x,monster.y+y)
                 }
-
+                playerData.addGunBuff(monster,true)
             }
         }
     }
