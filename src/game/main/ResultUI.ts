@@ -15,6 +15,8 @@ class ResultUI extends game.BaseUI_wx4{
     private barMC: eui.Image;
     private rateText: eui.Label;
     private titleText: eui.Label;
+    private ad1: eui.Image;
+    private ad2: eui.Image;
 
 
 
@@ -26,7 +28,6 @@ class ResultUI extends game.BaseUI_wx4{
     public isWin;
     public result;
     public rate = 3;
-    public adUnionChannel;
     public constructor() {
         super();
         this.skinName = "ResultUISkin";
@@ -40,6 +41,13 @@ class ResultUI extends game.BaseUI_wx4{
         super.childrenCreated();
 
         this.skillList.itemRenderer = ResultItem;
+
+        this.addBtnEvent(this.ad1,()=>{
+            MyADManager.getInstance().showAD(this.ad1['adData'])
+        })
+        this.addBtnEvent(this.ad2,()=>{
+            MyADManager.getInstance().showAD(this.ad2['adData'])
+        })
 
         this.addBtnEvent(this.awardBtn,()=>{
             MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin,2),0xFFFF00),1000)
@@ -77,6 +85,7 @@ class ResultUI extends game.BaseUI_wx4{
     }
 
     public show(isWin?){
+        PKC.isPKing = false;
         PKC.isStop = true;
         this.isWin = isWin;
         PKManager.getInstance().sendGameEnd(isWin)
@@ -129,6 +138,33 @@ class ResultUI extends game.BaseUI_wx4{
         {
             this.titleText.text = '大胜！'
             this.titleText.textColor = 0xFFFF00
+        }
+
+
+        var adArr = MyADManager.getInstance().getListByNum(10);
+        var ad = ArrayUtil_wx4.randomOne(adArr,true);
+        if(ad)
+        {
+            this.ad1['adData'] = ad;
+            this.ad1.source = ad.logo
+            this.ad1.visible = true;
+        }
+        else
+        {
+            this.ad1.visible = false;
+        }
+
+
+        var ad = ArrayUtil_wx4.randomOne(adArr,true);
+        if(ad)
+        {
+            this.ad2['adData'] = ad;
+            this.ad2.source = ad.logo
+            this.ad2.visible = true;
+        }
+        else
+        {
+            this.ad2.visible = false;
         }
     }
 

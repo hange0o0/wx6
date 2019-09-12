@@ -23,11 +23,13 @@ class GameUI extends game.BaseUI_wx4 {
     private levelRedMC: eui.Image;
     private addForceBtn: eui.Group;
     private addForceText: eui.Label;
+    private jumpWX4Btn: eui.Group;
     private startBtn2: eui.Button;
     private needEnergyGroup: eui.Group;
     private needEnergyText: eui.Label;
     private startBtn1: eui.Button;
     private desText: eui.Label;
+
 
 
 
@@ -120,6 +122,17 @@ class GameUI extends game.BaseUI_wx4 {
                 MyWindow.Alert('闯关达到30后解锁')
             else
                 MyWindow.Alert('功能正在开发中，很快就能和好友一起游戏啦')
+        })
+
+        this.addBtnEvent(this.jumpWX4Btn,()=>{
+            var wx = window['wx']
+            if(!wx)
+                return;
+            wx.navigateToMiniProgram({
+                appId: 'wx2f66e2c8de744d53',//wx4
+                complete(res) {
+                }
+            })
         })
 
 

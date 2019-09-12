@@ -238,7 +238,6 @@ class PKUI extends game.BaseUI_wx4{
         {
             if(!RebornUI.getInstance().stage)
                 RebornUI.getInstance().show();
-            return;
         }
 
         var len = PKC.monsterList.length;

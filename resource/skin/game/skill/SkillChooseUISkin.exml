@@ -10,7 +10,7 @@
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
 		<e:List id="list1" left="20" right="20" top="20" bottom="20">
 			<e:layout>
-				<e:TileLayout requestedColumnCount="3" horizontalGap="40" verticalGap="20" paddingLeft="10"/>
+				<e:TileLayout requestedColumnCount="3" horizontalGap="40" verticalGap="20" paddingLeft="15"/>
 			</e:layout>
 		</e:List>
 	</e:Group>

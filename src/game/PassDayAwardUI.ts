@@ -18,7 +18,6 @@ class PassDayAwardUI extends game.BaseWindow_wx4 {
 
 
 
-    private isVideo = false
     private coin
     public constructor() {
         super();
@@ -46,20 +45,9 @@ class PassDayAwardUI extends game.BaseWindow_wx4 {
     }
 
     public onShare(){
-        //if(this.isVideo)
-        //{
-            ShareTool.openGDTV(()=>{
-                this.onAddCoin()
-            })
-        //}
-        //if(this.videoIcon.visible)
-        //{
-        //    this.onAddCoin()
-        //    return
-        //}
-        //ShareTool.share('我需要你们的帮助！！',Config.getShare(0),{},()=>{
-        //    this.onAddCoin()
-        //})
+        ShareTool.openGDTV(()=>{
+            this.onAddCoin()
+        })
     }
 
 

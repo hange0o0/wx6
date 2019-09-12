@@ -22,7 +22,7 @@ class Config {
     public static localResRoot:string = "resource/game_assets/";
     public static localResRoot2:string = "resource/game_assets2/";
     public static getShare(id){
-        id = id || Math.ceil(Math.random()*4)
+        id = id || Math.ceil(Math.random()*2)
        return "resource/game_assets2/share/share"+id+".jpg";
     }
 

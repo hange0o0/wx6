@@ -11,7 +11,6 @@ class NotEnoughCoinUI extends game.BaseWindow_wx4 {
     private desText: eui.Label;
     private btnGroup: eui.Group;
     private shareBtn: eui.Button;
-    private coinAddText: eui.Label;
     private coinText: eui.Label;
 
 

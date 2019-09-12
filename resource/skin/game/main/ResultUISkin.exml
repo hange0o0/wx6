@@ -37,4 +37,6 @@
 		<e:Label id="rateText" text="剩余怪物：60%" size="20" textColor="0xfce662" verticalCenter="0" x="380"/>
 	</e:Group>
 	<e:Label id="titleText" text="大胜！" y="150" size="60" bold="true" horizontalCenter="10"/>
+	<e:Image id="ad1" width="90" height="90" x="20" bottom="351"/>
+	<e:Image id="ad2" width="90" height="90" bottom="351" right="20"/>
 </e:Skin>

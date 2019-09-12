@@ -1230,16 +1230,6 @@
 			"url":"game_assets2/share/share2.jpg"
 		},
 		{
-			"name":"share3_jpg",
-			"type":"image",
-			"url":"game_assets2/share/share3.jpg"
-		},
-		{
-			"name":"share4_jpg",
-			"type":"image",
-			"url":"game_assets2/share/share4.jpg"
-		},
-		{
 			"name":"logo_png",
 			"type":"image",
 			"url":"game_assets/logo.png"
@@ -1278,21 +1268,6 @@
 			"name":"split_mc_png",
 			"type":"image",
 			"url":"game_assets/split_mc.png"
-		},
-		{
-			"name":"logo_wx3_png",
-			"type":"image",
-			"url":"game_assets2/share/logo_wx3.png"
-		},
-		{
-			"name":"logo_wx1_png",
-			"type":"image",
-			"url":"game_assets2/share/logo_wx1.png"
-		},
-		{
-			"name":"logo_wx2_png",
-			"type":"image",
-			"url":"game_assets2/share/logo_wx2.png"
 		},
 		{
 			"name":"yellor_bg_png",
@@ -2438,6 +2413,11 @@
 			"name":"ctrl_type3_png",
 			"type":"image",
 			"url":"game_assets/ctrl_type3.png"
+		},
+		{
+			"name":"bg17_png",
+			"type":"image",
+			"url":"game_assets/bg17.png"
 		}
 	]
 }

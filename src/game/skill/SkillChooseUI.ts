@@ -18,7 +18,7 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
     public constructor() {
         super();
         this.skinName = "SkillChooseUISkin";
-        this.canBGClose = false
+        //this.canBGClose = false
     }
 
     public childrenCreated() {
@@ -69,7 +69,22 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
     }
 
     public show(){
-        this.data = PKManager.getInstance().lastChooseData;
+        this.data = [];
+        var arr = PKManager.getInstance().lastChooseData;
+        for(var i=0;i<arr.length;i++)
+        {
+            this.data.push({
+                id:arr[i],
+                level:SkillManager.getInstance().getSkillLevel(arr[i])
+            })
+        }
+
+        ArrayUtil_wx4.sortByField(this.data,['level'],[1]);
+        for(var i=0;i<this.data.length;i++)
+        {
+            this.data[i] = this.data[i].id;
+        }
+
         super.show()
     }
 
@@ -119,6 +134,10 @@ class SkillChooseUI extends game.BaseWindow_wx4 {
                 return;
             }
         }
+
+        if(UM_wx4.shareUser[1] && UM_wx4.shareUser[2])
+            return;
+        MyWindow.ShowTips('解锁技能位可上阵更多技能')
     }
 
     public renew(){

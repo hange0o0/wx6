@@ -20,7 +20,7 @@ class MyADManager {
     public onShow(res){
         if(this.changeUserTime)
         {
-            if(TM_wx4.now() - this.changeUserTime > 30) //停留超过30秒
+            if(TM_wx4.now() - this.changeUserTime > 25) //停留超过30秒
             {
                 this.addJoinAppid(this.changeUserID);
                 if(this.changeUserFun)
