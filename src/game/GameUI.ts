@@ -14,21 +14,25 @@ class GameUI extends game.BaseUI_wx4 {
     private feedBackBtn: eui.Image;
     private ad1: eui.Image;
     private ad2: eui.Image;
-    private equipBtn: eui.Group;
-    private equipRedMC: eui.Image;
     private skillBtn: eui.Group;
     private skillRedMC: eui.Image;
+    private equipBtn: eui.Group;
+    private equipRedMC: eui.Image;
     private levelBtn: eui.Group;
     private levelRedMC: eui.Image;
     private addForceBtn: eui.Group;
     private addForceText: eui.Label;
     private startBtn2: eui.Button;
+    private needEnergyGroup: eui.Group;
+    private needEnergyText: eui.Label;
     private startBtn1: eui.Button;
     private desText: eui.Label;
 
 
 
 
+    private adType
+    private adValue
     private moveState = 0
     public constructor() {
         super();
@@ -62,7 +66,19 @@ class GameUI extends game.BaseUI_wx4 {
         })
 
         this.addBtnEvent(this.addForceBtn,()=>{
+            if(TM_wx4.now() < UM_wx4.addForceEnd)
+            {
+                return;
+            }
 
+            var str = this.adType == 'cd'?"在《别碰小广告》游戏中坚持"+this.adValue+"秒，即可获得20%战力加成":"在《别碰小广告》游戏中获得"+this.adValue+"分，即可获得20%战力加成"
+            MyWindow.Alert(str,()=>{
+                MyADManager.getInstance().openWX5({
+                    key:this.adType,
+                    value:this.adValue,
+                    callBack:'addForce',
+                })
+            },'开始挑战')
         })
 
         this.addBtnEvent(this.startBtn1,()=>{
@@ -78,6 +94,7 @@ class GameUI extends game.BaseUI_wx4 {
                             ShareTool.openGDTV(()=>{
                                 PKM.initChooseSkill();
                                 SkillChooseUI.getInstance().show();
+                                this.renewNeedEnergy();
                             })
                         }
 
@@ -86,6 +103,7 @@ class GameUI extends game.BaseUI_wx4 {
                 }
                 PKM.addEnergy(-enery);
                 PKM.initChooseSkill();
+                this.renewNeedEnergy();
             }
             SkillChooseUI.getInstance().show();
             //PKUI.getInstance().show();
@@ -131,9 +149,30 @@ class GameUI extends game.BaseUI_wx4 {
         },this)
 
 
+        this.skillRedMC.visible = false;
     }
 
+    public resetAD(){
+        this.adType = Math.random()>0.5?'cd':'score'
+        var level =Math.floor((0.5 + Math.random()*0.5)*Math.min(UM_wx4.adLevel,10))
+        this.adValue = 30 + level*5;
+        if(this.adType == 'score')
+            this.adValue *= 30;
+    }
 
+    private renewNeedEnergy(){
+        var PKM = PKManager.getInstance();
+        if(PKM.lastChooseData.length == 0)
+        {
+            var enery = PKM.getEnergyCost();
+            this.needEnergyText.text = enery + '';
+            this.needEnergyGroup.visible = true
+        }
+        else
+        {
+            this.needEnergyGroup.visible = false
+        }
+    }
 
     private renewSound(){
         this.soundBtn.source = SoundManager.getInstance().bgPlaying?'sound_btn1_png':'sound_btn2_png'
@@ -157,6 +196,8 @@ class GameUI extends game.BaseUI_wx4 {
         this.renewSound();
         this.renewCoin();
         this.renewEnergy();
+        this.renewForceText();
+        this.renewNeedEnergy();
         this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renewCoin)
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
         this.addPanelOpenEvent(GameEvent.client.GUN_CHANGE,this.renewGun)
@@ -171,6 +212,20 @@ class GameUI extends game.BaseUI_wx4 {
         PKC.isAuto = true;
         PKCodeUI.getInstance().onShow()
         PKC.playerData.randomSKill();
+        this.resetAD();
+
+    }
+
+    private renewForceText(){
+        var cd =  UM_wx4.addForceEnd - TM_wx4.now();
+        if(cd<0)
+        {
+            this.addForceText.text = '挑战游戏，获得20%战力加成'
+        }
+        else
+        {
+            this.addForceText.text = '战力+20%     剩余时间：' + DateUtil_wx4.getStringBySecond(cd).substr(-5)
+        }
 
     }
 
@@ -178,6 +233,7 @@ class GameUI extends game.BaseUI_wx4 {
         if(!this.visible)
             return
         this.renewEnergy();
+        this.renewForceText();
     }
 
     private renewEnergy(){
@@ -196,9 +252,9 @@ class GameUI extends game.BaseUI_wx4 {
     }
 
     private showTips(){
+        this.setHtml(this.desText, '根据当前成绩，明天可获得金币 '+this.createHtml('x' + NumberUtil_wx4.addNumSeparator(UM_wx4.getPassDayCoin()),0xFFFF00))
 
         var adArr = MyADManager.getInstance().getListByNum(10);
-
         var ad = ArrayUtil_wx4.randomOne(adArr,true);
         if(ad)
         {
@@ -234,10 +290,8 @@ class GameUI extends game.BaseUI_wx4 {
         var ui = PKCodeUI.getInstance();
         var playerData = PKC.playerData;
         var monster = PKC.monsterList[0]
-        if(monster && monster.isDie)
-        {
+        playerData.hp = playerData.maxHp;
 
-        }
         if(monster && !monster.isDie)
         {
             var len = MyTool.getDis(monster,playerData);
@@ -287,6 +341,7 @@ class GameUI extends game.BaseUI_wx4 {
         if(this.visible)
         {
             this.showTips();
+            this.renewNeedEnergy();
             if(UM_wx4.pastDayCoin.coin)
             {
                 PassDayAwardUI.getInstance().show();

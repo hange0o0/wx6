@@ -14,7 +14,6 @@ class RebornUI extends game.BaseWindow_wx4{
 
     private shape = new egret.Shape()
     private step = 0;
-    private isStoping = false;
 
 
     private totalTime = 30*8
@@ -33,13 +32,10 @@ class RebornUI extends game.BaseWindow_wx4{
     }
 
     public onShow(){
-        this.isStoping = false;
         this.step = this.totalTime - PKC.playerData.rebornDec;
         this.renew();
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
     }
-
-
 
     private onE(){
         if(this.step <= 0)

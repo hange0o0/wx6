@@ -81,7 +81,7 @@ class PKUI extends game.BaseUI_wx4{
         //})
 
         this.addBtnEvent(this.stopBtn,()=>{
-
+            StopUI.getInstance().show();
         })
 
         GameManager_wx4.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onSkillMove,this)
@@ -153,8 +153,14 @@ class PKUI extends game.BaseUI_wx4{
         this.ctrlMC.y = touchR
     }
 
+    public hide(){
+        super.hide();
+        PKC.isPKing = false;
+    }
+
 
     public onShow(){
+        PKC.isPKing = true;
         this.resetTouchGroup()
         this.height = GameManager_wx4.uiHeight
         this.addChildAt(PKCodeUI.getInstance(),0)
@@ -164,6 +170,7 @@ class PKUI extends game.BaseUI_wx4{
 
         this.renewSkill()
         this.renewHp()
+        this.renewCtrl()
         this.onTimer()
         this.addPanelOpenEvent(GameEvent.client.timerE,this.onE)
         this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
@@ -379,6 +386,11 @@ class PKUI extends game.BaseUI_wx4{
         this.hpText.text = hp + ''
         this.hpBar.width = Math.max(14,14 + w*rate);
         //PKC.playerData.relateItem.renewHp();
+    }
+
+    public renewCtrl(){
+        var chooseType = SharedObjectManager_wx4.getInstance().getMyValue('ctrlType') || 1;
+        this.currentState = 's' + chooseType
     }
 
 }

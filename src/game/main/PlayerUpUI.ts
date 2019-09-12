@@ -7,6 +7,7 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
         return this._instance;
     }
 
+    private closeBtn: eui.Button;
     private sendBtn: eui.Button;
     private playerItem: PlayerItem;
     private atk1: eui.Label;
@@ -18,7 +19,9 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
 
 
 
+
     public cost;
+    public actionStep;
     public constructor() {
         super();
         this.skinName = "PlayerUpUISkin";
@@ -27,12 +30,21 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('问题与建议')
+        this.setTitle('提升实力')
         this.addBtnEvent(this.sendBtn,()=>{
             if(!UM_wx4.checkCoin(this.cost))
                 return;
             PKManager.getInstance().upPlayerLevel();
+            this.renew();
         })
+
+        this.addBtnEvent(this.closeBtn,this.hide)
+        this.playerItem.y += 50
+
+        MyTool.addLongTouch(this.playerItem,()=>{
+            DebugUI.getInstance().debugTimer = egret.getTimer();
+            MyWindow.ShowTips('我帅吧！')
+        },this)
     }
 
     public show(){
@@ -44,12 +56,41 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
     }
 
     public onShow(){
+        this.playerItem.data = PKC.playerData;
         this.renew();
+        this.playerItem.showStandMV()
         this.addPanelOpenEvent(GameEvent.client.COIN_CHANGE,this.renew)
+        this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
+    }
+
+    private onTimer(){
+        this.actionStep -- ;
+        if(this.actionStep <=0)
+        {
+            this.actionStep = 5 + Math.random()*5
+            if(Math.random()<0.8)
+            {
+                this.playerItem.showAtkMV()
+            }
+            else
+            {
+                this.playerItem.showDoubleMV()
+            }
+        }
     }
 
     public renew(){
-        this.cost = PKManager.getInstance().getUpCost()
+        var PKM = PKManager.getInstance();
+        this.cost = PKM.getUpCost()
+        this.coinText.text = NumberUtil_wx4.addNumSeparator(this.cost)
+        var v1 = PKM.getPlayerValue(PKM.playerLevel)
+        var v2 = PKM.getPlayerValue(PKM.playerLevel + 1)
+
+        this.atk1.text = v1.atk + ''
+        this.atk2.text = v2.atk + ''
+
+        this.hp1.text = v1.hp + ''
+        this.hp2.text = v2.hp + ''
     }
 
 }

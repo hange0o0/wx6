@@ -13,12 +13,12 @@ class ResultItem extends game.BaseItem{
 
     public childrenCreated() {
         super.childrenCreated();
-        //this.addBtnEvent(this,this.onClick)
+        this.addBtnEvent(this,this.onClick)
 
     }
 
     private onClick(){
-
+        SkillInfoUI.getInstance().show(this.data.id)
     }
 
     public dataChanged():void {

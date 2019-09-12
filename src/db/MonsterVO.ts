@@ -66,4 +66,7 @@ class MonsterVO {
             SoundManager.getInstance().playEffect('enemy_dead' + this.diesound)
     }
 
+    public getThumb(){
+        return 'm_head'+this.id+'_jpg'
+    }
 }

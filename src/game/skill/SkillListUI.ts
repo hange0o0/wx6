@@ -9,6 +9,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
 
     private scroller: eui.Scroller;
     private list: eui.List;
+    private con: eui.Group;
     private atkText: eui.Label;
     private nameText: eui.Label;
     private skillCDText: eui.Label;
@@ -22,7 +23,10 @@ class SkillListUI extends game.BaseWindow_wx4 {
 
 
 
+
+
     public data;
+    public heroItem
     public constructor() {
         super();
         this.skinName = "SkillListUISkin";
@@ -31,7 +35,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
 
     public childrenCreated() {
         super.childrenCreated();
-        this.setTitle('图鉴')
+
         this.scroller.viewport = this.list;
         this.list.itemRenderer = SkillListItem
 
@@ -39,6 +43,12 @@ class SkillListUI extends game.BaseWindow_wx4 {
         this.tab.selectedIndex = 0;
 
         this.list.addEventListener(eui.ItemTapEvent.CHANGE, this.renewChoose, this);
+
+        this.heroItem = new PKMonsterMV_wx3()
+        this.heroItem.x = 70
+        this.heroItem.y = 160
+
+        this.con.addChild(this.heroItem);
     }
 
     private onTab(){
@@ -62,10 +72,12 @@ class SkillListUI extends game.BaseWindow_wx4 {
         if(this.tab.selectedIndex == 1)
         {
             var list = ObjectUtil_wx4.objToArray(MonsterVO.data)
+            this.setTitle('怪物图鉴')
         }
         else
         {
             var list = ObjectUtil_wx4.objToArray(SkillVO.data)
+            this.setTitle('技能图鉴')
         }
 
         ArrayUtil_wx4.sortByField(list,['level','id'],[0,0])
@@ -93,11 +105,13 @@ class SkillListUI extends game.BaseWindow_wx4 {
         this.nameText.text = svo.name
         var SM = SkillManager.getInstance();
         var cd = svo.getCD();
+        this.skillCDText.textColor = 0xFCE7B0;
         if(cd)
             this.setHtml(this.skillCDText,'技能间隔:' + this.createHtml(MyTool.toFixed(cd/1000,1) + '秒',0xFFFF00))
         else
             this.setHtml(this.skillCDText,this.createHtml('被动技能',0xECAEF9))
         this.setHtml(this.atkText, svo.getDes())
+
 
         var lv = SM.getSkillLevel(svo.id);
         this.img.source = svo.getThumb();
@@ -114,13 +128,36 @@ class SkillListUI extends game.BaseWindow_wx4 {
         this.rateText.text = v1 + '/' + v2;
         this.barMC.width = 100 * v1 / v2;
 
+        this.img.visible = true
+        this.barGroup.visible = true
+        this.heroItem.visible = false
 
     }
 
     private renewMonsterInfo(mvo){
         this.nameText.text = mvo.name
         this.atkText.text = mvo.des
-        this.rateText.text = ''
+        this.skillCDText.textColor = 0xFF0000;
+
+
+
+        this.img.visible = false
+        this.barGroup.visible = false
+        this.heroItem.visible = true
+
+        this.heroItem.load(mvo.id)
+        this.heroItem.stand();
+
+        if(mvo.isHero())
+        {
+            this.heroItem.scaleX = this.heroItem.scaleY = 0.7
+            this.skillCDText.text = '【BOSS】'
+        }
+        else
+        {
+            this.heroItem.scaleX = this.heroItem.scaleY = 1.2
+            this.skillCDText.text = ''
+        }
     }
 
 }

@@ -269,7 +269,7 @@ function wx4_function(v){}
 function sendClientError(str){
     //var url =  'http://172.17.196.195:90/error_wx2/log_error.php'
     //if(window["wx"])
-    var url =  'https://www.hangegame.com/error_wx4/log_error.php'
+    var url =  'https://www.hangegame.com/error_wx2/log_error.php'
     Net.getInstance().send(url,{str:str});
 }
 //window.onerror=handleErr;
@@ -277,7 +277,7 @@ function sendFeedBack(str){
     try{
         str =  UM_wx4.gameid + "--" + str
     }catch(e){}
-    var url =  'https://www.hangegame.com/error_wx4/log_feedback.php'
+    var url =  'https://www.hangegame.com/error_wx2/log_feedback.php'
     Net.getInstance().send(url,{str:str});
 }
 
@@ -294,6 +294,7 @@ if(window["wx"])
     window["BasePanel"] = BasePanel
     window["PKSkillItem"] = PKSkillItem
     window["HPBar"] = HPBar
+    window["PlayerItem"] = PlayerItem
 
 
     var wx =  window["wx"];
@@ -316,6 +317,8 @@ if(window["wx"])
         //GameManager.stage.dispatchEventWith(egret.Event.DEACTIVATE);
         EM_wx4.dispatch(egret.Event.DEACTIVATE)
         console.log('hide')
+        if(PKC.isPKing)
+            StopUI.getInstance().show();
         //GameUI.getInstance().cleanTouch();
     });
 

@@ -30,6 +30,8 @@ class PKCode_wx4 {
     public roundMonsterNum = 0
     public maxStep = 0
     public randomSeed = 99999999;
+
+    public isPKing = false
     public random(seedIn?){
         var seed = seedIn || this.randomSeed;
         seed = ( seed * 9301 + 49297 ) % 233280;

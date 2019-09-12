@@ -35,10 +35,11 @@ class PKManager {
         }
     }
 
-    public getPlayerValue(){
-        var atk = 60 + (this.playerLevel-1)*this.atkAdd
-        var hp = 600 + (this.playerLevel-1)*this.hpAdd
-        if(UM_wx4.addForceEnd > TM_wx4.now())
+    public getPlayerValue(level?,noAddForce?){
+        level = level || this.playerLevel
+        var atk = 60 + (level-1)*this.atkAdd
+        var hp = 600 + (level-1)*this.hpAdd
+        if(!noAddForce && UM_wx4.addForceEnd > TM_wx4.now())
         {
             atk = Math.ceil(atk*1.2);
             hp = Math.ceil(hp*1.2)

@@ -26,6 +26,19 @@ class SkillListItem extends game.BaseItem{
 
     private renewMonster(){
         this.currentState = 's2'
+        var vo = this.data
+
+
+        if(false)
+        {
+            this.mc.source = 'pk_skill_unknow_png'
+            this.touchChildren = this.touchEnabled = false
+        }
+        else
+        {
+            this.touchChildren = this.touchEnabled = true
+            this.mc.source = vo.getThumb();
+        }
     }
 
     private renewSkill(){

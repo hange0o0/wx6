@@ -129,6 +129,8 @@ class PlayerData{
         var skill = []
         for(var i=0;i<51;i++)
         {
+            if(i+1 == 4)//不要炮台技能
+                continue;
             skill.push(i+1);
         }
         ArrayUtil_wx4.random(skill,3);

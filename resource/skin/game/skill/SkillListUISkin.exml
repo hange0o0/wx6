@@ -10,7 +10,7 @@
 			</e:List>
 		</e:Group>
 	</e:Scroller>
-	<e:Group y="120" left="20" right="20" height="200">
+	<e:Group id="con" y="120" left="20" right="20" height="200">
 		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
 		<e:Label id="atkText" text="攻击：1234" y="60" size="22" x="165" lineSpacing="15" anchorOffsetX="0" textColor="0xFCD79F" width="365"/>
 		<e:Group x="165" y="20">
