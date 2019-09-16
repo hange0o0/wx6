@@ -90,7 +90,7 @@ class GunListUI extends game.BaseWindow_wx4{
 
         this.nameText.text = vo.name;
         var arr = [];
-        arr.push(this.createText('攻击传导',vo.atk + '%'))
+        arr.push(this.createText('攻击伤害',vo.atk + '%'))
         arr.push(this.createText('攻击间隔',MyTool.toFixed(vo.atkspeed/100,1) + '秒'))
         arr.push(this.createText('攻击距离',vo.atkdis + ''))
         arr.push(this.createText('打退距离',vo.atkback + ''))

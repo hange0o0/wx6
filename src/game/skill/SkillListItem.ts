@@ -27,9 +27,9 @@ class SkillListItem extends game.BaseItem{
     private renewMonster(){
         this.currentState = 's2'
         var vo = this.data
+        var level = (UM_wx4.level-1) || 1
 
-
-        if(false)
+        if(vo.level > level)
         {
             this.mc.source = 'pk_skill_unknow_png'
             this.touchChildren = this.touchEnabled = false
@@ -42,22 +42,38 @@ class SkillListItem extends game.BaseItem{
     }
 
     private renewSkill(){
-        this.currentState = 's1'
+
         var vo = this.data
         var SM = SkillManager.getInstance();
-        var lv = SM.getSkillLevel(vo.id);
-        this.mc.source = vo.getThumb();
-        this.levelText.text = 'lv.' + lv
+
 
 
         var currentNum = SM.getSkillNum(vo.id)
-        var num1 = SM.getLevelNum(lv)
-        var num2 = SM.getLevelNum(lv+1)
+        if(currentNum == 0)
+        {
+            this.currentState = 's2'
+            this.mc.source = 'pk_skill_unknow_png'
+            this.touchChildren = this.touchEnabled = false
+        }
+        else
+        {
+            this.currentState = 's1'
 
-        var v1 = currentNum - num1
-        var v2 = num2 - num1
-        this.rateText.text = v1 + '/' + v2;
-        this.barMC.width = 100 * v1 / v2;
+            var lv = SM.getSkillLevel(vo.id);
+            this.levelText.text = 'lv.' + lv
+
+            var num1 = SM.getLevelNum(lv)
+            var num2 = SM.getLevelNum(lv+1)
+
+            var v1 = currentNum - num1
+            var v2 = num2 - num1
+            this.rateText.text = v1 + '/' + v2;
+            this.barMC.width = 100 * v1 / v2;
+
+
+            this.touchChildren = this.touchEnabled = true
+            this.mc.source = vo.getThumb();
+        }
 
     }
 }

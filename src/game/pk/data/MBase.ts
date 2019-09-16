@@ -37,6 +37,7 @@ class MBase {
 
 
     public isFarAtk = 1
+    public lastBeHitTime = 1//上一次被刀伤害的时间
 
     public beSkillAble = true;
     public trapAble = true;
@@ -95,7 +96,12 @@ class MBase {
         {
             v = Math.floor(v*this.beHitRate)
         }
+
         this.hp += v;
+        if(v<0)
+        {
+            this.onBeHit();
+        }
         if(this.hp > this.maxHp)
         {
             this.hp = this.maxHp
@@ -108,10 +114,6 @@ class MBase {
         }
         PKTool.showHpChange(this,v)
         this.relateItem.renewHp();
-        if(v<0)
-        {
-            this.onBeHit();
-        }
     }
 
     public canSkill(){
@@ -121,7 +123,7 @@ class MBase {
     public skillFun(){
 
     }
-MV
+
     public onCreate(){
     }
 

@@ -17,7 +17,7 @@ class MovieSimpleSpirMC extends eui.Group{
     public currSleep:number = 0;
     private playTimes:number;
     private loopIndex:number = 0;
-    private isLoop = false;
+    public isLoop = false;
 
     private timeID: egret.Timer;
 

@@ -2418,6 +2418,61 @@
 			"name":"bg17_png",
 			"type":"image",
 			"url":"game_assets/bg17.png"
+		},
+		{
+			"name":"board_1_png",
+			"type":"image",
+			"url":"game_assets/board_1.png"
+		},
+		{
+			"name":"board_mv_1_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_1.png"
+		},
+		{
+			"name":"board_mv_2_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_2.png"
+		},
+		{
+			"name":"board_mv_3_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_3.png"
+		},
+		{
+			"name":"board_mv_4_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_4.png"
+		},
+		{
+			"name":"board_mv_5_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_5.png"
+		},
+		{
+			"name":"board_mv_6_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_6.png"
+		},
+		{
+			"name":"board_mv_7_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_7.png"
+		},
+		{
+			"name":"board_mv_8_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_8.png"
+		},
+		{
+			"name":"board_mv_9_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_9.png"
+		},
+		{
+			"name":"board_mv_10_png",
+			"type":"image",
+			"url":"game_assets2/board_mv/board_mv_10.png"
 		}
 	]
 }

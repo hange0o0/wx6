@@ -70,7 +70,7 @@ class MTool {
         else
             var hitPoint = monster.getHitPos();
         var rota = Math.atan2(playerData.y - hitPoint.y,playerData.x-hitPoint.x)/Math.PI*180 - 90
-        PKCodeUI.getInstance().addLine(hitPoint.x,hitPoint.y,rota,{
+        return PKCodeUI.getInstance().addLine(hitPoint.x,hitPoint.y,rota,{
             isFollow:skillData.isFollow,
             isFootPos:skillData.isFootPos,
             owner:monster,

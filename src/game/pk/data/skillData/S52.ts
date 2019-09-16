@@ -21,7 +21,7 @@ class S52 extends SBase{
         //playerData.isSkillingStopMove = true
 
 
-        var num = 3;
+        var num = 8;
         var step = 30;
 
 
@@ -29,15 +29,10 @@ class S52 extends SBase{
         if(!monster)
             return false;
 
-        var pos = monster.getHitPos();
-        var rota = Math.atan2(pos.y-playerData.y,pos.x-playerData.x)
-
-        var startRota = rota - (num-1)/2*step/180*Math.PI
-
-        var addRota = step/180*Math.PI
+        var addRota = Math.PI/4
         for(var i=0;i<num;i++)
         {
-            var bullet = PKCodeUI.getInstance().shoot(playerData,startRota + addRota*i);
+            var bullet = PKCodeUI.getInstance().shoot(playerData,addRota*i);
             bullet.setImage( 'knife_'+playerData.gunid+'_png');
             bullet.endTime = PKC.actionStep + this.totalStep
             bullet.speed = 15
@@ -51,9 +46,6 @@ class S52 extends SBase{
             this.bulletArr.push(bullet);
         }
 
-
-
-        item.roleCon.rotation = rota/Math.PI*180+90
         item.showDoubleMV();
         this.step = this.totalStep
 

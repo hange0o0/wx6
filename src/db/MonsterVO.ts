@@ -9,6 +9,7 @@ class MonsterVO {
     }
 
     public isMonster = true;
+    public temp
 
 
     public width: number;

@@ -41,6 +41,8 @@ class StopUI extends game.BaseWindow_wx4 {
                 {
                     this.hide();
                     PKUI.getInstance().hide();
+                    if(RebornUI.getInstance().stage)
+                        RebornUI.getInstance().hide();
                 }
             });
         })

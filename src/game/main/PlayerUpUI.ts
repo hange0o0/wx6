@@ -42,6 +42,7 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
 
         this.addBtnEvent(this.closeBtn,this.hide)
         this.playerItem.y += 50
+        //MyTool.removeMC(this.playerItem.hpBar)
 
         MyTool.addLongTouch(this.playerItem,()=>{
             DebugUI.getInstance().debugTimer = egret.getTimer();
@@ -96,6 +97,7 @@ class PlayerUpUI extends game.BaseWindow_wx4 {
         this.hp2.text = v2.hp + ''
 
         this.levelText.text = '当前等级：'+PKM.playerLevel+'级'
+        this.coinText.textColor = this.cost > UM_wx4.coin?0xFF0000:0xFCD766
     }
 
 }

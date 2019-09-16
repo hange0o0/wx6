@@ -6,7 +6,7 @@ class S13 extends SBase{
     public hurt = 100
     public maxNum = 10
     public hurtID = {}
-    public minDis = 100
+    public minDis = 200
 
 
     public lastMonster

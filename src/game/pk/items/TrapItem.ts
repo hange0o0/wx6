@@ -170,7 +170,7 @@ class TrapItem extends game.BaseItem{
             var monsterObj = {};
             monsterObj[monster.onlyID] = true;
 
-            var dis = this.hurtDis
+            var dis = this.hurtDis*2
 
             var monsterList = PKC.monsterList;
             var len = monsterList.length;

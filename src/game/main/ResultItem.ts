@@ -1,9 +1,11 @@
 class ResultItem extends game.BaseItem{
 
     private mc: eui.Image;
-    private nameText: eui.Label;
     private upMC: eui.Image;
     private newMC: eui.Image;
+    private numText: eui.Label;
+    private nameText: eui.Label;
+
 
 
     public constructor() {
@@ -24,7 +26,8 @@ class ResultItem extends game.BaseItem{
     public dataChanged():void {
         var skillVO = SkillVO.getObject(this.data.id)
         this.mc.source = skillVO.getThumb()
-        this.nameText.text = 'x' + this.data.num;
+        this.nameText.text = skillVO.name
+        this.numText.text = 'x' + this.data.num;
         this.upMC.visible = this.data.lastLevel && this.data.lastLevel != this.data.currentLevel
         this.newMC.visible = !this.data.lastLevel
 

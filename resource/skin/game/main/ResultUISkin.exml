@@ -14,7 +14,7 @@
 		</e:Group>
 		<e:Group width="600" x="0" y="10">
 			<e:Label text="获得技能碎片" y="0" horizontalCenter="0" size="26"/>
-			<e:List id="skillList" height="130" y="50" horizontalCenter="0">
+			<e:List id="skillList" height="140" y="50" horizontalCenter="0">
 				<e:layout>
 					<e:HorizontalLayout gap="30" paddingLeft="20" paddingRight="20" paddingTop="10"/>
 				</e:layout>
@@ -37,6 +37,6 @@
 		<e:Label id="rateText" text="剩余怪物：60%" size="20" textColor="0xfce662" verticalCenter="0" x="380"/>
 	</e:Group>
 	<e:Label id="titleText" text="大胜！" y="150" size="60" bold="true" horizontalCenter="10"/>
-	<e:Image id="ad1" width="90" height="90" x="20" bottom="351"/>
-	<e:Image id="ad2" width="90" height="90" bottom="351" right="20"/>
+	<e:Image id="ad1" width="90" height="90" x="20" bottom="300"/>
+	<e:Image id="ad2" width="90" height="90" bottom="300" right="20"/>
 </e:Skin>

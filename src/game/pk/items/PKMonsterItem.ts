@@ -87,6 +87,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         this.lastHurtTime = 0;
 
         MyTool.removeMC(this.iceMC)
+        this.hpBar.visible = true;
         this.renewHp();
 
         if(this.stateYunMV) {
@@ -292,7 +293,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         }
 
         //move
-        if(!this.iceStep && dis > myData.atkDis && canAtkTime && canAtkPlayer){
+        if(!this.iceStep && dis > myData.atkDis && ((canAtkTime && canAtkPlayer) || dis > 650)){
             var speed = this.data.speed;
             var atkPos = playerData
             var angle = Math.atan2(atkPos.y-myData.y,atkPos.x-myData.x)
@@ -302,7 +303,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
             var noAtkTime = 10*30
             if(myData.isFarAtk)
                 noAtkTime *= 1.5
-            if(myData.moveStartTime && t - myData.moveStartTime > noAtkTime)//长时间移动
+            if(myData.moveStartTime && t - myData.moveStartTime > noAtkTime && t - myData.lastBeHitTime > 15)//长时间移动
             {
                 myData.changeRandomPos(dis,angle);
                 return;
@@ -428,7 +429,7 @@ class PKMonsterItem_wx3 extends game.BaseItem {
         this.monsterMV.die();
         this.data.getVO().playDieSound()
         //this.bar.width = 0;
-        //this.barGroup.visible = false;
+        this.hpBar.visible = false;
         //this.vo.playDieSound();
         //if(this.data.mid != 99)
         //    PlayManager.getInstance().showDropCoin(this)

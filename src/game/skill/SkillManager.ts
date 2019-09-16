@@ -25,10 +25,14 @@ class SkillManager extends egret.EventDispatcher {
         {
             for(var s in  SkillVO.data)
             {
-                this.mySkill.push({
-                    id:parseInt(s),
-                    num:1,
-                })
+                if(SkillVO.data[s].level == 1)
+                {
+                    this.mySkill.push({
+                        id:parseInt(s),
+                        num:1,
+                    })
+                }
+
             }
         }
 

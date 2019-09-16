@@ -6,12 +6,23 @@ class M70 extends MBase{
 
     private moveStep = 0
     public atkDisAdd = 0//判断命中时，增加的判断距离
+
     public atkFun(){
         this.moveStep = 15
         MTool.nearAtkFun(this,()=>{
-            PKC.playerData.speed -= 1;
-            if(PKC.playerData.speed < 4)
-                PKC.playerData.speed = 4
+
+            var playerData = PKC.playerData
+            if(playerData.speed > 4)
+            {
+                playerData.speed -= 1;
+                playerData.addBuff({
+                    endTime:PKC.actionStep + 8*PKC.frameRate,
+                    onEnd:()=>{
+                        playerData.speed += 1;
+                    }
+                })
+
+            }
         },()=>{
             this.hp = 0
             this.isDie = 1;

@@ -4,6 +4,10 @@ class M64 extends MBase{
         super();
     }
 
+    public canSkill(){
+        return super.canSkill() && !PKC.playerData.isDie
+    }
+
     private lineItem;
     public onBeHit(){
         if(this.lineItem && this.lineItem.owner == this && !this.lineItem.isDie)
@@ -30,7 +34,7 @@ class M64 extends MBase{
         this.relateItem.playMV()
         rota = rota/180*Math.PI
         var bullet = PKCodeUI.getInstance().shoot(this,rota,this.getHitPos());
-        bullet.setImage( 'pk_arrow_png',-90);
+        bullet.setImage( 'pk_arrow_1_png',-90);
         bullet.endTime = PKC.actionStep + 60
         bullet.speed = 50
         bullet.atk = this.atk

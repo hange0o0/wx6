@@ -7,7 +7,7 @@ class M2 extends MBase{
     public skillCD = PKTool.getStepByTime(5000)//技能间隔
 
     public canSkill(){
-        return super.canSkill() && MyTool.getDis(this,PKC.playerData)>300
+        return super.canSkill() && MyTool.getDis(this,PKC.playerData)>300 && !PKC.playerData.isDie
     }
 
     public atkFun(){

@@ -110,6 +110,8 @@ class PKManager {
         var skillNum = 5 + UM_wx4.level;
         var skillArr = SkillManager.getInstance().getNewSkill(skillNum)
         var coin = 50 + Math.floor(Math.pow(UM_wx4.level,1.5))*50
+        if(PKC.playerData.coinAdd)
+            coin = Math.ceil(coin*(1+PKC.playerData.coinAdd))
         return {
             skill:skillArr,
             coin:coin,
@@ -121,6 +123,8 @@ class PKManager {
         var skillNum = Math.ceil(UM_wx4.level*0.5*rate);
         var skillArr = SkillManager.getInstance().getNewSkill(skillNum)
         var coin = Math.ceil(Math.pow(UM_wx4.level,1.5)*rate*20)
+        if(PKC.playerData.coinAdd)
+            coin = Math.ceil(coin*(1+PKC.playerData.coinAdd))
         return {
             skill:skillArr,
             coin:coin,

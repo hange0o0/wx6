@@ -73,7 +73,7 @@ class PKCode_wx4 {
             {
                 if(this.autoMonster.length == 0)
                 {
-                    var mlv = UM_wx4.level;
+                    var mlv = (UM_wx4.level-1) || 1;
                     for(var s in MonsterVO.data)
                     {
                         if(MonsterVO.data[s].level <= mlv)
@@ -129,10 +129,10 @@ class PKCode_wx4 {
     }
 
     public getLevelMonster(level){
-        //this.randomSeed = level*1234567890;
-        this.randomSeed = Math.random()*1234567890;
+        this.randomSeed = level*1234567890;
+        //this.randomSeed = Math.random()*1234567890;
 
-        var maxCost = 50 + level*Math.pow(1.012,level)*50;  //每一关增加的花费
+        var maxCost = 90 + level*Math.pow(1.02,level)*10;  //每一关增加的花费
         var stepCost = maxCost/Math.min(300,27 + level*3)/30;//每一关增加的时间
         var nowCost = 0;
         var step = 50;
@@ -141,7 +141,7 @@ class PKCode_wx4 {
         var mlv = level;
         for(var s in MonsterVO.data)
         {
-            if(MonsterVO.data[s].level <= mlv)
+            if(MonsterVO.data[s].level <= mlv && !MonsterVO.data[s].isHero())
             {
                 monsterList.push(MonsterVO.data[s])
             }
@@ -197,7 +197,12 @@ class PKCode_wx4 {
                 nowCost += 10;//固定10费
 
                 if(bossNum == 1)
-                    list.push(boss[Math.floor(level/5)] + '|' + step)
+                    list.push({
+                        id:boss[Math.floor(level/5)],
+                        step:step,
+                        x:Math.cos(rotation) * 500,
+                        y:Math.sin(rotation) * 500,
+                    })
                 else
                 {
                     for(var i=0;i<bossNum;i++)

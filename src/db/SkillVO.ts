@@ -22,7 +22,7 @@ class SkillVO {
     public v3up: number;
 
 
-
+    public temp
 
     public constructor() {
 

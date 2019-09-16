@@ -42,6 +42,8 @@ class PKUI extends game.BaseUI_wx4{
     public showSkillTouchID;
     public showSkillItem;
 
+    public chooseSkill;//玩家先择要释放的技能
+
     public constructor() {
         super();
         this.skinName = "PKUISkin";
@@ -54,6 +56,7 @@ class PKUI extends game.BaseUI_wx4{
         {
             var mc = new eui.Image('common_redpoint_01_png')
             mc.anchorOffsetX = mc.anchorOffsetY = 32/2
+            mc.width = mc.height = 32
             this.redArr.push(mc)
             this.addChildAt(mc,0)
         }
@@ -103,7 +106,6 @@ class PKUI extends game.BaseUI_wx4{
             return;
         this.showSkillItem = null;
         this.hideSkillInfo()
-
     }
 
 
@@ -160,6 +162,7 @@ class PKUI extends game.BaseUI_wx4{
 
 
     public onShow(){
+        this.chooseSkill = null;
         PKC.isPKing = true;
         this.resetTouchGroup()
         this.height = GameManager_wx4.uiHeight
@@ -176,6 +179,9 @@ class PKUI extends game.BaseUI_wx4{
         this.addPanelOpenEvent(GameEvent.client.timer,this.onTimer)
         this.addPanelOpenEvent(GameEvent.client.HP_CHANGE,this.renewHp)
         this.addPanelOpenEvent(GameEvent.client.SKILL_USE,this.renewSkillCD)
+
+        if(UM_wx4.level == 1)
+            HelpUI.getInstance().show();
     }
 
     private renewSkill(){
@@ -191,6 +197,21 @@ class PKUI extends game.BaseUI_wx4{
         this.showSkillTouchID = showSkillTouchID
         this.showSkillItem = item
 
+
+        if(data.isActive)
+            this.chooseSkill = data;
+        else
+            this.chooseSkill = null;
+
+        this.renewChooseSkill();
+        this.renewSkillInfo(data);
+        //for(var i=0;i<this.skillArr.length;i++)
+        //{
+        //    this.skillArr[i].setSelect(data)
+        //}
+    }
+
+    private renewSkillInfo(data){
         this.skillInfoGroup.visible = true;
         this.skillInfoItem.data = data;
         var svo = data.getVO();
@@ -203,18 +224,23 @@ class PKUI extends game.BaseUI_wx4{
             this.setHtml(this.skillCDText,this.createHtml('被动技能',0xECAEF9))
         this.setHtml(this.desText, svo.getDes())
 
-        for(var i=0;i<this.skillArr.length;i++)
-        {
-            this.skillArr[i].setSelect(data)
-        }
     }
 
     public hideSkillInfo(){
         this.skillInfoGroup.visible = false;
+        if(this.chooseSkill)
+        {
+            this.renewSkillInfo(this.chooseSkill);
+        }
+    }
+
+    public renewChooseSkill(){
         for(var i=0;i<this.skillArr.length;i++)
         {
-            this.skillArr[i].setSelect(-1)
+            this.skillArr[i].setSelect(this.chooseSkill)
         }
+        if(this.chooseSkill)
+            this.renewSkillInfo(this.chooseSkill);
     }
 
     public onE(){
@@ -234,9 +260,36 @@ class PKUI extends game.BaseUI_wx4{
         }
 
 
-        if(playerData.isDie == 1)
+        //自动选技能
+        if(this.touchID && !this.chooseSkill)
         {
-            playerData.isDie = 2;
+            for(var i=0;i<playerData.skillsList.length;i++)
+            {
+                var skillData = playerData.skillsList[i];
+                if(skillData.isActive && !playerData.getSkillCD(skillData.sid))
+                {
+                    this.chooseSkill = skillData;
+                    this.renewChooseSkill();
+                    break;
+                }
+            }
+        }
+
+        //停下来出招
+        if(this.chooseSkill && !this.touchID)
+        {
+            if(PKC.playerData.useSkill(this.chooseSkill.sid))
+            {
+                this.chooseSkill = null;
+                this.hideSkillInfo();
+                this.renewChooseSkill();
+            }
+        }
+
+
+        if(playerData.isDie == 2)
+        {
+            playerData.isDie = 3;
             RebornUI.getInstance().show();
             this.touchID = null;
             this.resetTouchGroup();
@@ -244,7 +297,7 @@ class PKUI extends game.BaseUI_wx4{
 
         var len = PKC.monsterList.length;
         var redIndex = 0;
-        var hh = this.height + 30
+        var hh = this.height + 30 - 365
         for(var i=0;i<len;i++)
         {
             var monster = PKC.monsterList[i];
@@ -254,7 +307,7 @@ class PKUI extends game.BaseUI_wx4{
             var y = monster.y + ui.con.y
             if(x > -30 && x < 670 && y > -30 && y<hh)
                 continue;
-            this.setMonsterRed(x,y,this.redArr[redIndex])
+            this.setMonsterRed(x,y,this.redArr[redIndex],monster)
             redIndex ++;
             if(redIndex >=10)
                 break
@@ -268,7 +321,7 @@ class PKUI extends game.BaseUI_wx4{
 
         this.renewSkillCD();
 
-        if(PKC.maxStep <= PKC.actionStep)
+        if(PKC.maxStep <= PKC.actionStep && !playerData.isDie)
         {
             PKC.isStop = true;
             if(PKC.haveReborn)
@@ -286,9 +339,14 @@ class PKUI extends game.BaseUI_wx4{
 
         if(PKC.monsterList.length + PKC.autoMonster.length == 0)
             ResultUI.getInstance().show(true)
+
+
+
+
     }
 
     private showAddTimePanel(){
+        PKC.isPKing = false;
         var panel = MyWindow.Confirm('时间到，观看广告可延长30秒的战斗时间',(b)=>{
             if(b == 1)
             {
@@ -297,6 +355,7 @@ class PKUI extends game.BaseUI_wx4{
                     PKC.haveReborn = true;
                     PKC.isStop = false;
                     PKC.maxStep += 30*PKC.frameRate
+                    PKC.isPKing = true;
                     panel.hide();
                 })
             }
@@ -307,16 +366,21 @@ class PKUI extends game.BaseUI_wx4{
         },['放弃', '观看广告'],{stopClose1:true})
     }
 
-    private setMonsterRed(x,y,mc){
+    private setMonsterRed(x,y,mc,mData){
         mc.visible = true
+        mc.source = mData.getVO().getThumb()
 
         var r = 16;
         var wr = 320-r
 
+        var h = 365
+        if(this.skillInfoGroup.visible)
+            h += 120
+
         var playerY = (this.height-320)/2
         var angle = Math.atan2(y-playerY,x-320)
         if(angle >= 0)
-            var hr = this.height - playerY - r;
+            var hr = this.height - playerY - r - h;
         else
             var hr = (playerY - r);
 
@@ -329,7 +393,7 @@ class PKUI extends game.BaseUI_wx4{
                 mc.x = (320 + ww);
             else
                 mc.x = (320 - ww);
-            mc.y = y > playerY?this.height-r:r;
+            mc.y = y > playerY?this.height-r-h:r;
         }
         else
         {

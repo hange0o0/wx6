@@ -13,7 +13,7 @@ class PlayerItem extends game.BaseItem{
     private rightCon: eui.Group;
     private rightKnifeMC: eui.Image;
     private rightHendMC: eui.Image;
-    private hpBar: HPBar;
+    public hpBar: HPBar;
 
 
 
@@ -45,7 +45,8 @@ class PlayerItem extends game.BaseItem{
         this.leftKnifeMC.anchorOffsetX = this.rightKnifeMC.anchorOffsetX = gunVO.anx
         this.leftKnifeMC.anchorOffsetY = this.rightKnifeMC.anchorOffsetY = gunVO.any
 
-
+        this.cleanTween();
+        this.mvKey = '';
         this.renewSkin(1);
 
 
@@ -54,6 +55,8 @@ class PlayerItem extends game.BaseItem{
         this.renewHp();
         //this.showStandMV();
         this.ctrlRota = -90
+
+
     }
 
     public renewSkin(hpStep){
@@ -63,6 +66,9 @@ class PlayerItem extends game.BaseItem{
     }
 
     public renewHp(){
+        if(PKC.isAuto)
+            return;
+        this.hpBar.visible = true;
         this.hpBar.data = this.data;
     }
 
@@ -89,6 +95,9 @@ class PlayerItem extends game.BaseItem{
         egret.Tween.removeTweens(this.leftCon);
         egret.Tween.removeTweens(this.rightCon);
         egret.Tween.removeTweens(this.body);
+        this.leftCon.scaleY = this.leftCon.scaleX = 1;
+        this.rightCon.scaleY = this.rightCon.scaleX = 1;
+        this.body.scaleY = this.body.scaleX = 1;
     }
 
     public isAtking(){
@@ -107,16 +116,18 @@ class PlayerItem extends game.BaseItem{
             return;
         if(this.mvKey == 'walk')
             return;
-        this.mvKey = 'walk'
+        if(this.mvKey == 'die')
+            return;
 
-        egret.Tween.removeTweens(this.leftCon);
+        this.mvKey = 'walk'
+        this.cleanTween();
+
         this.leftCon.scaleX = 1;
         this.leftCon.rotation =  20
         this.leftCon.x = -10;
         this.leftCon.y = 35;
         egret.Tween.get(this.leftCon,{loop:true}).to({x:-5,y:30},100).to({x:-15,y:40},200).to({x:-10,y:35},100);
 
-        egret.Tween.removeTweens(this.rightCon);
         this.rightCon.scaleX = 1;
         this.rightCon.rotation =  -20
         this.rightCon.x = 90;
@@ -124,7 +135,6 @@ class PlayerItem extends game.BaseItem{
         egret.Tween.get(this.rightCon,{loop:true}).to({x:95,y:40},100).to({x:85,y:30},200).to({x:90,y:35},100);
 
 
-        egret.Tween.removeTweens(this.body);
         this.body.x = 40
         this.body.y = 40
     }
@@ -132,17 +142,18 @@ class PlayerItem extends game.BaseItem{
     public showStandMV(){
         if(this.mvKey == 'stand')
             return;
+        if(this.mvKey == 'die')
+            return;
 
         this.mvKey = 'stand'
+        this.cleanTween();
 
-        egret.Tween.removeTweens(this.leftCon);
         this.leftCon.scaleX = 1;
         this.leftCon.rotation =  20
         this.leftCon.x = -10;
         this.leftCon.y = 30;
         egret.Tween.get(this.leftCon,{loop:true}).to({x:-15,y:25},200).to({x:-10,y:30},200);
 
-        egret.Tween.removeTweens(this.rightCon);
         this.rightCon.scaleX = 1;
         this.rightCon.rotation =  -20
         this.rightCon.x = 90;
@@ -150,21 +161,33 @@ class PlayerItem extends game.BaseItem{
         egret.Tween.get(this.rightCon,{loop:true}).to({x:95,y:25},200).to({x:90,y:30},200);
 
 
-        egret.Tween.removeTweens(this.body);
         this.body.x = 40
         this.body.y = 40
 
     }
 
+    public showDieMV(){
+        this.mvKey = 'die'
+        this.hpBar.visible = false;
+        this.cleanTween();
+        egret.Tween.get(this.leftCon).to({scaleX:0,scaleY:0},500);
+        egret.Tween.get(this.rightCon).to({scaleX:0,scaleY:0},500);
+        egret.Tween.get(this.body).to({scaleX:0,scaleY:0},500).wait(500).call(()=>{
+            this.data.isDie = 2;
+        });
+    }
+
 
     public showAtkMV(){
+        if(this.mvKey == 'die')
+            return;
         this.mvKey = 'atk'
         this.atkStep ++;
-        egret.Tween.removeTweens(this.body);
+
+        this.cleanTween();
         var speed = Math.min(200,this.data.atkSpeed*(1000/PKC.frameRate)/2)
         if(this.atkStep %2 == 0) //
         {
-            egret.Tween.removeTweens(this.leftCon);
             this.leftCon.scaleX = 1;
             this.leftCon.rotation =  - 120
             this.leftCon.x = -20;
@@ -178,7 +201,6 @@ class PlayerItem extends game.BaseItem{
         }
         else
         {
-            egret.Tween.removeTweens(this.rightCon);
             this.leftCon.scaleX = 1;
             this.rightCon.rotation =  120
             this.rightCon.x = 80 + 20;
@@ -192,17 +214,18 @@ class PlayerItem extends game.BaseItem{
     }
 
     public showDoubleMV(){
+        if(this.mvKey == 'die')
+            return;
         this.mvKey = 'double'
         var speed = Math.min(200,this.data.atkSpeed*(1000/PKC.frameRate)/2)
+        this.cleanTween();
 
-        egret.Tween.removeTweens(this.leftCon);
         this.leftCon.scaleX = -1;
         this.leftCon.rotation =  80
         this.leftCon.x = 60;
         this.leftCon.y = -20;
         egret.Tween.get(this.leftCon).to({rotation:-140,x:-20,y:60},speed).wait(speed/2).to({scaleX:1}).to({rotation:20,x:-10,y:30},speed);
 
-        egret.Tween.removeTweens(this.rightCon);
         this.rightCon.rotation =  -80
         this.rightCon.x = 20;
         this.rightCon.y = -20;
@@ -215,6 +238,8 @@ class PlayerItem extends game.BaseItem{
     }
 
     public showShootMV(){
+        if(this.mvKey == 'die')
+            return;
         this.mvKey = 'shoot'
         this.cleanTween()
         this.leftCon.rotation = 0
@@ -423,6 +448,8 @@ class PlayerItem extends game.BaseItem{
 
     public testAtk(){
         var playerData = this.data
+        if(playerData.isDie)
+            return;
         if(!playerData.canAtk())
             return;
 

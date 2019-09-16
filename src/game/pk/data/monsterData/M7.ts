@@ -12,17 +12,20 @@ class M7 extends MBase{
     public skillCD = PKTool.getStepByTime(5000)//技能间隔
 
     public canSkill(){
-        return super.canSkill() && MyTool.getDis(this,PKC.playerData)>300
+        return super.canSkill() && MyTool.getDis(this,PKC.playerData)>300 && !PKC.playerData.isDie
     }
 
     private lineItem;
-    //public onBeHit(){
-    //    if(this.lineItem && this.lineItem.owner == this && !this.lineItem.isDie)
-    //    {
-    //        this.lineItem.isDie = 2;
-    //        this.lineItem = null
-    //    }
-    //}
+    public onBeHit(){
+
+        if(this.lineItem && this.lineItem.owner == this && !this.lineItem.isDie)
+        {
+            this.lineItem.isDie = 2;
+            this.lineItem = null
+            this.moving = false;
+            this.skillEnd = 0;
+        }
+    }
 
     public skillFun(){
         this.skillEnd = Number.MAX_VALUE

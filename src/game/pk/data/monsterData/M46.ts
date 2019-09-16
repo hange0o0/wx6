@@ -18,7 +18,7 @@ class M46 extends MBase{
         bullet.hitPass = true
         bullet.setMV(8);
         bullet.endTime = PKC.actionStep + 150
-        bullet.speed = 7
+        bullet.speed = 6
         bullet.atk = this.atk
         bullet.moveFun = ()=>{
             rota = Math.atan2(playerData.y - bullet.y,playerData.x-bullet.x)

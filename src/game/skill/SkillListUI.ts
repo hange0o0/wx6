@@ -72,15 +72,25 @@ class SkillListUI extends game.BaseWindow_wx4 {
         if(this.tab.selectedIndex == 1)
         {
             var list = ObjectUtil_wx4.objToArray(MonsterVO.data)
+            for(var i=0;i<list.length;i++)
+            {
+                list[i].temp = list[i].isHero()?1:0
+            }
             this.setTitle('怪物图鉴')
+            ArrayUtil_wx4.sortByField(list,['temp','level','id'],[0,0,0])
         }
         else
         {
             var list = ObjectUtil_wx4.objToArray(SkillVO.data)
+            for(var i=0;i<list.length;i++)
+            {
+                list[i].temp = SkillManager.getInstance().getSkillNum(list[i].id);
+            }
+            ArrayUtil_wx4.sortByField(list,['temp','level','id'],[1,1,1]);
             this.setTitle('技能图鉴')
         }
 
-        ArrayUtil_wx4.sortByField(list,['level','id'],[0,0])
+
 
         this.list.dataProvider = new eui.ArrayCollection(list)
         this.list.selectedIndex = 0;

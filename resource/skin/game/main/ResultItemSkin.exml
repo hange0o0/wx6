@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ResultItemSkin" width="100" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="ResultItemSkin" width="100" height="135" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="mc" width="100" height="100" x="0" y="0"/>
 	<e:Image id="upMC" source="common_up_png" x="83" y="-5.25" scaleX="0.5" scaleY="0.5"/>
 	<e:Image id="newMC" source="icon_new_png" y="-10" right="-20"/>
-	<e:Group y="103" horizontalCenter="0">
+	<e:Image source="black_bg_alpha2_png" x="0" y="70" height="30" width="100"/>
+	<e:Group y="72" horizontalCenter="0">
 		<e:Image source="split_mc_png" x="0" y="0" scaleX="0.5" scaleY="0.5"/>
-		<e:Label id="nameText" text="Label" size="24" x="8" y="3"/>
+		<e:Label id="numText" text="Label" size="22" x="8" y="3"/>
 		<e:layout>
 			<e:HorizontalLayout verticalAlign="bottom"/>
 		</e:layout>
 	</e:Group>
+	<e:Label id="nameText" text="Label" size="24" horizontalCenter="0" bottom="0"/>
 </e:Skin>

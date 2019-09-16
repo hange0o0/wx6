@@ -18,8 +18,8 @@
 			<e:VerticalLayout gap="30"/>
 		</e:layout>
 	</e:Group>
-	<e:Image id="ad1" width="90" height="90" x="20" bottom="350"/>
-	<e:Image id="ad2" width="90" height="90" bottom="350" right="20"/>
+	<e:Image id="ad1" width="90" height="90" right="20" y="110"/>
+	<e:Image id="ad2" width="90" height="90" right="20" y="220"/>
 	<e:Image source="main_bg_01_png" bottom="0" left="0" right="0" scale9Grid="13,13,84,84"/>
 	<e:Group horizontalCenter="0" bottom="20">
 		<e:Group id="skillBtn" x="0" y="0" width="180">

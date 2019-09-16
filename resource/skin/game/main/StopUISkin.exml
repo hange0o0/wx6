@@ -3,7 +3,7 @@
 		<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
 	<e:Group horizontalCenter="0" bottom="50">
 		<e:Button id="closeBtn" label="认输退出" skinName="Btn1Skin" width="180" x="0" y="0"/>
-		<e:Button id="okBtn" label="确定" width="180" x="0" y="0" skinName="Btn2Skin"/>
+		<e:Button id="okBtn" label="继续游戏" width="180" x="0" y="0" skinName="Btn2Skin"/>
 		<e:layout>
 			<e:HorizontalLayout gap="50"/>
 		</e:layout>

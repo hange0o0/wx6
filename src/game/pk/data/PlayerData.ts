@@ -218,6 +218,7 @@ class PlayerData{
     //对怪物加上攻击BUFF
     public addGunBuff(monster,isNearAtk?){
         var monsterItem = monster.relateItem
+        monster.lastBeHitTime = PKC.actionStep
         if(monster.hp <= 0)
         {
             var playerData = PKC.playerData
@@ -284,34 +285,18 @@ class PlayerData{
 
 
     public useSkill(id){
-        if(id == 4)
-        {
-            if(PKC.actionStep - this.skills[4].changeSkillTime < 30)
-                return
-            if(this.isSkilling)
-            {
-
-                if(this.isSkilling != 4)
-                    return;
-            }
-            else
-            {
-                if(this.getSkillCD(id) > 0)
-                    return;
-            }
-        }
-        else
-        {
-            if(this.isSkilling)
-                return;
-            if(this.getSkillCD(id) > 0)
-                return;
-        }
+        if(this.isDie)
+            return false;
+        if(this.isSkilling)
+            return false;
+        if(this.getSkillCD(id) > 0)
+            return false;
 
         if(this.skills[id] && this.skills[id].onUse())
         {
             this.skillCD[id] = PKC.actionStep + this.skills[id].maxCD;
             EM_wx4.dispatch(GameEvent.client.SKILL_USE)
+            return true;
         }
     }
 
@@ -324,6 +309,8 @@ class PlayerData{
     }
 
     public addHp(v,enemy?){
+        if(this.isDie)
+            return;
         if(v<0)
         {
             if(this.wudiStep > 0)
@@ -360,6 +347,7 @@ class PlayerData{
 
 
         this.hp += v;
+
         if(this.hp > this.maxHp)
         {
             this.hp = this.maxHp
@@ -371,8 +359,23 @@ class PlayerData{
         }
 
         this.relateItem.renewHp();
+        if(this.hp <= 0)
+        {
+            this.onDie()
+        }
+
         PKTool.showHpChange(this,v)
         EM_wx4.dispatchEventWith(GameEvent.client.HP_CHANGE)
+    }
+
+    private onDie(){
+        this.isSkilling = 0;
+        this.isFar = false;
+        this.isSkillingStopMove = false;
+        this.isHide = false
+        this.relateItem.alpha = 1
+
+        this.relateItem.showDieMV();
     }
 
     public canAtk(){

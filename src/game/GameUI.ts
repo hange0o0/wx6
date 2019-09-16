@@ -380,7 +380,7 @@ class GameUI extends game.BaseUI_wx4 {
     }
 
     public renewGun(){
-        PKC.playerData.gunid = GunManager.getInstance().gunid;
+        PKC.playerData.initData();
         PKC.playerData.relateItem.dataChanged();
         this.renewRed();
     }
