@@ -93,9 +93,12 @@ class DebugUI extends game.BaseUI_wx4 {
             MyWindow.ShowTips(UM_wx4.shareUser[2])
         })
 
-        this.addB('跳过分享',()=>{
-            DM.jumpPK = ! DM.jumpPK
-            MyWindow.ShowTips('跳过分享:' + DM.jumpPK)
+        this.addB('胜一场',()=>{
+            var result = PKManager.getInstance().getWinResult()
+            PKManager.getInstance().endGame(result);
+            PKManager.getInstance().endGame(result);
+            PKManager.getInstance().endGame(result);
+            MyWindow.ShowTips('OK')
         })
 
         this.addB('插屏广告',()=>{

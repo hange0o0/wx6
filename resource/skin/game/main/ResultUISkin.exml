@@ -34,7 +34,7 @@
 	<e:Group id="failGroup" horizontalCenter="0" bottom="20">
 		<e:Image width="368" height="26" x="0" y="0" source="black_bg_png"/>
 		<e:Image id="barMC" width="180" height="18" x="4" y="4" source="yellor_bg_png"/>
-		<e:Label id="rateText" text="剩余怪物：60%" size="20" textColor="0xfce662" verticalCenter="0" x="380"/>
+		<e:Label id="rateText" text="剩余怪物：60%" size="20" textColor="0xfce662" verticalCenter="0" x="400"/>
 	</e:Group>
 	<e:Label id="titleText" text="大胜！" y="150" size="60" bold="true" horizontalCenter="10"/>
 	<e:Image id="ad1" width="90" height="90" x="20" bottom="300"/>

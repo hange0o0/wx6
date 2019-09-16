@@ -133,7 +133,8 @@ class PlayerData{
         {
             if(i+1 == 4)//不要炮台技能
                 continue;
-            skill.push(i+1);
+            if(SkillManager.getInstance().getSkillNum(i+1))
+                skill.push(i+1);
         }
         ArrayUtil_wx4.random(skill,3);
         skill.length = 6

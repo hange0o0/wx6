@@ -69,7 +69,7 @@ class PKCode_wx4 {
             return;
         if(this.isAuto)
         {
-            if(this.monsterList.length < 2)
+            if(this.monsterList.length < 5)
             {
                 if(this.autoMonster.length == 0)
                 {

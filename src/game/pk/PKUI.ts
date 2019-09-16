@@ -260,30 +260,34 @@ class PKUI extends game.BaseUI_wx4{
         }
 
 
-        //自动选技能
-        if(this.touchID && !this.chooseSkill)
+        if(!playerData.isDie)
         {
-            for(var i=0;i<playerData.skillsList.length;i++)
+            //自动选技能
+            if(this.touchID && !this.chooseSkill)
             {
-                var skillData = playerData.skillsList[i];
-                if(skillData.isActive && !playerData.getSkillCD(skillData.sid))
+                for(var i=0;i<playerData.skillsList.length;i++)
                 {
-                    this.chooseSkill = skillData;
-                    this.renewChooseSkill();
-                    break;
+                    var skillData = playerData.skillsList[i];
+                    if(skillData.isActive && !playerData.getSkillCD(skillData.sid))
+                    {
+                        this.chooseSkill = skillData;
+                        this.renewChooseSkill();
+                        break;
+                    }
                 }
             }
-        }
 
-        //停下来出招
-        if(this.chooseSkill && !this.touchID)
-        {
-            if(PKC.playerData.useSkill(this.chooseSkill.sid))
+            //停下来出招
+            if(this.chooseSkill && !this.touchID)
             {
-                this.chooseSkill = null;
-                this.hideSkillInfo();
-                this.renewChooseSkill();
+                if(PKC.playerData.useSkill(this.chooseSkill.sid))
+                {
+                    this.chooseSkill = null;
+                    this.hideSkillInfo();
+                    this.renewChooseSkill();
+                }
             }
+
         }
 
 
@@ -293,6 +297,10 @@ class PKUI extends game.BaseUI_wx4{
             RebornUI.getInstance().show();
             this.touchID = null;
             this.resetTouchGroup();
+
+            this.chooseSkill = null;
+            this.hideSkillInfo();
+            this.renewChooseSkill();
         }
 
         var len = PKC.monsterList.length;
