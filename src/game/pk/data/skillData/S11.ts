@@ -19,7 +19,7 @@ class S11 extends SBase{
 
         this.step = 10;
 
-        var rota = item.ctrlRota/180*Math.PI;
+        var rota = item.ctrlRota/180*Math.PI + Math.PI;
         item.resetXY(
             item.x + this.distance*Math.cos(rota),
             item.y + this.distance*Math.sin(rota)

@@ -36,15 +36,10 @@ class StopUI extends game.BaseWindow_wx4 {
         super.childrenCreated();
         this.setTitle('游戏暂停')
         this.addBtnEvent(this.closeBtn,()=>{
-            MyWindow.Confirm('已消耗的体力不会被返还，确定要退出本关吗？',(b)=>{
-                if(b==1)
-                {
-                    this.hide();
-                    PKUI.getInstance().hide();
-                    if(RebornUI.getInstance().stage)
-                        RebornUI.getInstance().hide();
-                }
-            });
+            this.hide();
+            PKUI.getInstance().hide();
+            if(RebornUI.getInstance().stage)
+                RebornUI.getInstance().hide();
         })
 
         this.addBtnEvent(this.okBtn,()=>{

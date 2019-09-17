@@ -9,4 +9,5 @@
 	</e:Group>
 	<e:Image source="bg17_png" x="10" scaleX="0.65" scaleY="-0.65" scale9Grid="12,5,56,31" width="100" includeIn="s1" top="8"/>
 	<e:Label id="levelText" text="10级" size="20" bold="false" x="12" y="12" stroke="2" includeIn="s1"/>
+	<e:Image id="selectMC" source="common_select_01_png" left="0" right="0" top="0" scale9Grid="19,17,25,24" height="100"/>
 </e:Skin>

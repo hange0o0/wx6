@@ -139,6 +139,7 @@ class PKManager {
         var cost = this.getUpCost();
         this.playerLevel ++;
         UM_wx4.addCoin(-cost);
+        SoundManager.getInstance().playEffect('upgrade')
     }
 
 

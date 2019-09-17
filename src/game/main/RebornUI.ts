@@ -62,6 +62,7 @@ class RebornUI extends game.BaseWindow_wx4{
             PKC.playerData.relateItem.mvKey = null
             PKC.playerData.relateItem.showStandMV()
             PKC.playerData.wudiStep = 30*5;
+            SoundManager.getInstance().playEffect('reborn')
             return;
         }
         this.step --;

@@ -108,6 +108,6 @@ class BombItem extends game.BaseItem{
                 mData.addHp(-this.decHp);
             }
         }
-
+        SoundManager.getInstance().playEffect('boom')
     }
 }

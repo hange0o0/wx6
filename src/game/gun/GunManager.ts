@@ -28,6 +28,7 @@ class GunManager extends egret.EventDispatcher {
     public addGun(id){
         if(!this.isHaveGun(id))
         {
+            SoundManager.getInstance().playEffect('unlock')
             this.gunid = id;
             this.myGun.push(id+'')
             UM_wx4.needUpUser = true;

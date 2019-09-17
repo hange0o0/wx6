@@ -101,6 +101,10 @@ class ResultUI extends game.BaseUI_wx4{
     public renew(){
         var rate = PKC.monsterList.length/PKC.roundMonsterNum
         this.result = this.isWin?PKManager.getInstance().getWinResult():PKManager.getInstance().getFailResult(1-rate)
+        if(this.isWin)
+            SoundManager.getInstance().playEffect('win')
+        else
+            SoundManager.getInstance().playEffect('lose')
 
         var list = [];
         for(var s in this.result.skill)

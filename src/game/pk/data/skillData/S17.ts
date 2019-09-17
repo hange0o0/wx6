@@ -6,7 +6,7 @@ class S17 extends SBase{
     public data = {
         id:17,
         hp:300,
-        hurtDis:50,
+        hurtDis:100,
         hurt:10,
     }
 

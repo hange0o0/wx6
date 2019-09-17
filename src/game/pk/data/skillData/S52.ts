@@ -21,15 +21,8 @@ class S52 extends SBase{
         //playerData.isSkillingStopMove = true
 
 
-        var num = 8;
-        var step = 30;
-
-
-        var monster = MTool.getNearMonster();
-        if(!monster)
-            return false;
-
-        var addRota = Math.PI/4
+        var num = 4;
+        var addRota = Math.PI/2
         for(var i=0;i<num;i++)
         {
             var bullet = PKCodeUI.getInstance().shoot(playerData,addRota*i);

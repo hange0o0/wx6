@@ -1,9 +1,11 @@
 class SkillListItem extends game.BaseItem{
 
     private mc: eui.Image;
-    private levelText: eui.Label;
     private barMC: eui.Image;
     private rateText: eui.Label;
+    private levelText: eui.Label;
+    private selectMC: eui.Image;
+
 
 
     public constructor() {
@@ -22,6 +24,11 @@ class SkillListItem extends game.BaseItem{
             this.renewMonster();
         else
             this.renewSkill();
+        this.setSelect();
+    }
+
+    public setSelect(){
+        this.selectMC.visible = this.data == SkillListUI.getInstance().list.selectedItem;
     }
 
     private renewMonster(){

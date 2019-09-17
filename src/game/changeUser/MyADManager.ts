@@ -13,7 +13,7 @@ class MyADManager {
     public extraData
     public finishExtraUin = -1;
 
-    public cloudPath = 'cloud://server1-4083a5.7365-server1-4083a5/'
+    public cloudPath = 'cloud://server1-t74ww.7365-server1-t74ww/'
     //public myAppID = 'wxe066524f2972cb1a'
     public adList;
 

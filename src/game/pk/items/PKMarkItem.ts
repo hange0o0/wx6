@@ -98,6 +98,11 @@ class PKMarkItem extends game.BaseItem{
                 playerData.addHp(-this.hurt,this.owner)
             }
 
+            if(this.data.sound)
+            {
+                SoundManager.getInstance().playEffect(this.data.sound)
+            }
+
         }
 
     }

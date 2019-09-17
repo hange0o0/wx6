@@ -6,7 +6,7 @@ class S16 extends SBase{
     public data = {
         id:16,
         hp:300,
-        hurtDis:50,
+        hurtDis:100,
         hurt:50,
     }
 
@@ -15,6 +15,7 @@ class S16 extends SBase{
     public onCreate(){
         this.hurtRate = this.getValue(1)/100
         this.data.hp = PKTool.getStepByTime(this.getValue(2)*1000)
+        this.data.hurtDis = PKC.playerData.atkDis/2
     }
 
     public onUse(){

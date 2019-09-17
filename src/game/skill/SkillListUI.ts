@@ -8,7 +8,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
     }
 
     private scroller: eui.Scroller;
-    private list: eui.List;
+    public list: eui.List;
     private con: eui.Group;
     private atkText: eui.Label;
     private nameText: eui.Label;
@@ -65,6 +65,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
 
     public onShow(){
         this.renew();
+
         //this.inputText.text = ''
     }
 
@@ -91,9 +92,9 @@ class SkillListUI extends game.BaseWindow_wx4 {
         }
 
 
-
-        this.list.dataProvider = new eui.ArrayCollection(list)
         this.list.selectedIndex = 0;
+        this.list.dataProvider = new eui.ArrayCollection(list)
+
         this.renewChoose()
     }
 
@@ -109,6 +110,7 @@ class SkillListUI extends game.BaseWindow_wx4 {
         {
             this.renewSkillInfo(this.list.selectedItem)
         }
+        MyTool.runListFun(this.list,'setSelect')
     }
 
     private renewSkillInfo(svo){

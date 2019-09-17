@@ -8,6 +8,7 @@ class M10 extends MBase{
         MTool.markAtkFun(100,1,{
             owner:this,
             hurt:this.atk,
+            sound:'thurder',
             mv:{
                 url:'monster1_mv',
                 num:3,

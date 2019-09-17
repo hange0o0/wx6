@@ -10,7 +10,7 @@ class S12 extends SBase{
 
     public onUse(){
         var playerData = PKC.playerData
-        if(playerData.hp < playerData.maxHp)
+        if(playerData.hp >= playerData.maxHp)
             return false
         playerData.addHp(this.addHp)
         AniManager_wx3.getInstance().playInItem(128,playerData.relateItem,{x:40,y:40})

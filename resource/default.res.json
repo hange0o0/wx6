@@ -2055,11 +2055,6 @@
 			"url":"game_assets2/skill/skill_52.jpg"
 		},
 		{
-			"name":"skill_53_jpg",
-			"type":"image",
-			"url":"game_assets2/skill/skill_53.jpg"
-		},
-		{
 			"name":"bullet13_png",
 			"type":"image",
 			"url":"game_assets2/ani/bullet13.png"

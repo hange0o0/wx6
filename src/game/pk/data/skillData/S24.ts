@@ -5,6 +5,7 @@ class S24 extends SBase{
     public hurt = 1.5
     public totalStep = 5
     public step = 5
+    public monsterList = []
     public onCreate(){
         this.hurt = this.getValue(2)/100
         this.totalStep = this.getValue(1)
@@ -14,6 +15,7 @@ class S24 extends SBase{
         var playerData = PKC.playerData;
         playerData.isSkilling = this.sid;
         playerData.isSkillingStopMove = true;
+        this.monsterList = PKC.monsterList.concat();
 
         this.step = this.totalStep;
         return true;
@@ -24,7 +26,18 @@ class S24 extends SBase{
         if(playerData.isSkilling != this.sid)
             return;
         this.step --;
-        var rota = Math.random()*2*Math.PI;
+
+        var monster = this.monsterList.pop();
+        if(monster)
+        {
+            var rota = PKTool.getRota(playerData,monster)
+        }
+        else
+        {
+            var rota = Math.random()*2*Math.PI;
+        }
+
+
         playerData.relateItem.roleCon.rotation = rota/Math.PI*180+90
         playerData.relateItem.showShootMV();
 

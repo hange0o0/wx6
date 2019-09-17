@@ -13,9 +13,8 @@ class GunListUI extends game.BaseWindow_wx4{
     private playerItem: PlayerItem;
 
 
-
-
-
+    private atkSpeed = 0;
+    private doubleRate = 0;
     private actionStep = 0;
     public get data(){
         return this.list.selectedItem;
@@ -53,14 +52,14 @@ class GunListUI extends game.BaseWindow_wx4{
         this.actionStep -- ;
         if(this.actionStep <=0)
         {
-            this.actionStep = 100 + Math.random()*100
-            if(Math.random()<0.8)
+            this.actionStep = this.atkSpeed
+            if(Math.random()<this.doubleRate)
             {
-                this.playerItem.showAtkMV()
+                this.playerItem.showDoubleMV()
             }
             else
             {
-                this.playerItem.showDoubleMV()
+                this.playerItem.showAtkMV()
             }
         }
     }
@@ -98,6 +97,11 @@ class GunListUI extends game.BaseWindow_wx4{
         arr.push(this.createText('暴击倍数',MyTool.toFixed(vo.doublevalue,1) + '倍'))
         arr.push(this.createText('闪避率',vo.missrate + '%'))
         this.setHtml(this.atkText,arr.join('\n'));
+
+        this.atkSpeed = PKTool.getStepByTime(vo.atkspeed)
+        this.doubleRate = vo.doublerate/100
+        this.actionStep = this.atkSpeed
+        this.playerItem.showStandMV()
 
     }
 

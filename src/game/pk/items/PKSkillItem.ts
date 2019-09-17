@@ -24,10 +24,11 @@ class PKSkillItem extends game.BaseItem{
         this.beMC.visible = false
 
         this.addChild(this.mv);
-        this.mv.setData(PKTool.getMVList('board_mv',10))
+        this.mv.setData(PKTool.getMVList('board_mv',10),100)
         this.mv.visible = false
         this.mv.isLoop = true
-        this.mv.x = this.mv.y = -2
+        this.mv.x = -2
+        this.mv.y = -5
         this.mv.scaleX = this.mv.scaleY = 2.1
         this.mv.stop();
     }

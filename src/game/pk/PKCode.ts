@@ -100,6 +100,10 @@ class PKCode_wx4 {
             this.monsterList.push(monster)
             if(monster.mid == 65)
                 monster.callAble = true
+            if(MonsterVO.getObject(mid).isHero())
+            {
+                SoundManager.getInstance().playEffect('boss')
+            }
         }
     }
 

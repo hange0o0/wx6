@@ -349,6 +349,7 @@ class PlayerData{
 
         this.hp += v;
 
+
         if(this.hp > this.maxHp)
         {
             this.hp = this.maxHp
@@ -364,6 +365,10 @@ class PlayerData{
         {
             this.onDie()
         }
+        else if(v<0)
+        {
+            SoundManager.getInstance().playEffect('playerbehit')
+        }
 
         PKTool.showHpChange(this,v)
         EM_wx4.dispatchEventWith(GameEvent.client.HP_CHANGE)
@@ -376,6 +381,7 @@ class PlayerData{
         this.isHide = false
         this.relateItem.alpha = 1
 
+        SoundManager.getInstance().playEffect('playerdie')
         this.relateItem.showDieMV();
     }
 

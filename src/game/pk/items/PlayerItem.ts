@@ -172,7 +172,7 @@ class PlayerItem extends game.BaseItem{
         this.cleanTween();
         egret.Tween.get(this.leftCon).to({scaleX:0,scaleY:0},500);
         egret.Tween.get(this.rightCon).to({scaleX:0,scaleY:0},500);
-        egret.Tween.get(this.body).to({scaleX:0,scaleY:0},500).wait(500).call(()=>{
+        egret.Tween.get(this.body).to({scaleX:0,scaleY:0},700).wait(500).call(()=>{
             this.data.isDie = 2;
         });
     }
@@ -211,6 +211,7 @@ class PlayerItem extends game.BaseItem{
             this.body.y = 50
             egret.Tween.get(this.body).to({x:35,y:35},speed).to({x:40,y:40},speed).call(this.showStandMV,this);
         }
+        SoundManager.getInstance().playEffect('atk')
     }
 
     public showDoubleMV(){
@@ -234,6 +235,7 @@ class PlayerItem extends game.BaseItem{
         this.body.x = 40
         this.body.y = 50
         egret.Tween.get(this.body).to({y:35},speed).wait(speed/2).to({y:40},speed).call(this.showStandMV,this);
+        SoundManager.getInstance().playEffect('atk')
 
     }
 
@@ -255,7 +257,7 @@ class PlayerItem extends game.BaseItem{
         this.body.x = 40
         this.body.y = 40
         egret.Tween.get(this.body).to({y:50},100).to({y:40},100).call(this.showStandMV,this);
-
+        SoundManager.getInstance().playEffect('arc')
     }
 
 
@@ -322,8 +324,12 @@ class PlayerItem extends game.BaseItem{
     }
 
     public move(touchID){
-        this.lastMoveTime = PKC.actionStep
         var playerData = this.data
+        if(playerData.isDie)
+            return;
+
+        this.lastMoveTime = PKC.actionStep
+
 
         var angle = Math.atan2(touchID.y2-touchID.y1,touchID.x2-touchID.x1)
         var rota1 = PKTool.resetAngle(angle/Math.PI*180);

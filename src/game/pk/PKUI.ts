@@ -41,6 +41,7 @@ class PKUI extends game.BaseUI_wx4{
     public redArr = [];
     public showSkillTouchID;
     public showSkillItem;
+    public lastShowTips = 0;
 
     public chooseSkill;//玩家先择要释放的技能
 
@@ -286,6 +287,24 @@ class PKUI extends game.BaseUI_wx4{
                     this.hideSkillInfo();
                     this.renewChooseSkill();
                 }
+                else if(egret.getTimer() - this.lastShowTips > 1000){
+                    this.lastShowTips = egret.getTimer()
+                    switch(this.chooseSkill.sid + '')
+                    {
+                        case '12':
+                            MyWindow.ShowTips('生命已达上限')
+                            break;
+                        case '3':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '13':
+                        case '22':
+                        case '29':
+                            MyWindow.ShowTips('没有合适的目标')
+                            break;
+                    }
+                }
             }
 
         }
@@ -355,7 +374,7 @@ class PKUI extends game.BaseUI_wx4{
 
     private showAddTimePanel(){
         PKC.isPKing = false;
-        var panel = MyWindow.Confirm('时间到，观看广告可延长30秒的战斗时间',(b)=>{
+        var panel = MyWindow.Confirm('时间到，当前剩余 '+(PKC.monsterList.length + PKC.autoMonster.length)+' 个怪物，观看广告可额外获得 30秒 的战斗时间',(b)=>{
             if(b == 1)
             {
                 ShareTool.openGDTV(()=>{
@@ -371,7 +390,7 @@ class PKUI extends game.BaseUI_wx4{
             {
                 ResultUI.getInstance().show(false)
             }
-        },['放弃', '观看广告'],{stopClose1:true})
+        },['结束游戏', '观看广告'],{stopClose1:true})
     }
 
     private setMonsterRed(x,y,mc,mData){
