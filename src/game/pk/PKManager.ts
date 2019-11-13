@@ -162,6 +162,8 @@ class PKManager {
     public sendKey
     public sendKeyName
     public sendGameStart(key){
+        if(Config.isZJ || Config.isQQ)
+            return;
         var wx = window['wx']
         if(!wx)
             return;
@@ -175,6 +177,8 @@ class PKManager {
     }
 
     public sendGameReborn(type){
+        if(Config.isZJ || Config.isQQ)
+            return;
         var wx = window['wx']
         if(!wx)
             return;
@@ -190,6 +194,8 @@ class PKManager {
     }
 
     public sendGameEnd(isSuccess,info?){
+        if(Config.isZJ || Config.isQQ)
+            return;
         var wx = window['wx']
         if(!wx)
             return;

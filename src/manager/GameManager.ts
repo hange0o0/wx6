@@ -295,6 +295,7 @@ if(window["wx"])
     window["PKSkillItem"] = PKSkillItem
     window["HPBar"] = HPBar
     window["PlayerItem"] = PlayerItem
+    window["Net"] = Net.getInstance()
 
 
     var wx =  window["wx"];

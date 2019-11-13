@@ -33,12 +33,24 @@ class RankUI extends game.BaseWindow_wx4{
         this.infoBtn = new UserInfoBtn(this.openBtn, (res)=>{
             this.renewInfo(res);
         }, this, Config.localResRoot + "wx_btn_info.png");
+        this.infoBtn.force = true
 
         this.scroller.viewport = this.list;
         this.list.itemRenderer = RankItem;
 
         this.tab.addEventListener(egret.Event.CHANGE,this.onTab,this)
         this.tab.selectedIndex = 0;
+
+        if(Config.isZJ)//字节不显示好友
+        {
+            //let ss = (<eui.ArrayCollection>this.tab.dataProvider).source;
+            //ss.shift();
+            //ss.shift();
+            //this.tab.dataProvider = new eui.ArrayCollection(ss);
+            this.tab.visible = false;
+            this.tab.selectedIndex = 0;
+            this.setTitle('生存天数排行榜')
+        }
     }
 
     private renewInfo(res?){
@@ -68,7 +80,10 @@ class RankUI extends game.BaseWindow_wx4{
         if(!window['wx'])
             return;
         this.remove();
-        if(this.tab.selectedIndex == 1)
+        var selectindex = this.tab.selectedIndex;
+        if(Config.isZJ)
+            selectindex += 1;
+        if(selectindex == 1)
         {
             this.worldRank('level',UM_wx4.level);
         }
@@ -91,7 +106,7 @@ class RankUI extends game.BaseWindow_wx4{
             return;
         }
 
-        var oo = {
+        var oo:any = {
             type:type,
             openid:UM_wx4.gameid,
             nick:UM_wx4.nick,
@@ -99,6 +114,21 @@ class RankUI extends game.BaseWindow_wx4{
             value:myValue,
         }
         console.log(oo)
+
+        if(Config.isZJ || Config.isQQ)
+        {
+            oo.openid2 = UM_wx4.gameid2;
+            Net.getInstance().getRankData(oo,(data)=>{
+                this.rankData[oo.type] = {
+                    list:data.result,
+                    time:TM_wx4.now()
+                }
+                this.showRank(type);
+            })
+            return;
+        }
+
+
         MsgingUI.getInstance().show()
         wx.cloud.callFunction({      //取玩家openID,
             name: 'getRank',

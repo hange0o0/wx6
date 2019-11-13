@@ -65,6 +65,13 @@ class PopUpManager {
 //            console.log(display.width,display.height);
             var x = display['baseX'] = (ww - display.width) / 2;
             var y = display['baseY'] = (hh - display.height) / 2;
+            if(y<100)
+            {
+                y = 100;
+                if(y + display.height > hh)
+                    y = hh - display.height
+            }
+
             var x2 = (ww - display.width*1.1) / 2;
             var y2 = (hh - display.height*1.1) / 2;
             display.alpha = 1;

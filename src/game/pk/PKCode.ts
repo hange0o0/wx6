@@ -29,6 +29,7 @@ class PKCode_wx4 {
     public maxBossNum = 0
     public roundMonsterNum = 0
     public maxStep = 0
+    public lastMonsterStep = 0
     public randomSeed = 99999999;
 
     public isPKing = false
@@ -120,6 +121,11 @@ class PKCode_wx4 {
 
 
     public initData(){
+        if(ZijieScreenBtn.e)
+        {
+            ZijieScreenBtn.e.init();
+        }
+
         this.monsterAddAtk = 0
         this.monsterAddSpeed= 0
         this.isStop = false;
@@ -129,6 +135,7 @@ class PKCode_wx4 {
         PKMonsterAction_wx3.getInstance().init();
         this.autoMonster = this.getLevelMonster(UM_wx4.level);
         this.maxStep = this.autoMonster[this.autoMonster.length-1].step + (30 + this.maxBossNum*20)*this.frameRate;
+        this.lastMonsterStep = this.autoMonster[this.autoMonster.length-1].step
         //PKBulletManager_wx3.getInstance().freeAll();
     }
 

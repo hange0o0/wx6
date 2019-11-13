@@ -104,6 +104,18 @@ class DebugUI extends game.BaseUI_wx4 {
         this.addB('插屏广告',()=>{
             MyADManager.getInstance().showInsert()
         })
+        this.addB('节点跳转',()=>{
+            var wx = window['wx']
+            wx.navigateToMiniProgram({
+                appId: 'tt14f862458bd2e750',//wx4
+                success: function (e) {
+                    console.log('success',e)
+                },
+                fail: function (e) {
+                    console.log('fail',e)
+                }
+            })
+        })
     }
 
     private addB(label,fun){

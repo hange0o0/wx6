@@ -137,6 +137,7 @@ class ShareTool {
         //if(MobileQU.isWXGame){ //视频广告，需要基础库版本号 >= 2.0.4
         if(!window["wx"].createRewardedVideoAd){
             MyWindow.Alert('暂不支持视频广告')
+            return;
         }
         if(window["wx"].isPlayAD) return;//不能重复触发，否则会触发error
         window["wx"].isPlayAD = true;
@@ -162,6 +163,7 @@ class ShareTool {
             this.videoAD.onError(errorFun);
         }
         this.videoAD.load().then(() =>this.videoAD.show()).catch(err => {
+            console.log(11)
             ChangeJumpUI.getInstance().show('没有可观看的广告\n体验以上小程序'+MyTool.createHtml(30,0xFFFF00)+'秒也可获得',success,closeFun)
             //MyWindow.ShowTips('没有可观看的广告，请稍后再尝试')
             window["wx"].isPlayAD = false

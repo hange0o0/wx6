@@ -22,12 +22,14 @@ class ResultUI extends game.BaseUI_wx4{
 
 
 
-
+    public zjVideo = false
+    public zjVideoTimes = 0;
 
 
     public isWin;
     public result;
     public rate = 3;
+    public alertRate = 1;
     public constructor() {
         super();
         this.skinName = "ResultUISkin";
@@ -57,6 +59,23 @@ class ResultUI extends game.BaseUI_wx4{
         })
 
         this.addBtnEvent(this.shareBtn,()=>{
+            if(this.zjVideo)
+            {
+                ZijieScreenBtn.e.awardPublish(()=>{
+                    this.zjVideoTimes ++;
+                    MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin*this.rate,2),0xFFFF00),1000)
+                    MyWindow.ShowTips('获得技能碎片：'+MyTool.createHtml('+' + this.result.skillNum*this.rate,0xFFFF00),1000)
+                    this.close();
+                    SoundManager.getInstance().playEffect('coin')
+                    this.rate --
+                    while(this.rate > 0)
+                    {
+                        PKManager.getInstance().endGame(this.result);
+                        this.rate --
+                    }
+                })
+                return;
+            }
             ShareTool.openGDTV(()=>{
                 MyWindow.ShowTips('获得金币：'+MyTool.createHtml('+' + NumberUtil_wx4.addNumSeparator(this.result.coin*this.rate,2),0xFFFF00),1000)
                 MyWindow.ShowTips('获得技能碎片：'+MyTool.createHtml('+' + this.result.skillNum*this.rate,0xFFFF00),1000)
@@ -81,6 +100,7 @@ class ResultUI extends game.BaseUI_wx4{
     }
 
     public onShow(){
+        ZijieScreenBtn.e && ZijieScreenBtn.e.stop();
         this.renew();
     }
 
@@ -99,6 +119,7 @@ class ResultUI extends game.BaseUI_wx4{
 
 
     public renew(){
+        this.zjVideo = false;
         var rate = PKC.monsterList.length/PKC.roundMonsterNum
         this.result = this.isWin?PKManager.getInstance().getWinResult():PKManager.getInstance().getFailResult(1-rate)
         if(this.isWin)
@@ -142,6 +163,11 @@ class ResultUI extends game.BaseUI_wx4{
         {
             this.titleText.text = '大胜！'
             this.titleText.textColor = 0xFFFF00
+
+            if(ZijieScreenBtn.e && this.zjVideoTimes < 3)
+            {
+                this.zjVideo = true;
+            }
         }
 
 
@@ -169,6 +195,36 @@ class ResultUI extends game.BaseUI_wx4{
         else
         {
             this.ad2.visible = false;
+        }
+
+        if(this.zjVideo)
+            this.shareBtn.icon = 'zj_video_icon_png'
+        else
+            this.shareBtn.icon = 'video_icon_png'
+
+
+        if(!UM_wx4.isTest && Config.isWX && Math.random() < this.alertRate)
+        {
+            this.alertRate /= 2;
+            var wx = window['wx'];
+            wx.showModal({
+                title: '体验小游戏',
+                showCancel:true,
+                cancelText:'放弃体验',
+                confirmText:'进入游戏',
+                content: '塔防游戏不修塔，却修路？\n一笔画与塔防游戏的创意结合，\n【微信小游戏】诚邀你来体验！',
+                success: (res)=> {
+                    if (res.confirm) {
+
+                        wx.navigateToMiniProgram({
+                            appId: 'wxab49a5d0b64390db',
+                            success:(res)=>{
+                                this.alertRate = 0;
+                            }
+                        })
+                    }
+                }
+            })
         }
     }
 

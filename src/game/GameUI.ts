@@ -130,7 +130,11 @@ class GameUI extends game.BaseUI_wx4 {
                 return;
             wx.navigateToMiniProgram({
                 appId: 'wx2f66e2c8de744d53',//wx4
-                complete(res) {
+                success: function (e) {
+                    console.log('success',e)
+                },
+                fail: function (e) {
+                    console.log('fail',e)
                 }
             })
         })
@@ -169,6 +173,12 @@ class GameUI extends game.BaseUI_wx4 {
 
 
         this.skillRedMC.visible = false;
+        if(Config.isZJ)
+        {
+            new ZijieScreenBtn();
+        }
+        this.addForceBtn.visible = Config.isWX;
+        this.jumpWX4Btn.visible = Config.isWX;
     }
 
     public resetAD(){
@@ -209,7 +219,9 @@ class GameUI extends game.BaseUI_wx4 {
         if(_get['level'])
             UM_wx4.level = parseInt(_get['level']);
         SoundManager.getInstance().playSound('bg')
-
+        RES.loadGroup('hero');
+        RES.loadGroup('monster');
+        GameTool.getInstance().preLoadMV()
 
         this.startBtn1.label = '第 '+UM_wx4.level+' 天'
         this.renewSound();
@@ -233,6 +245,7 @@ class GameUI extends game.BaseUI_wx4 {
         PKC.playerData.randomSKill();
         this.resetAD();
 
+        this.feedBackBtn.visible = !UM_wx4.isTest
     }
 
     private renewForceText(){

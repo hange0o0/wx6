@@ -42,6 +42,7 @@ class Main extends eui.UILayer {
         DM = DebugManager.getInstance();
         PKC = PKCode_wx4.getInstance();
         Config.initURLRequest();
+        Config.init();
         console.log('_1a')
     }
 

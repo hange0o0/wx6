@@ -55,8 +55,35 @@ class Config {
     public static equalValue = 1000;
 
 
+    public static isZJ: boolean = false;
+    public static isQQ: boolean = false;
+    public static isWX: boolean = false;
+    public static serverPath = 'https://www.hangegame.com/wx6_server/'
     public static init(){
+        this.isZJ = window['iszj']
+        this.isQQ = window['isQQ']
+        this.isWX = window['wx']
+        if(this.isZJ)
+        {
+            this.isWX = false;
 
+            this.wx_ad = '51aegcm5jgda6081qa';
+            this.wx_video = '12pap058ii6d6aup7q';
+            this.wx_insert = '';
+            this.myAppID = 'tt803ef6831f144a40';
+            this.serverPath = 'https://www.hangegame.com/wx6_server/zj/'
+        }
+
+        if(this.isQQ)
+        {
+            this.isWX = false;
+            this.wx_ad = '';
+            this.wx_video = '';
+            this.wx_insert = '';
+            this.myAppID = '1109869435';
+
+            this.serverPath = 'https://www.hangegame.com/wx6_server/qq/'
+        }
     }
 
     private static createImg(name,path=''){

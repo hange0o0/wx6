@@ -183,6 +183,8 @@ class PKUI extends game.BaseUI_wx4{
 
         if(UM_wx4.level == 1)
             HelpUI.getInstance().show();
+
+
     }
 
     private renewSkill(){
@@ -368,8 +370,10 @@ class PKUI extends game.BaseUI_wx4{
             ResultUI.getInstance().show(true)
 
 
-
-
+        if(ZijieScreenBtn.e && PKC.lastMonsterStep - PKC.actionStep < 1200)
+        {
+            ZijieScreenBtn.e.start();
+        }
     }
 
     private showAddTimePanel(){
