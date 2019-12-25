@@ -190,6 +190,7 @@ class Main extends eui.UILayer {
         //console.log('_12')
         MyADManager.getInstance().getAD()
         MyADManager.getInstance().createAD()
+        ADIconManager.getInstance().init()
         window['wx'] && MyADManager.getInstance().initExtra(window['wx'].getLaunchOptionsSync())
 
 

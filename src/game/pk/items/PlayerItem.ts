@@ -48,6 +48,7 @@ class PlayerItem extends game.BaseItem{
         this.cleanTween();
         this.mvKey = '';
         this.renewSkin(1);
+        this.alpha = 1;
 
 
 

@@ -121,7 +121,11 @@ class GameUI extends game.BaseUI_wx4 {
             if(UM_wx4.level < 30)
                 MyWindow.Alert('闯关达到30后解锁')
             else
-                MyWindow.Alert('功能正在开发中，很快就能和好友一起游戏啦')
+            {
+                ShareTool.share('和我一起双打吧',Config.getShare(0),{type:2,from:UM_wx4.gameid,time:TM_wx4.now()},()=>{
+                    Player2UI.getInstance().show()
+                },true)
+            }
         })
 
         this.addBtnEvent(this.jumpWX4Btn,()=>{
@@ -238,6 +242,23 @@ class GameUI extends game.BaseUI_wx4 {
         {
             PassDayAwardUI.getInstance().show();
         }
+
+
+        if(UM_wx4.showPlayer2){
+            if(UM_wx4.level < 30)
+            {
+                MyWindow.Alert('只有达到30关才能加入双人模式')
+            }
+            else if(TM_wx4.now() - UM_wx4.showPlayer2.time > 60)
+            {
+                MyWindow.Alert('双人模式对局已过期')
+            }
+            else
+            {
+                Player2UI.getInstance().show(true)
+            }
+            UM_wx4.showPlayer2 = null;
+        }
         this.showTips();
         this.addChildAt(PKCodeUI.getInstance(),0)
         PKC.isAuto = true;
@@ -285,6 +306,8 @@ class GameUI extends game.BaseUI_wx4 {
 
     private showTips(){
         this.setHtml(this.desText, '根据当前成绩，明天可获得金币 '+this.createHtml('x' + NumberUtil_wx4.addNumSeparator(UM_wx4.getPassDayCoin()),0xFFFF00))
+        if(UM_wx4.level >= 30)
+            this.startBtn2.icon = ''
 
         var adArr = MyADManager.getInstance().getListByNum(10);
         var ad = ArrayUtil_wx4.randomOne(adArr,true);

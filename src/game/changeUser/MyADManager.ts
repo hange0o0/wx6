@@ -247,6 +247,8 @@ class MyADManager {
     public bannerAD
     public bannerBG
     public insertAD
+    public callADBottom
+    public isCallADHide = false
     public createAD(){
         //Config.adHeight = 200;
         if(!window['wx'])
@@ -256,6 +258,7 @@ class MyADManager {
         if(GameManager_wx4.stage.stageHeight < 1080)
             return;
         var wx = window['wx']
+
         if(!wx.createBannerAd)
             return;
 
@@ -297,20 +300,41 @@ class MyADManager {
             GameManager_wx4.stage.dispatchEventWith(egret.Event.RESIZE);
         })
         bannerAd.onLoad(()=>{
-
+            if(this.isCallADHide)
+            {
+                bannerAd.hide();
+                this.isCallADHide = false;
+            }
         })
         bannerAd.onResize((res)=>{
+            var btnw = res.width/scalex;
+            var btnx =  (640-btnw)/2;
+            bannerAd.style.left = scalex * (btnx);
+
+
             var hh = res.height/scalex*(640/btnw);
-            if(Math.abs(hh - 224)/224 > 0.02)
+            //if(Math.abs(hh - 224)/224 > 0.02)
+            //{
+            Config.adHeight =  btnw/640 * hh;
+            console.log(res,btnw,Config.adHeight )
+            GameManager_wx4.stage.dispatchEventWith(egret.Event.RESIZE);
+            //bannerAd.style.top = scaley * (GameManager_wx4.uiHeight + paddingTop);
+
+            this.bannerAD.style.top = scaley * (GameManager_wx4.uiHeight + paddingTop - (this.callADBottom || 0) - GameManager_wx4.paddingBottom() - Config.adHeight);
+            //}
+
+            if(this.isCallADHide)
             {
-                Config.adHeight =  btnw/640 * hh;
-                GameManager_wx4.stage.dispatchEventWith(egret.Event.RESIZE);
-                bannerAd.style.top = scaley * (GameManager_wx4.uiHeight + paddingTop);
+                bannerAd.hide();
+                this.isCallADHide = false;
             }
+            //
+
             //console.log(res,scalex,scaley,GameManager.stage.stageHeight)
         })
+        this.isCallADHide = true;
         bannerAd.show()
-        bannerAd.hide();
+
 
 
         if (wx.createInterstitialAd && Config.wx_insert){
@@ -334,6 +358,7 @@ class MyADManager {
     public showBanner(bottom){
         if(this.bannerAD)
         {
+            this.isCallADHide = false;
             if(!this.bannerBG)
             {
                 this.bannerBG = new eui.Image('black_bg_alpha_png')
@@ -346,6 +371,7 @@ class MyADManager {
             var scaley = screen.availHeight/GameManager_wx4.stage.stageHeight;
             var  paddingTop = GameManager_wx4.paddingTop();
             this.bannerAD.style.top = scaley * (GameManager_wx4.uiHeight + paddingTop - bottom - GameManager_wx4.paddingBottom() - Config.adHeight);
+            this.callADBottom = bottom
         }
     }
 

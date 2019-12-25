@@ -130,6 +130,8 @@ class ChangeUserUI extends game.BaseItem {
     public renew(){
         if(!this.stage)
             return
+        if(ADIconManager.getInstance().isHaveIcon('loading'))
+            return;
         var list = MyADManager.getInstance().getListByNum(10)
         if(list.length < 10)
         {

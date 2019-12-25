@@ -75,6 +75,7 @@ class UserManager_wx4 {
 
 
     public haveGetUser = false
+    public showPlayer2
     public fill(data:any):void{
         var localData = SharedObjectManager_wx4.getInstance().getMyValue('localSave')
         if(localData && localData.saveTime && localData.saveTime - data.saveTime > 10) //本地的数据更新
@@ -117,13 +118,16 @@ class UserManager_wx4 {
 
         //this.initDataTime = TM_wx4.now()
 
+        var wx = window['wx'];
+        if(wx)
+        {
+            var query = wx.getLaunchOptionsSync().query;
+        }
         if(this.isFirst)
         {
             console.log('isFirst',this.isFirst)
-            var wx = window['wx'];
             if(wx)
             {
-                var query = wx.getLaunchOptionsSync().query;
                 console.log(query)
                 if(query.type == '1')
                 {
@@ -131,6 +135,15 @@ class UserManager_wx4 {
                 }
             }
         }
+
+        if(wx && query.type == '2')
+        {
+            this.showPlayer2 = {time:query.time}
+        }
+
+
+
+
         GunManager.getInstance().initData(data.gunData);
         SkillManager.getInstance().initData(data.skillData);
         PKManager.getInstance().initData(data.pkData);

@@ -9,7 +9,7 @@
 			"name":"hero"
 		},
 		{
-			"keys":"enemy18_png,enemy46_png,enemy45_png,enemy44_png,enemy17_png,enemy16_png,enemy15_png,enemy74_png,enemy43_png,enemy14_png,enemy73_png,enemy41_png,enemy42_png,enemy72_png,enemy40_png,enemy12_png,enemy71_png,enemy36_png,enemy11_png,enemy9_png,enemy39_png,enemy69_png,enemy8_png,enemy7_png,enemy6_png,enemy5_png,enemy38_png,enemy68_png,enemy67_png,enemy66_png,enemy65_png,enemy64_png,enemy4_png,enemy63_png,enemy76_png,enemy70_png,enemy62_png,enemy61_png,enemy72_attack_png,effect2_png,enemy68_attack_png,480_json,600_json,960_json,pk_arrow_1_png,pk_arrow_png,enemy1_png,enemy2_png,enemy3_png,enemy31_png,enemy32_png,enemy33_png,enemy34_png,enemy35_png,enemy10_png,enemy13_png",
+			"keys":"enemy18_png,enemy46_png,enemy45_png,enemy44_png,enemy17_png,enemy16_png,enemy15_png,enemy74_png,enemy43_png,enemy14_png,enemy73_png,enemy41_png,enemy42_png,enemy72_png,enemy40_png,enemy12_png,enemy71_png,enemy36_png,enemy11_png,enemy9_png,enemy39_png,enemy69_png,enemy8_png,enemy7_png,enemy6_png,enemy5_png,enemy38_png,enemy68_png,enemy67_png,enemy66_png,enemy65_png,enemy64_png,enemy4_png,enemy63_png,enemy76_png,enemy70_png,enemy62_png,enemy61_png,enemy72_attack_png,effect2_png,enemy68_attack_png,480_json,600_json,960_json,pk_arrow_1_png,pk_arrow_png,enemy1_png,enemy2_png,enemy3_png,enemy31_png,enemy32_png,enemy33_png,enemy34_png,enemy35_png,enemy10_png,enemy13_png,skill8_json,skill8_png,skill112_json,skill112_png,skill128_json,skill128_png",
 			"name":"monster"
 		}
 	],

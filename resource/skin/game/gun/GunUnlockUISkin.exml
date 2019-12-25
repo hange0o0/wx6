@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GunUnlockUISkin" width="520" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<e:Group left="60" right="60" top="100" bottom="220">
+		<e:Image source="item_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="20,20,11,10" left="0" right="0" top="0" bottom="0"/>
+		<ns1:PlayerItem id="playerItem" y="180" skinName="PlayerItemSkin" scaleX="1.2" scaleY="1.2" horizontalCenter="0"/>
+	</e:Group>
+	<e:Group horizontalCenter="0" bottom="40">
+		<e:Group x="0" y="-1.52" width="180" height="60">
+			<e:Group y="-62" horizontalCenter="0">
+				<e:Image source="border_png" x="0" y="0" scale9Grid="31,6,37,42" width="180"/>
+				<e:Image source="coin_mc_png" x="9" y="9"/>
+				<e:Label id="coinText" text="123456" verticalCenter="0" size="24" textColor="0xFCD766" right="20"/>
+			</e:Group>
+			<e:Button id="unlockBtn" label="解锁" x="0" y="0" skinName="Btn1Skin" width="180"/>
+		</e:Group>
+		<e:Button id="videoBtn" label="免费解锁" x="10" y="10" width="180" skinName="Btn2Skin" icon="video_icon_png"/>
+		<e:layout>
+			<e:HorizontalLayout gap="50"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

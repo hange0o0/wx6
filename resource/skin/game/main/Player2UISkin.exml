@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Player2UISkin" width="480" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePanel skinName="BasePanelSkin" left="0" right="0" top="0" bottom="0"/>
+	<e:Button id="cancelBtn" label="取消" y="215" skinName="Btn1Skin" width="150" horizontalCenter="0"/>
+	<e:Label id="desText" text="正在等待好友加入游戏...（16）" y="100" horizontalCenter="0" size="24"/>
+</e:Skin>
